@@ -19,10 +19,10 @@
 - [ ] Handle state loading, error, dan data kosong
 - [ ] Validasi input di sisi client (sebagai lapis pertama)
 
-## Tamam — Backend
+## Tamam — BackendS
 
-- [ ] Setup project di folder `/server` (pilih stack: Express / Laravel / dsb) "gk boleh pake framework pakenya native"
-- [ ] Buat endpoint sesuai kontrak API (`docs/api.md`)
+- [ ] Setup project di folder `/server` (pilih stack: Express / Laravel / dsb) **gk boleh pake framework pakenya native**
+- [ ] Buat endpoint sesuai kontrak API (`docs/api.md`) 
 - [ ] Buat CRUD (Create, Read, Update, Delete) untuk semua resource
 - [ ] Input validation & sanitization di server
 - [ ] Handle error response yang konsisten (format JSON error)
@@ -31,7 +31,7 @@
 - [ ] Testing endpoint (minimal pakai Postman/curl) + dokumentasikan hasilnya
 
 ## Jawed — Database
-
+SSSSS
 - [ ] Buat ERD / skema tabel
 - [ ] Tulis file `docs/schema.sql` (CREATE TABLE + relasi)
 - [ ] Tentukan primary key, foreign key, dan constraint (NOT NULL, UNIQUE, dll)
