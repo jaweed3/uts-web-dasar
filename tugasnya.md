@@ -46,3 +46,5 @@ SSSSS
 - [ ] Sepakati **kontrak API** dulu di `docs/api.md` (endpoint, bentuk request/response)
 - [ ] Commit & push rutin ke repo ini (jangan numpuk di akhir)
 - [ ] Review bagian masing-masing sebelum deadline
+
+# NB kalo mau request tambahan langsung ye... kasih tau hehehehhe
