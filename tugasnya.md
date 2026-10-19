@@ -47,4 +47,6 @@ SSSSS
 - [ ] Commit & push rutin ke repo ini (jangan numpuk di akhir)
 - [ ] Review bagian masing-masing sebelum deadline
 
+---
+
 # NB kalo mau request tambahan langsung ye... kasih tau hehehehhe
