@@ -21,7 +21,7 @@
 
 ## Tamam — Backend
 
-- [ ] Setup project di folder `/server` (pilih stack: Express / Laravel / dsb)
+- [ ] Setup project di folder `/server` (pilih stack: Express / Laravel / dsb) "gk boleh pake framework pakenya native"
 - [ ] Buat endpoint sesuai kontrak API (`docs/api.md`)
 - [ ] Buat CRUD (Create, Read, Update, Delete) untuk semua resource
 - [ ] Input validation & sanitization di server
