@@ -1,0 +1,9 @@
+opencollection: 1.0.0
+
+info:
+  name: SiKandang API
+  type: workspace
+  version: 1.0.0
+
+spec:
+  version: 1.0.0

@@ -1,0 +1,33 @@
+info:
+  name: Create Catatan Harian
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{baseUrl}}/catatan-harian"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "kandang": "A1",
+        "id_pakan": 1,
+        "jumlah_pakan_kg": 5,
+        "jumlah_telur": 120,
+        "berat_telur_kg": 7.2,
+        "tanggal": "2026-10-21"
+      }
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("response should be successful", function() {
+          expect(res.status).to.equal(201);
+        });
+
+settings:
+  encodeUrl: true

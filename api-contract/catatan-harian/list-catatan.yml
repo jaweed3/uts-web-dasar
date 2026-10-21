@@ -1,0 +1,11 @@
+info:
+  name: List Catatan Harian
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/catatan-harian"
+
+settings:
+  encodeUrl: true
