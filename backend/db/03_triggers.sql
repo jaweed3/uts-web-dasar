@@ -1,6 +1,6 @@
 USE sikandang;
 
-DELIMITER / /
+DELIMITER //
 CREATE TRIGGER trg_cek_pakan
 BEFORE INSERT ON pemberian_pakan FOR EACH ROW
 BEGIN
@@ -46,6 +46,25 @@ CREATE PROCEDURE sp_catatan_harian(
 )
 BEGIN
   DECLARE v_id_beri INT;
-  
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    ROLLBACK;
+    RESIGNAL;
+  END;
 
-IF v_stok IS NULL THEN END
+  START TRANSACTION;
+
+  INSERT INTO pemberian_pakan (
+    id_pakan, KANDANG, jumlah_pakan_kg, tanggal
+  ) VALUES ( p_id_pakan, p_kandang, p_jumlah_pakan_kg, p_tanggal );
+
+  SET v_id_beri = LAST_INSERT_ID();
+
+  INSERT INTO panen_telur (
+    id_beri, jumlah_telur, berat_telur_kg, tanggal
+  ) VALUES ( v_id_beri, p_jumlah_telur, p_berat_telur_kg, p_tanggal );
+
+  COMMIT;
+END// 
+
+DELIMITER ;
