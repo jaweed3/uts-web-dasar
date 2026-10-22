@@ -15,7 +15,7 @@ INSERT INTO pemberian_pakan (
   id_pakan, KANDANG, jumlah_pakan_kg, tanggal
 ) VALUES ( 1, 'A1', 999, '2026-10-21' );
 
-SELECT stok_kg FROM rejeté...
+SELECT stok_kg FROM pakan WHERE id_pakan = 1;
 SELECT COUNT(*) FROM pemberian_pakan WHERE jumlah_pakan_kg = 999;
 
 -- test 3: procedure catatan harian TvT 
