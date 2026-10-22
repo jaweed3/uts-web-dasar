@@ -36,10 +36,9 @@
 
 ## Getting Started
 
-1. Siapkan database MariaDB.
-2. Import skema, trigger, dan stored procedure dari direktori `backend/db/`.
-3. Konfigurasikan koneksi database di direktori `config/`.
-4. Jalankan aplikasi menggunakan server PHP lokal.
+1. `git clone git@github.com:jaweed3/uts-web-dasar`.
+2. `cat backend/db/*.sql | mariadb -u username -p database_name`
+3. run the php (tamam :V)
 
 ## Project
 
