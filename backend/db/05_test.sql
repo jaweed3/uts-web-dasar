@@ -25,3 +25,8 @@ SELECT * FROM pemberian_pakan ORDER BY id_beri DESC LIMIT 1;
 SELECT * FROM panen_telur ORDER BY id_panen DESC LIMIT 1;
 SELECT stok_kg FROM pakan WHERE id_pakan = 1;
 
+-- test 4: procedure gagal -> rollback !! ;(
+CALL sp_catatan_harian('A1', 1, 9999, 120, 7.2, '2026-10-21');
+
+SELECT COUNT(*) FROM panen_telur;
+
