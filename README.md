@@ -37,10 +37,10 @@
 ## Getting Started
 
 1. Siapkan database MariaDB.
-2. Import skema, trigger, dan stored procedure dari direktori `sql/`.
+2. Import skema, trigger, dan stored procedure dari direktori `backend/db/`.
 3. Konfigurasikan koneksi database di direktori `config/`.
 4. Jalankan aplikasi menggunakan server PHP lokal.
 
 ## Project
 
-Developed for the Database Systems II midterm project at Universitas Darussalam Gontor.
+Developed for the Database Systems II and Web Programming Basic midterm project at Universitas Darussalam Gontor.
