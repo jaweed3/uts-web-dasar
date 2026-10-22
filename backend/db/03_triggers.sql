@@ -12,7 +12,7 @@ SELECT
 FROM
   pakan
 where
-  id_pakan = NEW.id_pakan;
+  id_pakan = NEW.id_pakan FOR UPDATE;
   
   IF v_stok is null THEN
     signal SQLSTATE '45000' set MESSAGE_TEXT = 'pakan tidak ditemukan';
@@ -27,7 +27,7 @@ AFTER INSERT on pemberian_pakan FOR EACH ROW
 BEGIN
   DECLARE v_sebelum DECIMAL(10, 2);
 
-  SELECT stok_kg INTO v_sebelum FROM pakan WHERE id_pakan = NEW.id_pakan;
+  SELECT stok_kg INTO v_sebelum FROM pakan WHERE id_pakan = NEW.id_pakan FOR UPDATE;
 
   UPDATE pakan SET stok_kg = v_sebelum - NEW.jumlah_pakan_kg
   WHERE id_pakan = NEW.id_pakan;
