@@ -12,5 +12,5 @@ $respon = [
     ]
 ];
 
-// 3. Cetak ke layar dalam bentuk teks JSON
+
 echo json_encode($respon);
