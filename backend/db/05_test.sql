@@ -30,3 +30,10 @@ CALL sp_catatan_harian('A1', 1, 9999, 120, 7.2, '2026-10-21');
 
 SELECT COUNT(*) FROM panen_telur;
 
+-- test 5: kode create catatan harian
+SELECT pp.id_beri, pp.KANDANG, pp.jumlah_pakan_kg, pp.tanggal,
+  pt.jumlah_telur, pt.berat_telur_kg, p.nama_pakan
+FROM pemberian_pakan pp
+JOIN panen_telur pt ON pt.id_beri = pp.id_beri
+JOIN pakan p ON p.id_pakan = pp.id_pakan
+ORDER BY pp.id_beri DESC;
