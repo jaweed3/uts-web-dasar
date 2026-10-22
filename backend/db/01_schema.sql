@@ -37,3 +37,16 @@ CREATE TABLE panen_telur (
     CHECK (jumlah_telur >= 0)
     CHECK (berat_telur_kg >= 0)
 );
+
+CREATE TABLE log_stok_pakan (
+    id_log BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id_pakan INT NOT NULL,
+    stok_sebelum DECIMAL(10,2) NOT NULL,
+    stok_sesudah DECIMAL(10,2) NOT NULL,
+    keterangan VARCHAR(255) NOT NULL,
+    tanggal TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_log_pakan
+        FOREIGN KEY (id_pakan),
+        REFERENCES pakan(id_pakan)
+);
