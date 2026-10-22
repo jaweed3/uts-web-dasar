@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXIST sikandang;
+CREATE DATABASE IF NOT EXISTS sikandang;
 USE sikandang;
 
 -- master pakan
@@ -34,7 +34,7 @@ CREATE TABLE panen_telur (
         FOREIGN KEY (id_beri)
         REFERENCES pemberian_pakan(id_beri),
 
-    CHECK (jumlah_telur >= 0)
+    CHECK (jumlah_telur >= 0),
     CHECK (berat_telur_kg >= 0)
 );
 
@@ -47,6 +47,6 @@ CREATE TABLE log_stok_pakan (
     tanggal TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_log_pakan
-        FOREIGN KEY (id_pakan),
+        FOREIGN KEY (id_pakan)
         REFERENCES pakan(id_pakan)
 );
