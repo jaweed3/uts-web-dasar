@@ -6,7 +6,7 @@ header('Content-Type: application/json; charset=utf-8');
 // 2. Respon sementara untuk uji coba Hari 1
 $respon = [
     'success' => true,
-    'message' => '500 web run',
+    'message' => '500 web run coy',
     'data'    => [
         'waktu' => date('Y-m-d H:i:s')
     ]
