@@ -21,7 +21,7 @@ BEGIN
   START TRANSACTION;
 
   INSERT INTO pemberian_pakan (
-    id_pakan, KANDANG, p_jumlah_pakan_kg, tanggal
+    id_pakan, KANDANG, jumlah_pakan_kg, tanggal
   ) VALUES ( p_id_pakan, p_kandang, p_jumlah_pakan_kg, p_tanggal );
 
   SET v_id_beri = LAST_INSERT_ID();
