@@ -18,3 +18,10 @@ INSERT INTO pemberian_pakan (
 SELECT stok_kg FROM rejeté...
 SELECT COUNT(*) FROM pemberian_pakan WHERE jumlah_pakan_kg = 999;
 
+-- test 3: procedure catatan harian TvT 
+CALL sp_catatan_harian('A1', 1, 5, 120, 7.2, '2026-10-21');
+
+SELECT * FROM pemberian_pakan ORDER BY id_beri DESC LIMIT 1;
+SELECT * FROM panen_telur ORDER BY id_panen DESC LIMIT 1;
+SELECT stok_kg FROM pakan WHERE id_pakan = 1;
+
