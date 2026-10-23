@@ -8,3 +8,5 @@ try {
 } catch (PDOException $e) {
     echo 'GAGAL: ' . $e->getMessage() . PHP_EOL;
 }
+
+/**btw ini cuma buat ngetest ya... si php nyambung gk ke database kalo mau dihapus bilang dulu ya.. soalnyba biasany gw ngecek dulu dia nyambung apa kgk **/
