@@ -12,18 +12,28 @@ if (str_starts_with($path, $prefix)) {
 }
 $path = '/' . trim($path, '/');
 
-
-$controller = new PakanController();
+$pakanController   = new PakanController();
+$catatanController = new CatatanHarianController();
 
 try {
     if ($method === 'GET' && $path === '/pakan') {
-        $controller->index();
+        $pakanController->index();
     } elseif ($method === 'GET' && preg_match('#^/pakan/(\d+)$#', $path, $m)) {
-        $controller->show((int) $m[1]);
+        $pakanController->show((int) $m[1]);
+    } elseif ($method === 'GET' && $path === '/catatan-harian') {
+        $catatanController->index();
+    } elseif ($method === 'POST' && $path === '/catatan-harian') {
+        $catatanController->store();
     } else {
-        Response::error('not found', 404);
+        Response::error('Endpoint tidak ditemukan', 404);
     }
 } catch (PDOException $e) {
+    if ((string) $e->getCode() === '45000') {
+        $msg = $e->errorInfo[2] ?? $e->getMessage();
+        Response::error($msg, 422);
+        exit;
+    }
+
     Response::error('Terjadi kesalahan pada database', 500);
 } catch (Throwable $e) {
     Response::error('Terjadi kesalahan pada server', 500);

@@ -12,3 +12,6 @@ require_once __DIR__ . '/core/Request.php';
 require_once __DIR__ . '/core/Router.php';
 require_once __DIR__ . '/repository/PakanRepository.php';
 require_once __DIR__ . '/controller/PakanController.php';
+require_once __DIR__ . '/core/Validator.php';
+require_once __DIR__ . '/repository/CatatanHarianRepository.php';
+require_once __DIR__ . '/controller/CatatanHarianController.php';

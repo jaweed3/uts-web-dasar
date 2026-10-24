@@ -31,7 +31,7 @@ function config(): array
     static $cache = null;
 
     if ($cache === null) {
-        $cache = loadEnv(dirname(__DIR__) . '/.env');
+    $cache = loadEnv(dirname(__DIR__, 2) . '/.env');
 
         $cache['DB_HOST'] = $cache['DB_HOST'] ?? '127.0.0.1';
         $cache['DB_USER'] = $cache['DB_USER'] ?? 'sikandang';
