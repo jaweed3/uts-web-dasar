@@ -46,10 +46,10 @@ Backend ini menerapkan pola pemisahan logika yang menyerupai **MVC (Model-View-C
 
 Alurnya sebagai berikut:
 
-1. **Request** - Client mengirim request ke `http://localhost:8000/sikandang/api/v1/...`
+1. **Request** - Client mengirim request ke `http://localhost:8000/sikandang/api/...`
 2. **Router** - `public/router.php` akan meneruskan request ke `public/index.php`
 3. **Bootstrap** - `src/bootstrap.php` memuat semua file inti seperti config, database, controller, dan repository
-4. **Routing** - `public/index.php` memotong prefix `/sikandang/api/v1` lalu mencocokkan method & path yang sesuai
+4. **Routing** - `public/index.php` memotong prefix `/sikandang/api/` lalu mencocokkan method & path yang sesuai
 5. **Controller** - `PakanController` mengatur logic dari request yang masuk dan menentukan response yang dikirim
 6. **Repository** - `PakanRepository` menjalankan query ke database melalui class `Database`
 7. **Database** - `core/Database.php` menggunakan PDO dengan prepared statement, mode `ERRMODE_EXCEPTION`, dan fetch mode `FETCH_ASSOC`
@@ -150,24 +150,24 @@ Server akan berjalan di `http://localhost:8000`
 
 | Method | Endpoint | Deskripsi | Status Response |
 | --- | --- | --- | --- |
-| `GET` | `/sikandang/api/v1/pakan` | Menampilkan seluruh data pakan beserta stok saat ini | `200 OK` |
-| `GET` | `/sikandang/api/v1/pakan/{id}` | Menampilkan detail pakan berdasarkan `id_pakan` | `200 OK` / `404 Not Found` |
+| `GET` | `/sikandang/api/pakan` | Menampilkan seluruh data pakan beserta stok saat ini | `200 OK` |
+| `GET` | `/sikandang/api/pakan/{id}` | Menampilkan detail pakan berdasarkan `id_pakan` | `200 OK` / `404 Not Found` |
 
 ## Contoh Penggunaan
 
 ### Menampilkan semua pakan
 ```bash
-curl -X GET http://localhost:8000/sikandang/api/v1/pakan
+curl -X GET http://localhost:8000/sikandang/api/pakan
 ```
 
 ### Menampilkan detail pakan berdasarkan ID
 ```bash
-curl -X GET http://localhost:8000/sikandang/api/v1/pakan/1
+curl -X GET http://localhost:8000/sikandang/api/pakan/1
 ```
 
 ### Menampilkan pakan yang tidak ditemukan
 ```bash
-curl -X GET http://localhost:8000/sikandang/api/v1/pakan/999
+curl -X GET http://localhost:8000/sikandang/api/pakan/999
 ```
 
 ## Cara Testing
@@ -186,7 +186,7 @@ curl -X GET http://localhost:8000/sikandang/api/v1/pakan/999
 ## Catatan
 
 - **Tanpa Framework** - Seluruh proses routing, konfigurasi, dan pemisahan logic dibuat secara manual.
-- **Prefix API** - Semua endpoint menggunakan prefix `/sikandang/api/v1/` agar lebih terstruktur.
+- **Prefix API** - Semua endpoint menggunakan prefix `/sikandang/api/` agar lebih terstruktur.
 - **Format JSON Konsisten** - Semua response memakai format `{ "success": true/false, "message": "...", "data": ..., "errors": {...} }` melalui class `Response`.
 - **Keamanan Query** - Menggunakan **Prepared Statement** pada PDO untuk mencegah SQL Injection.
 - **Validasi Otomatis** - Validasi kecukupan stok dan pencatatan mutasi ditangani langsung oleh **Database Trigger**, bukan dari PHP.

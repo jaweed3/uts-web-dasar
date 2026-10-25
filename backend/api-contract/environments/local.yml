@@ -1,4 +1,4 @@
 name: Local
 variables:
   - name: baseUrl
-    value: http://localhost/sikandang/api/v1
+    value: http://localhost/sikandang/api

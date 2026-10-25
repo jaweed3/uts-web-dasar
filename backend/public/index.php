@@ -1,19 +1,19 @@
 <?php
 
-require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__.'/../src/bootstrap.php';
 
 $method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
 
-$prefix = '/sikandang/api/v1';
+$prefix = '/sikandang/api';
 if (str_starts_with($path, $prefix)) {
     $path = substr($path, strlen($prefix));
 }
-$path = '/' . trim($path, '/');
+$path = '/'.trim($path, '/');
 
-$pakanController   = new PakanController();
-$catatanController = new CatatanHarianController();
+$pakanController = new PakanController;
+$catatanController = new CatatanHarianController;
 
 try {
     if ($method === 'GET' && $path === '/pakan') {

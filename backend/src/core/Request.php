@@ -22,7 +22,7 @@ class Request
     private static function normalizePath(string $uri): string
     {
         $path   = parse_url($uri, PHP_URL_PATH) ?? '/';
-        $prefix = '/sikandang/api/v1';
+        $prefix = '/sikandang/api';
 
         if (str_starts_with($path, $prefix)) {
             $path = substr($path, strlen($prefix));
