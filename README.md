@@ -24,10 +24,10 @@
 
 ## Database Logic
 
-| Component | Responsibility |
-|---|---|
-| `trg_cek_pakan` | Memvalidasi kecukupan stok |
-| `trg_mutasi_pakan` | Memperbarui stok dan mencatat mutasi |
+| Component           | Responsibility                                    |
+| ------------------- | ------------------------------------------------- |
+| `trg_cek_pakan`     | Memvalidasi kecukupan stok                        |
+| `trg_mutasi_pakan`  | Memperbarui stok dan mencatat mutasi              |
 | `sp_catatan_harian` | Memproses pemberian pakan dan panen secara atomik |
 
 ## Database Tables
@@ -36,10 +36,7 @@
 
 ## Getting Started
 
-1. `git clone git@github.com:jaweed3/uts-web-dasar`.
-2. `cat backend/db/*.sql | mariadb -u username -p database_name`
-3. `run the php (/opt/lampp/bin/php -S 0.0.0.0:8000 -t backend/public backend/public/router.ph) ini buat router ya!!!!`
-4. `dan kalo mau cek servernya (curl -s http://localhost:8000/sikandang/api/pakan)`
+[go here](GETTING_STARTED.md)
 
 ## Project
 
