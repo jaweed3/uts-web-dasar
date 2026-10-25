@@ -1,27 +1,31 @@
-# Database configuration
-host := "127.0.0.1"
-user := "sikandang"
-database := "sikandang"
+db_user := "sikandang"
+db_name := "sikandang"
 
-# Shared MySQL command
-mysql := "mysql -h " + host + " -u " + user + " -p " + database
+php := "/opt/lampp/bin/php"
+port := "8000"
 
-# Database tasks
-db-schema:
-    {{mysql}} < backend/db/01_schema.sql
-
-db-seed:
-    {{mysql}} < backend/db/02_seed.sql
-
-db-triggers:
-    {{mysql}} < backend/db/03_triggers.sql
-
-db-sp:
-    {{mysql}} < backend/db/04_sp.sql
-
-db-test:
-    {{mysql}} < backend/db/05_test.sql
-
-# Show available tasks
 default:
     @just --list
+
+db-schema:
+    mariadb -u {{db_user}} -p {{db_name}} < backend/db/01_schema.sql
+
+db-seed:
+    mariadb -u {{db_user}} -p {{db_name}} < backend/db/02_seed.sql
+
+db-triggers:
+    mariadb -u {{db_user}} -p {{db_name}} < backend/db/03_triggers.sql
+
+db-sp:
+    mariadb -u {{db_user}} -p {{db_name}} < backend/db/04_sp.sql
+
+db-test:
+    mariadb -u {{db_user}} -p {{db_name}} < backend/db/05_test.sql
+
+db-setup: db-schema db-seed db-triggers db-sp
+
+serve:
+    {{php}} -S 127.0.0.1:{{port}} -t backend/public backend/public/router.php
+
+api-test:
+    curl -i http://localhost:{{port}}/sikandang/api/pakan
