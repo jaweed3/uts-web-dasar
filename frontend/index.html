@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiKandang - Beranda</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                        🐓
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">SiKandang</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center font-medium">
+                    <a href="index.html" class="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1">Beranda</a>
+                    <a href="pakan.html" class="text-gray-600 hover:text-emerald-600 transition">Pakan</a>
+                    <a href="catatan-harian.html" class="text-gray-600 hover:text-emerald-600 transition">Catatan Harian</a>
+                    <a href="riwayat-stok.html" class="text-gray-600 hover:text-emerald-600 transition">Riwayat Stok</a>
+                </div>
+                <div>
+                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition inline-block">
+                        + Catat Catatan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+        
+        <!-- HERO SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="lg:col-span-7 space-y-4">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full">Aplikasi Inkubator & Peternakan</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+                    Pencatatan Pakan & Panen Telur untuk Peternakan Ayam
+                </h1>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                    Kelola stok pakan, catat pemberian pakan harian, dan rekap hasil panen telur dalam satu aplikasi. Validasi stok otomatis, riwayat mutasi tercatat.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition">
+                        Mulai Catat
+                    </a>
+                    <a href="pakan.html" class="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-semibold px-5 py-2.5 rounded-lg text-sm transition">
+                        Lihat Data
+                    </a>
+                </div>
+            </div>
+            <div class="lg:col-span-5 bg-emerald-600 text-white rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[200px]">
+                <div class="space-y-1">
+                    <div class="text-3xl">ðŸ–”"</div>
+                    <h2 class="text-xl font-bold">Kandang A1 — Siang</h2>
+                    <p class="text-emerald-100 text-sm">Pemberian 5 kg • Panen 120 telur</p>
+                </div>
+                <div class="mt-6 bg-white/10 backdrop-blur-md p-3 rounded-xl inline-block w-fit">
+                    <div class="text-xs text-emerald-100">Stok Konsentrat</div>
+                    <div class="text-xl font-bold">95 kg</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RINGKASAN DATA (STAT CARDS) -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-end">
+                <h2 class="text-xl font-bold text-gray-900">Ringkasan Data</h2>
+                <span class="text-xs text-gray-400">diambil dari API secara real-time</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Jenis Pakan</div>
+                    <div class="text-2xl font-bold text-gray-900 mt-2">3</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Total Stok</div>
+                    <div class="text-2xl font-bold text-emerald-600 mt-2">215 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Telur Tercatat</div>
+                    <div class="text-2xl font-bold text-gray-900 mt-2">1.240</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Kandang Aktif</div>
+                    <div class="text-2xl font-bold text-gray-900 mt-2">12</div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Pakan Diberi</div>
+                    <div class="text-2xl font-bold text-gray-900 mt-2">180 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="text-xs text-gray-500 font-medium">Total Panen</div>
+                    <div class="text-2xl font-bold text-gray-900 mt-2">46 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STOK PAKAN -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-bold text-gray-900">Stok Pakan</h2>
+                <a href="pakan.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Lihat semua &rarr;</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Card Pakan 1 -->
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-900">Konsentrat</h3>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900">95 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                    <div>
+                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                            <div class="bg-emerald-600 h-2 rounded-full" style="width: 78%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">78% dari stok awal 120 kg</div>
+                    </div>
+                </div>
+                <!-- Card Pakan 2 -->
+                <div class="bg-white p-5 rounded-xl border border-amber-300 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-900">Bekatul</h3>
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Stok Menipis</span>
+                    </div>
+                    <div class="text-2xl font-bold text-amber-600">12 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                    <div>
+                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                            <div class="bg-amber-500 h-2 rounded-full" style="width: 24%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">24% dari stok awal 50 kg</div>
+                    </div>
+                </div>
+                <!-- Card Pakan 3 -->
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-gray-900">Jagung Giling</h3>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
+                    </div>
+                    <div class="text-2xl font-bold text-gray-900">75 <span class="text-sm font-normal text-gray-500">kg</span></div>
+                    <div>
+                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                            <div class="bg-emerald-600 h-2 rounded-full" style="width: 60%"></div>
+                        </div>
+                        <div class="text-xs text-gray-400 mt-1">60% dari stok awal 125 kg</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATATAN HARIAN TERAKHIR -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-xl font-bold text-gray-900">Catatan Harian Terakhir</h2>
+                <a href="catatan-harian.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Lihat semua &rarr;</a>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 text-gray-500 uppercase text-xs border-b border-gray-100">
+                        <tr>
+                            <th class="px-6 py-3">Tanggal</th>
+                            <th class="px-6 py-3">Kandang</th>
+                            <th class="px-6 py-3">Pakan</th>
+                            <th class="px-6 py-3">Jumlah</th>
+                            <th class="px-6 py-3">Telur</th>
+                            <th class="px-6 py-3">Berat</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-6 py-4">21 Okt 2026</td>
+                            <td class="px-6 py-4 font-bold">A1</td>
+                            <td class="px-6 py-4">Konsentrat</td>
+                            <td class="px-6 py-4">5 kg</td>
+                            <td class="px-6 py-4">120 butir</td>
+                            <td class="px-6 py-4">7,2 kg</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">21 Okt 2026</td>
+                            <td class="px-6 py-4 font-bold">A2</td>
+                            <td class="px-6 py-4">Bekatul</td>
+                            <td class="px-6 py-4">4 kg</td>
+                            <td class="px-6 py-4">95 butir</td>
+                            <td class="px-6 py-4">5,6 kg</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">20 Okt 2026</td>
+                            <td class="px-6 py-4 font-bold">B1</td>
+                            <td class="px-6 py-4">Jagung Giling</td>
+                            <td class="px-6 py-4">7 kg</td>
+                            <td class="px-6 py-4">140 butir</td>
+                            <td class="px-6 py-4">8,4 kg</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4">20 Okt 2026</td>
+                            <td class="px-6 py-4 font-bold">B2</td>
+                            <td class="px-6 py-4">Konsentrat</td>
+                            <td class="px-6 py-4">6 kg</td>
+                            <td class="px-6 py-4">110 butir</td>
+                            <td class="px-6 py-4">6,8 kg</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ALUR KERJA -->
+        <section class="space-y-4">
+            <h2 class="text-xl font-bold text-gray-900">Alur Kerja</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
+                    <h3 class="font-bold text-gray-900">Catat Pemberian</h3>
+                    <p class="text-xs text-gray-500">Pilih pakan, jumlah kg, dan kandang tujuan.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
+                    <h3 class="font-bold text-gray-900">Validasi Stok</h3>
+                    <p class="text-xs text-gray-500">Trigger database menolak bila stok kurang.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
+                    <h3 class="font-bold text-gray-900">Panen Telur</h3>
+                    <p class="text-xs text-gray-500">Jumlah butir dan berat telur dicatat.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
+                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</div>
+                    <h3 class="font-bold text-gray-900">Mutasi Tercatat</h3>
+                    <p class="text-xs text-gray-500">Riwayat stok tersimpan otomatis di log.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="bg-emerald-700 rounded-2xl p-8 sm:p-12 text-center text-white space-y-4">
+            <h2 class="text-2xl sm:text-3xl font-extrabold">Siap mulai mencatat?</h2>
+            <p class="text-emerald-100 text-sm sm:text-base max-w-md mx-auto">
+                Catat pemberian pakan dan panen telur hari ini.
+            </p>
+            <a href="catatan-harian.html" class="inline-block bg-white text-emerald-800 hover:bg-emerald-50 font-bold px-6 py-3 rounded-lg text-sm transition mt-2">
+                Mulai Sekarang
+            </a>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-gray-400 border-t border-slate-900 py-6 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>SiKandang — Database Systems II & Web Programming Dasar</div>
+    
+        </div>
+    </footer>
+
+</body>
+</html>

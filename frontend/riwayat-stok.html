@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiKandang - Riwayat Stok</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">🐓</div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">SiKandang</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center font-medium">
+                    <a href="index.html" class="text-gray-600 hover:text-emerald-600 transition">Beranda</a>
+                    <a href="pakan.html" class="text-gray-600 hover:text-emerald-600 transition">Pakan</a>
+                    <a href="catatan-harian.html" class="text-gray-600 hover:text-emerald-600 transition">Catatan Harian</a>
+                    <a href="riwayat-stok.html" class="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1">Riwayat Stok</a>
+                </div>
+                <div>
+                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition inline-block">
+                        + Catat Catatan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Riwayat Mutasi Stok</h1>
+                <p class="text-gray-500 text-sm">Audit trail perubahan stok pakan. Data ini diisi otomatis oleh trigger database.</p>
+            </div>
+            <div class="flex gap-2">
+                <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-emerald-500">
+                    <option>Semua Pakan</option>
+                </select>
+                <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-emerald-500">
+                    <option>Semua Kandang</option>
+                </select>
+                <button class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium px-3 py-1.5 rounded-lg text-sm transition">Cetak</button>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                <div class="text-xs text-gray-500 font-medium">Total Mutasi</div>
+                <div class="text-2xl font-bold text-gray-900 mt-1">48</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                <div class="text-xs text-gray-500 font-medium">Total Terpakai</div>
+                <div class="text-2xl font-bold text-rose-600 mt-1">180 <span class="text-sm font-normal text-gray-500">kg</span></div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                <div class="text-xs text-gray-500 font-medium">Stok Masuk</div>
+                <div class="text-2xl font-bold text-emerald-600 mt-1">0 <span class="text-sm font-normal text-gray-500">kg</span></div>
+            </div>
+        </div>
+
+        <!-- TABEL MUTASI -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+            <table class="w-full text-sm text-left">
+                <thead class="bg-gray-50 text-gray-500 uppercase text-xs border-b border-gray-100">
+                    <tr>
+                        <th class="px-6 py-3">#</th>
+                        <th class="px-6 py-3">Waktu</th>
+                        <th class="px-6 py-3">Pakan</th>
+                        <th class="px-6 py-3">Stok Sebelum</th>
+                        <th class="px-6 py-3">Stok Sesudah</th>
+                        <th class="px-6 py-3">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr>
+                        <td class="px-6 py-4 text-gray-400">48</td>
+                        <td class="px-6 py-4">21 Okt 2026 13:02</td>
+                        <td class="px-6 py-4 font-bold">Konsentrat</td>
+                        <td class="px-6 py-4">100,00</td>
+                        <td class="px-6 py-4 font-semibold text-rose-600">95,00</td>
+                        <td class="px-6 py-4 text-gray-600">Pemberian #12 - Kandang A1</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-gray-400">47</td>
+                        <td class="px-6 py-4">21 Okt 2026 13:02</td>
+                        <td class="px-6 py-4 font-bold">Bekatul</td>
+                        <td class="px-6 py-4">16,00</td>
+                        <td class="px-6 py-4 font-semibold text-rose-600">12,00</td>
+                        <td class="px-6 py-4 text-gray-600">Pemberian #11 - Kandang A2</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-gray-400">46</td>
+                        <td class="px-6 py-4">20 Okt 2026 08:15</td>
+                        <td class="px-6 py-4 font-bold">Jagung Giling</td>
+                        <td class="px-6 py-4">82,00</td>
+                        <td class="px-6 py-4 font-semibold text-rose-600">75,00</td>
+                        <td class="px-6 py-4 text-gray-600">Pemberian #10 - Kandang B1</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-gray-400">45</td>
+                        <td class="px-6 py-4">20 Okt 2026 08:15</td>
+                        <td class="px-6 py-4 font-bold">Konsentrat</td>
+                        <td class="px-6 py-4">106,00</td>
+                        <td class="px-6 py-4 font-semibold text-rose-600">100,00</td>
+                        <td class="px-6 py-4 text-gray-600">Pemberian #9 - Kandang B2</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="p-4 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
+                <div>Menampilkan 4 dari 48 mutasi</div>
+                <div class="flex gap-1">
+                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50" disabled>&lt;</button>
+                    <button class="px-2.5 py-1 bg-emerald-600 text-white rounded font-bold">1</button>
+                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">2</button>
+                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">3</button>
+                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-gray-400 border-t border-slate-900 py-6 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>SiKandang — UTS Database Systems II & Web Programming Dasar</div>
+            
+    </footer>
+
+</body>
+</html>
