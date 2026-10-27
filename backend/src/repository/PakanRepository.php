@@ -17,7 +17,6 @@ class PakanRepository
         );
     }
 
-    // Tugas 3: stok_kg + jumlah, dihitung di SQL biar atomic
     public function update(int $id, ?string $namaPakan, ?float $tambahStok): void
     {
         Database::run(
@@ -29,7 +28,7 @@ class PakanRepository
         );
     }
 
-    // Tugas 4
+
     public function delete(int $id): int
     {
         return Database::run(

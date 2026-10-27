@@ -4,7 +4,7 @@ require_once __DIR__ . '/../src/bootstrap.php';
 
 $method = strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET');
 
-// Tugas 1: preflight CORS
+
 if ($method === 'OPTIONS') {
     http_response_code(204);
     exit;
@@ -43,7 +43,7 @@ try {
 } catch (PDOException $e) {
     error_log('[DB] ' . $e->getMessage());
 
-    // 45000 = SIGNAL dari trigger stok kurang
+
     if ((string) $e->getCode() === '45000') {
         $msg = $e->errorInfo[2] ?? $e->getMessage();
         Response::error($msg, 422);

@@ -25,7 +25,6 @@ class PakanController
         Response::success($pakan);
     }
 
-    // Tugas 3: PUT /pakan/{id}
     public function update(int $id): void
     {
         if ($this->repo->find($id) === null) {
@@ -82,7 +81,7 @@ class PakanController
         Response::success($this->repo->find($id), 'Data pakan berhasil diperbarui');
     }
 
-    // Tugas 4: DELETE /pakan/{id}
+
     public function destroy(int $id): void
     {
         if ($this->repo->find($id) === null) {

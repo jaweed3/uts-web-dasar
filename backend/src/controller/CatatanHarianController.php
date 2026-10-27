@@ -11,14 +11,12 @@ class CatatanHarianController
         $this->pakanRepo = new PakanRepository();
     }
 
-    // GET /catatan-harian
     public function index(): void
     {
         $data = $this->repo->all();
         Response::success($data);
     }
 
-    // POST /catatan-harian
     public function store(): void
     {
         $raw  = file_get_contents('php://input');
@@ -31,7 +29,6 @@ class CatatanHarianController
             }
         }
 
-        // Validasi input
         $validator = Validator::make($body)
             ->required('kandang', 'Kandang')
             ->maxLength('kandang', 'Kandang', 50)
@@ -53,7 +50,6 @@ class CatatanHarianController
 
         $idPakan = (int) $body['id_pakan'];
 
-        // Cek apakah pakan ada
         $cekPakan = $this->pakanRepo->find($idPakan);
         if ($cekPakan === null) {
             Response::error('Pakan tidak ditemukan', 404);
