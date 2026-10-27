@@ -1,164 +1,272 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SiKandang - Kelola Pakan</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#15803d">
+  <meta name="description" content="Kelola master jenis pakan dan stok SiKandang.">
+  <title>SiKandang — Kelola Pakan</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/app.css">
+
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/js/api.js"></script>
+  <script defer src="assets/js/ui.js"></script>
+  <script defer src="assets/js/pakan.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen" x-data="{ openModal: false, isEdit: false }">
 
-    <!-- NAVBAR -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">🐓</div>
-                    <span class="text-xl font-bold text-gray-900 tracking-tight">SiKandang</span>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center font-medium">
-                    <a href="index.html" class="text-gray-600 hover:text-emerald-600 transition">Beranda</a>
-                    <a href="pakan.html" class="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1">Pakan</a>
-                    <a href="catatan-harian.html" class="text-gray-600 hover:text-emerald-600 transition">Catatan Harian</a>
-                    <a href="riwayat-stok.html" class="text-gray-600 hover:text-emerald-600 transition">Riwayat Stok</a>
-                </div>
-                <div>
-                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition inline-block">
-                        + Catat Catatan
-                    </a>
-                </div>
-            </div>
+<body data-page="pakan" class="flex min-h-screen flex-col bg-[#f6f8f7] font-sans text-slate-800 antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-green-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white">
+    Lompat ke konten
+  </a>
+
+  <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+    <div class="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex shrink-0 items-center gap-2.5" aria-label="SiKandang — beranda">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-green-700 to-green-500 text-white shadow-glow">
+          <svg viewBox="0 0 32 32" fill="none" class="h-6 w-6" aria-hidden="true">
+            <path d="M16 4.8c5 0 9.2 7.1 9.2 12.6a9.2 9.2 0 1 1-18.4 0C6.8 11.9 11 4.8 16 4.8Z" fill="white"/>
+            <path d="M11.6 20.4c1.9 2.1 4.2 3.1 7.4 3.1" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16 4.8c1.3 0 2.5.5 3.6 1.4" stroke="#bbf7d0" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="font-display text-lg font-extrabold tracking-[-0.03em] text-slate-950">SiKandang</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Navigasi utama"
+        class="absolute left-4 right-4 top-[76px] z-50 hidden flex-col gap-1 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+        <a href="index.html" data-nav="beranda" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Beranda</a>
+        <a href="pakan.html" data-nav="pakan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Pakan</a>
+        <a href="catatan-harian.html" data-nav="catatan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Catatan Harian</a>
+        <a href="riwayat-stok.html" data-nav="riwayat" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Riwayat Stok</a>
+        <a href="catatan-harian.html" class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:-translate-y-0.5 hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0 md:mt-0 md:ml-2">
+          <span class="text-base leading-none">+</span> Catat Catatan
+        </a>
+      </nav>
+
+      <button id="nav-toggle" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 md:hidden" aria-expanded="false" aria-controls="primary-nav" aria-label="Buka menu">
+        <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="nav-backdrop" class="fixed inset-0 z-40 hidden bg-slate-950/40 backdrop-blur-[2px] md:hidden" aria-hidden="true"></div>
+
+  <main id="main-content" class="flex-1">
+    <div class="mx-auto w-full max-w-[1180px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8">
+      <div id="load-alert" hidden class="mb-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p id="load-alert-text" class="font-semibold"></p>
+          <button id="load-retry" type="button" class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">
+            Coba lagi
+          </button>
         </div>
-    </nav>
+      </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">Kelola Pakan</h1>
-                <p class="text-gray-500 text-sm">Master jenis pakan dan sisa stok saat ini.</p>
-            </div>
-            <button @click="openModal = true; isEdit = false" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition">
-                + Tambah Pakan
-            </button>
-        </div>
-
-        <!-- TABEL PAKAN -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
-            <table class="w-full text-sm text-left">
-                <thead class="bg-gray-50 text-gray-500 uppercase text-xs border-b border-gray-100">
-                    <tr>
-                        <th class="px-6 py-3">#</th>
-                        <th class="px-6 py-3">Nama Pakan</th>
-                        <th class="px-6 py-3">Stok (KG)</th>
-                        <th class="px-6 py-3">Sisa Stok</th>
-                        <th class="px-6 py-3">Status</th>
-                        <th class="px-6 py-3 text-right">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    <tr>
-                        <td class="px-6 py-4">1</td>
-                        <td class="px-6 py-4 font-bold text-gray-900">Konsentrat</td>
-                        <td class="px-6 py-4">95,00</td>
-                        <td class="px-6 py-4 w-48">
-                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden mb-1">
-                                <div class="bg-emerald-600 h-2 rounded-full" style="width: 78%"></div>
-                            </div>
-                            <span class="text-xs text-gray-400">78%</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
-                        </td>
-                        <td class="px-6 py-4 text-right space-x-2">
-                            <button @click="openModal = true; isEdit = true" class="text-blue-600 hover:underline">Edit</button>
-                            <button class="text-emerald-600 hover:underline">Stok Masuk</button>
-                            <button class="text-rose-600 hover:underline">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4">2</td>
-                        <td class="px-6 py-4 font-bold text-gray-900">Bekatul</td>
-                        <td class="px-6 py-4">12,00</td>
-                        <td class="px-6 py-4 w-48">
-                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden mb-1">
-                                <div class="bg-amber-500 h-2 rounded-full" style="width: 24%"></div>
-                            </div>
-                            <span class="text-xs text-gray-400">24%</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Stok Menipis</span>
-                        </td>
-                        <td class="px-6 py-4 text-right space-x-2">
-                            <button @click="openModal = true; isEdit = true" class="text-blue-600 hover:underline">Edit</button>
-                            <button class="text-emerald-600 hover:underline">Stok Masuk</button>
-                            <button class="text-rose-600 hover:underline">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4">3</td>
-                        <td class="px-6 py-4 font-bold text-gray-900">Jagung Giling</td>
-                        <td class="px-6 py-4">75,00</td>
-                        <td class="px-6 py-4 w-48">
-                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden mb-1">
-                                <div class="bg-emerald-600 h-2 rounded-full" style="width: 60%"></div>
-                            </div>
-                            <span class="text-xs text-gray-400">60%</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
-                        </td>
-                        <td class="px-6 py-4 text-right space-x-2">
-                            <button @click="openModal = true; isEdit = true" class="text-blue-600 hover:underline">Edit</button>
-                            <button class="text-emerald-600 hover:underline">Stok Masuk</button>
-                            <button class="text-rose-600 hover:underline">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <h1 class="font-display text-3xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-4xl">Kelola Pakan</h1>
+            <span id="data-source" class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-bold text-slate-500 shadow-sm">
+              <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Menghubungkan...
+            </span>
+          </div>
+          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Master jenis pakan dan sisa stok saat ini. Tambah stok masuk lewat tombol aksi di setiap baris.</p>
         </div>
 
-        <!-- MODAL TAMBAH/EDIT PAKAN -->
-        <div x-show="openModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50" style="display: none;">
-            <div class="bg-white rounded-xl shadow-lg border border-gray-200 max-w-lg w-full p-6 space-y-4">
-                <h2 class="text-lg font-bold text-gray-900" x-text="isEdit ? 'Edit Pakan' : 'Tambah Pakan'"></h2>
-                <form class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Pakan *</label>
-                        <input type="text" placeholder="mis. Konsentrat" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500" value="Konsentrat">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1">Stok Awal (kg) *</label>
-                            <input type="number" placeholder="120" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500" value="120">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 mb-1">Satuan</label>
-                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
-                                <option>kg</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 pt-2">
-                        <button type="button" @click="openModal = false" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition">Simpan</button>
-                        <button type="button" @click="openModal = false" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-4 py-2 rounded-lg text-sm transition">Batal</button>
-                        <span class="text-xs text-rose-500 ml-auto">* wajib diisi</span>
-                    </div>
-                </form>
-            </div>
+        <button id="add-pakan" type="button" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:-translate-y-0.5 hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0">
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+          Tambah Pakan
+        </button>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="relative w-full sm:max-w-xs">
+          <svg viewBox="0 0 24 24" fill="none" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input id="pakan-search" type="search" placeholder="Cari nama pakan..." autocomplete="off"
+            class="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
         </div>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 text-gray-400 border-t border-slate-900 py-6 text-xs mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>SiKandang — Database Systems II & Web Programming Dasar</div>
-           
+        <div class="flex items-center gap-2">
+          <label for="pakan-filter" class="text-xs font-semibold text-slate-500">Status</label>
+          <select id="pakan-filter" class="min-w-[9rem] rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
+            <option value="all">Semua status</option>
+            <option value="success">Aman</option>
+            <option value="warning">Stok menipis</option>
+            <option value="critical">Kritis / habis</option>
+          </select>
         </div>
-    </footer>
+      </div>
 
+      <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="table-stack w-full text-left text-[13px]">
+            <thead class="bg-slate-50/80">
+              <tr class="border-b border-slate-200">
+                <th class="w-12 whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">#</th>
+                <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Nama Pakan</th>
+                <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Stok (kg)</th>
+                <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Sisa Stok</th>
+                <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Status</th>
+                <th class="whitespace-nowrap px-5 py-3 text-right text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="pakan-body" class="divide-y divide-slate-100">
+              <tr class="state-row"><td colspan="6" class="px-5 py-10 text-center text-xs font-medium text-slate-400">Memuat data pakan...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex flex-col gap-2 border-t border-slate-100 px-5 py-3 text-[11px] text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <span id="pakan-count">Memuat data...</span>
+          <span>Progress dihitung dari stok awal / kapasitas acuan 100 kg.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer mt-20 border-t border-slate-800 bg-slate-950 py-7 text-xs text-slate-400">
+    <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <p>SiKandang — UTS Database Systems II &amp; Web Programming Dasar</p>
+      <p>Awalis (Frontend) · Tamam (Backend) · Jawed (Database)</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       MODAL TAMBAH / EDIT PAKAN
+       ====================================================================== -->
+  <dialog id="pakan-dialog" class="modal">
+    <div class="modal-scroll w-[min(560px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-400">Master pakan</p>
+          <h2 id="pakan-dialog-title" class="mt-1 font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950">Tambah Pakan</h2>
+          <p id="pakan-dialog-subtitle" class="mt-1 text-xs leading-5 text-slate-500">Daftarkan jenis pakan baru beserta stok awalnya.</p>
+        </div>
+        <button type="button" data-close class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600" aria-label="Tutup dialog">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="pakan-form" class="mt-6 space-y-4" novalidate>
+        <input type="hidden" name="id_pakan" id="pakan-id" value="">
+
+        <div data-form-alert hidden class="rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold text-rose-700"></div>
+
+        <div>
+          <label for="pakan-nama" class="mb-1.5 block text-xs font-bold text-slate-700">Nama pakan <span class="text-rose-600">*</span></label>
+          <input id="pakan-nama" name="nama_pakan" type="text" maxlength="100" autocomplete="off" placeholder="mis. Konsentrat"
+            class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
+          <p data-field-error="nama_pakan" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+        </div>
+
+        <div id="pakan-stok-field">
+          <label for="pakan-stok" class="mb-1.5 block text-xs font-bold text-slate-700">Stok awal (kg) <span class="text-rose-600">*</span></label>
+          <input id="pakan-stok" name="stok_kg" type="number" min="0" step="0.01" inputmode="decimal" value="0"
+            class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
+          <p data-field-error="stok_kg" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+          <p class="mt-1 text-[11px] text-slate-400">Boleh dikosongkan dengan nilai 0. Stok bisa ditambah lagi lewat tombol Stok Masuk.</p>
+        </div>
+
+        <div id="pakan-edit-note" class="hidden rounded-xl border border-sky-200 bg-sky-50 px-3.5 py-3 text-[11px] font-medium leading-5 text-sky-800">
+          Untuk menambah stok, simpan perubahan nama terlebih dahulu lalu gunakan tombol <strong>Stok Masuk</strong>.
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Batal</button>
+          <button id="pakan-submit" type="submit" class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ======================================================================
+       MODAL STOK MASUK
+       ====================================================================== -->
+  <dialog id="stok-dialog" class="modal">
+    <div class="modal-scroll w-[min(460px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-400">Mutasi stok</p>
+          <h2 class="mt-1 font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950">Stok Masuk</h2>
+          <p class="mt-1 text-xs leading-5 text-slate-500">Tambahkan stok baru untuk <strong id="stok-pakan-name" class="text-slate-700">pakan</strong>.</p>
+        </div>
+        <button type="button" data-close class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600" aria-label="Tutup dialog">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mt-5 flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+        <span class="text-xs font-medium text-slate-500">Stok saat ini</span>
+        <strong id="stok-pakan-current" class="text-sm font-extrabold text-slate-900">0 kg</strong>
+      </div>
+
+      <form id="stok-form" class="mt-5 space-y-4" novalidate>
+        <input type="hidden" name="id_pakan" id="stok-pakan-id" value="">
+        <div data-form-alert hidden class="rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold text-rose-700"></div>
+
+        <div>
+          <label for="stok-jumlah" class="mb-1.5 block text-xs font-bold text-slate-700">Jumlah tambahan (kg) <span class="text-rose-600">*</span></label>
+          <input id="stok-jumlah" name="jumlah" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="mis. 25"
+            class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
+          <p data-field-error="jumlah" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Batal</button>
+          <button id="stok-submit" type="submit" class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
+            Tambah Stok
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ======================================================================
+       MODAL HAPUS PAKAN
+       ====================================================================== -->
+  <dialog id="hapus-dialog" class="modal">
+    <div class="w-[min(440px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
+      <div class="flex items-start gap-3.5">
+        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-rose-50 text-rose-600">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+            <path d="M4 7h16m-10 4v6m4-6v6M9 7l.7-2h4.6l.7 2m3 0-.7 13H7.7L7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div class="min-w-0">
+          <h2 class="font-display text-lg font-extrabold tracking-[-0.02em] text-slate-950">Hapus pakan?</h2>
+          <p class="mt-1.5 text-xs leading-5 text-slate-500">Pakan <strong id="hapus-pakan-name" class="text-slate-700"></strong> akan dihapus permanen. Pakan yang sudah dipakai di catatan tidak bisa dihapus.</p>
+        </div>
+      </div>
+
+      <div id="hapus-alert" hidden class="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold text-rose-700"></div>
+
+      <div class="mt-6 flex items-center justify-end gap-2.5">
+        <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Batal</button>
+        <button id="pakan-delete-submit" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-rose-600/15 transition hover:bg-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2">
+          Hapus Pakan
+        </button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
