@@ -1,265 +1,413 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SiKandang - Beranda</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#15803d">
+  <meta name="description" content="SiKandang — aplikasi pencatatan pakan dan panen telur untuk peternakan ayam skala kecil.">
+  <title>SiKandang — Beranda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="assets/css/app.css">
+
+  <script defer src="assets/js/config.js"></script>
+  <script defer src="assets/js/api.js"></script>
+  <script defer src="assets/js/ui.js"></script>
+  <script defer src="assets/js/beranda.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
 
-    <!-- NAVBAR -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                        🐓
-                    </div>
-                    <span class="text-xl font-bold text-gray-900 tracking-tight">SiKandang</span>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center font-medium">
-                    <a href="index.html" class="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1">Beranda</a>
-                    <a href="pakan.html" class="text-gray-600 hover:text-emerald-600 transition">Pakan</a>
-                    <a href="catatan-harian.html" class="text-gray-600 hover:text-emerald-600 transition">Catatan Harian</a>
-                    <a href="riwayat-stok.html" class="text-gray-600 hover:text-emerald-600 transition">Riwayat Stok</a>
-                </div>
-                <div>
-                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition inline-block">
-                        + Catat Catatan
-                    </a>
-                </div>
-            </div>
+<body data-page="beranda" class="flex min-h-screen flex-col bg-[#f6f8f7] font-sans text-slate-800 antialiased">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-green-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white">
+    Lompat ke konten
+  </a>
+
+  <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+    <div class="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex shrink-0 items-center gap-2.5" aria-label="SiKandang — beranda">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-green-700 to-green-500 text-white shadow-glow">
+          <svg viewBox="0 0 32 32" fill="none" class="h-6 w-6" aria-hidden="true">
+            <path d="M16 4.8c5 0 9.2 7.1 9.2 12.6a9.2 9.2 0 1 1-18.4 0C6.8 11.9 11 4.8 16 4.8Z" fill="white"/>
+            <path d="M11.6 20.4c1.9 2.1 4.2 3.1 7.4 3.1" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M16 4.8c1.3 0 2.5.5 3.6 1.4" stroke="#bbf7d0" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="font-display text-lg font-extrabold tracking-[-0.03em] text-slate-950">SiKandang</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Navigasi utama"
+        class="absolute left-4 right-4 top-[76px] z-50 hidden flex-col gap-1 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+        <a href="index.html" data-nav="beranda" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Beranda</a>
+        <a href="pakan.html" data-nav="pakan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Pakan</a>
+        <a href="catatan-harian.html" data-nav="catatan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Catatan Harian</a>
+        <a href="riwayat-stok.html" data-nav="riwayat" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Riwayat Stok</a>
+        <a href="catatan-harian.html" class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:-translate-y-0.5 hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0 md:mt-0 md:ml-2">
+          <span class="text-base leading-none">+</span> Catat Catatan
+        </a>
+      </nav>
+
+      <button id="nav-toggle" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 md:hidden" aria-expanded="false" aria-controls="primary-nav" aria-label="Buka menu">
+        <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="nav-backdrop" class="fixed inset-0 z-40 hidden bg-slate-950/40 backdrop-blur-[2px] md:hidden" aria-hidden="true"></div>
+
+  <main id="main-content" class="flex-1">
+    <div class="mx-auto w-full max-w-[1180px] px-4 pt-5 sm:px-6 lg:px-8">
+      <div id="load-alert" hidden class="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p id="load-alert-text" class="font-semibold"></p>
+          <button id="load-retry" type="button" class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">
+            Coba lagi
+          </button>
         </div>
-    </nav>
+      </div>
+    </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-        
-        <!-- HERO SECTION -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <div class="lg:col-span-7 space-y-4">
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full">Aplikasi Inkubator & Peternakan</span>
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
-                    Pencatatan Pakan & Panen Telur untuk Peternakan Ayam
-                </h1>
-                <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    Kelola stok pakan, catat pemberian pakan harian, dan rekap hasil panen telur dalam satu aplikasi. Validasi stok otomatis, riwayat mutasi tercatat.
-                </p>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition">
-                        Mulai Catat
-                    </a>
-                    <a href="pakan.html" class="bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 font-semibold px-5 py-2.5 rounded-lg text-sm transition">
-                        Lihat Data
-                    </a>
-                </div>
-            </div>
-            <div class="lg:col-span-5 bg-emerald-600 text-white rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[200px]">
-                <div class="space-y-1">
-                    <div class="text-3xl">ðŸ–”"</div>
-                    <h2 class="text-xl font-bold">Kandang A1 — Siang</h2>
-                    <p class="text-emerald-100 text-sm">Pemberian 5 kg • Panen 120 telur</p>
-                </div>
-                <div class="mt-6 bg-white/10 backdrop-blur-md p-3 rounded-xl inline-block w-fit">
-                    <div class="text-xs text-emerald-100">Stok Konsentrat</div>
-                    <div class="text-xl font-bold">95 kg</div>
-                </div>
-            </div>
-        </section>
+    <section class="pt-7 pb-5 sm:pt-10">
+      <div class="mx-auto w-full max-w-[1180px] px-4 sm:px-6 lg:px-8">
+        <div class="grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_70px_-50px_rgba(15,23,42,0.35)] lg:grid-cols-[1.08fr_0.92fr]">
+          <div class="flex flex-col items-start justify-center p-7 sm:p-10 lg:p-14">
+            <span class="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.13em] text-green-800">
+              <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+              Aplikasi Inkubator &amp; Peternakan
+            </span>
 
-        <!-- RINGKASAN DATA (STAT CARDS) -->
-        <section class="space-y-4">
-            <div class="flex justify-between items-end">
-                <h2 class="text-xl font-bold text-gray-900">Ringkasan Data</h2>
-                <span class="text-xs text-gray-400">diambil dari API secara real-time</span>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Jenis Pakan</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">3</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Total Stok</div>
-                    <div class="text-2xl font-bold text-emerald-600 mt-2">215 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Telur Tercatat</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">1.240</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Kandang Aktif</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">12</div>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Pakan Diberi</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">180 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="text-xs text-gray-500 font-medium">Total Panen</div>
-                    <div class="text-2xl font-bold text-gray-900 mt-2">46 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                </div>
-            </div>
-        </section>
+            <h1 class="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-[3.5rem]">
+              Pencatatan Pakan &amp; Panen Telur
+              <span class="block text-green-700">untuk Peternakan Ayam</span>
+            </h1>
 
-        <!-- STOK PAKAN -->
-        <section class="space-y-4">
-            <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold text-gray-900">Stok Pakan</h2>
-                <a href="pakan.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Lihat semua &rarr;</a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Card Pakan 1 -->
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-gray-900">Konsentrat</h3>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
-                    </div>
-                    <div class="text-2xl font-bold text-gray-900">95 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                    <div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                            <div class="bg-emerald-600 h-2 rounded-full" style="width: 78%"></div>
-                        </div>
-                        <div class="text-xs text-gray-400 mt-1">78% dari stok awal 120 kg</div>
-                    </div>
-                </div>
-                <!-- Card Pakan 2 -->
-                <div class="bg-white p-5 rounded-xl border border-amber-300 shadow-sm space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-gray-900">Bekatul</h3>
-                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Stok Menipis</span>
-                    </div>
-                    <div class="text-2xl font-bold text-amber-600">12 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                    <div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                            <div class="bg-amber-500 h-2 rounded-full" style="width: 24%"></div>
-                        </div>
-                        <div class="text-xs text-gray-400 mt-1">24% dari stok awal 50 kg</div>
-                    </div>
-                </div>
-                <!-- Card Pakan 3 -->
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-bold text-gray-900">Jagung Giling</h3>
-                        <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-medium">Aman</span>
-                    </div>
-                    <div class="text-2xl font-bold text-gray-900">75 <span class="text-sm font-normal text-gray-500">kg</span></div>
-                    <div>
-                        <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                            <div class="bg-emerald-600 h-2 rounded-full" style="width: 60%"></div>
-                        </div>
-                        <div class="text-xs text-gray-400 mt-1">60% dari stok awal 125 kg</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CATATAN HARIAN TERAKHIR -->
-        <section class="space-y-4">
-            <div class="flex justify-between items-center">
-                <h2 class="text-xl font-bold text-gray-900">Catatan Harian Terakhir</h2>
-                <a href="catatan-harian.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium">Lihat semua &rarr;</a>
-            </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="bg-gray-50 text-gray-500 uppercase text-xs border-b border-gray-100">
-                        <tr>
-                            <th class="px-6 py-3">Tanggal</th>
-                            <th class="px-6 py-3">Kandang</th>
-                            <th class="px-6 py-3">Pakan</th>
-                            <th class="px-6 py-3">Jumlah</th>
-                            <th class="px-6 py-3">Telur</th>
-                            <th class="px-6 py-3">Berat</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <tr>
-                            <td class="px-6 py-4">21 Okt 2026</td>
-                            <td class="px-6 py-4 font-bold">A1</td>
-                            <td class="px-6 py-4">Konsentrat</td>
-                            <td class="px-6 py-4">5 kg</td>
-                            <td class="px-6 py-4">120 butir</td>
-                            <td class="px-6 py-4">7,2 kg</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4">21 Okt 2026</td>
-                            <td class="px-6 py-4 font-bold">A2</td>
-                            <td class="px-6 py-4">Bekatul</td>
-                            <td class="px-6 py-4">4 kg</td>
-                            <td class="px-6 py-4">95 butir</td>
-                            <td class="px-6 py-4">5,6 kg</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4">20 Okt 2026</td>
-                            <td class="px-6 py-4 font-bold">B1</td>
-                            <td class="px-6 py-4">Jagung Giling</td>
-                            <td class="px-6 py-4">7 kg</td>
-                            <td class="px-6 py-4">140 butir</td>
-                            <td class="px-6 py-4">8,4 kg</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4">20 Okt 2026</td>
-                            <td class="px-6 py-4 font-bold">B2</td>
-                            <td class="px-6 py-4">Konsentrat</td>
-                            <td class="px-6 py-4">6 kg</td>
-                            <td class="px-6 py-4">110 butir</td>
-                            <td class="px-6 py-4">6,8 kg</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- ALUR KERJA -->
-        <section class="space-y-4">
-            <h2 class="text-xl font-bold text-gray-900">Alur Kerja</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
-                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">1</div>
-                    <h3 class="font-bold text-gray-900">Catat Pemberian</h3>
-                    <p class="text-xs text-gray-500">Pilih pakan, jumlah kg, dan kandang tujuan.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
-                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">2</div>
-                    <h3 class="font-bold text-gray-900">Validasi Stok</h3>
-                    <p class="text-xs text-gray-500">Trigger database menolak bila stok kurang.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
-                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">3</div>
-                    <h3 class="font-bold text-gray-900">Panen Telur</h3>
-                    <p class="text-xs text-gray-500">Jumlah butir dan berat telur dicatat.</p>
-                </div>
-                <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-2">
-                    <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">4</div>
-                    <h3 class="font-bold text-gray-900">Mutasi Tercatat</h3>
-                    <p class="text-xs text-gray-500">Riwayat stok tersimpan otomatis di log.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA SECTION -->
-        <section class="bg-emerald-700 rounded-2xl p-8 sm:p-12 text-center text-white space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-extrabold">Siap mulai mencatat?</h2>
-            <p class="text-emerald-100 text-sm sm:text-base max-w-md mx-auto">
-                Catat pemberian pakan dan panen telur hari ini.
+            <p class="mt-6 max-w-xl text-[15px] leading-7 text-slate-500 sm:text-base">
+              Kelola stok pakan, catat pemberian pakan harian, dan rekap hasil panen telur dalam satu aplikasi.
+              Validasi stok otomatis, riwayat mutasi tercatat.
             </p>
-            <a href="catatan-harian.html" class="inline-block bg-white text-emerald-800 hover:bg-emerald-50 font-bold px-6 py-3 rounded-lg text-sm transition mt-2">
-                Mulai Sekarang
-            </a>
-        </section>
 
-    </main>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="catatan-harian.html" class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-green-700/20 transition hover:-translate-y-0.5 hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0">
+                Mulai Catat
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="pakan.html" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0">
+                Lihat Data
+              </a>
+            </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 text-gray-400 border-t border-slate-900 py-6 text-xs mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>SiKandang — Database Systems II & Web Programming Dasar</div>
-    
+            <div class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+              <span class="inline-flex items-center gap-1.5">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-green-600" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Validasi stok otomatis
+              </span>
+              <span class="inline-flex items-center gap-1.5">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-green-600" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Riwayat mutasi tercatat
+              </span>
+            </div>
+          </div>
+
+          <div class="hero-pattern relative m-3.5 flex min-h-[420px] flex-col overflow-hidden rounded-[1.6rem] p-6 text-white sm:p-7 lg:min-h-full">
+            <div class="relative z-10 flex items-center justify-between gap-3">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-green-50 backdrop-blur">
+                <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-green-300"></span>
+                Catatan terakhir
+              </span>
+              <span class="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-green-100 backdrop-blur" data-hero-date>—</span>
+            </div>
+
+            <div class="relative z-10 flex flex-1 items-center justify-center py-4">
+              <svg viewBox="0 0 280 280" fill="none" class="h-48 w-48 drop-shadow-[0_22px_35px_rgba(0,0,0,0.18)] sm:h-56 sm:w-56" aria-hidden="true">
+                <defs>
+                  <linearGradient id="eggFill" x1="80" y1="50" x2="205" y2="230" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="white" stop-opacity=".3"/>
+                    <stop offset="1" stop-color="white" stop-opacity=".06"/>
+                  </linearGradient>
+                </defs>
+                <ellipse cx="140" cy="241" rx="76" ry="12" fill="black" fill-opacity=".18"/>
+                <path d="M140 37c47 0 84 63 84 116a84 84 0 1 1-168 0c0-53 37-116 84-116Z" fill="url(#eggFill)" stroke="white" stroke-opacity=".38" stroke-width="2"/>
+                <path d="M86 164c18 26 37 36 66 36 18 0 33-5 46-14" stroke="white" stroke-opacity=".35" stroke-width="2" stroke-linecap="round"/>
+                <path d="M99 194c11 10 24 15 41 15" stroke="#bbf7d0" stroke-opacity=".8" stroke-width="2.4" stroke-linecap="round"/>
+                <circle cx="178" cy="120" r="3" fill="white" fill-opacity=".55"/>
+                <circle cx="191" cy="139" r="2" fill="white" fill-opacity=".4"/>
+                <circle cx="104" cy="148" r="2.5" fill="white" fill-opacity=".45"/>
+                <circle cx="115" cy="236" r="3" fill="#4ade80" fill-opacity=".55"/>
+                <path d="M67 79c16-16 38-25 58-25" stroke="white" stroke-opacity=".18" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <div class="relative z-10">
+              <div class="mb-3 inline-flex flex-col rounded-2xl bg-white px-4 py-3 text-slate-900 shadow-2xl shadow-black/20">
+                <span class="text-[10px] font-bold uppercase tracking-[0.09em] text-slate-400" data-hero-stock-label>Stok Konsentrat</span>
+                <span class="mt-0.5 flex items-baseline gap-1">
+                  <strong class="text-2xl font-extrabold tracking-[-0.04em]" data-hero-stock>95</strong>
+                  <span class="text-xs font-bold text-slate-500">kg</span>
+                </span>
+              </div>
+
+              <div class="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-md">
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.12em] text-green-200" data-hero-kandang>Kandang A1 — Siang</span>
+                <p class="mt-1 text-sm font-bold text-white sm:text-base" data-hero-detail>Pemberian 5 kg • Panen 120 telur</p>
+                <p class="mt-1 text-[11px] font-medium text-green-100/80">Data terbaru tersimpan otomatis</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
+    <div class="mx-auto w-full max-w-[1180px] space-y-11 px-4 pb-4 sm:space-y-14 sm:px-6 lg:px-8">
+      <section aria-labelledby="ringkasan-title">
+        <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 id="ringkasan-title" class="font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-2xl">Ringkasan Data</h2>
+            <p class="mt-1 text-xs text-slate-500">Angka dihitung dari data pakan dan catatan harian.</p>
+          </div>
+          <span id="data-source" class="inline-flex w-fit items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-bold text-slate-500 shadow-sm">
+            <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Menghubungkan data...
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Jenis Pakan</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-green-50 text-green-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="m4.5 7.5 7.5 4.2 7.5-4.2M12 21v-9.3" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="pakan" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-slate-950">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Total Stok</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-emerald-50 text-emerald-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5v-7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M4.5 8.5 12 13l7.5-4.5M12 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="stok" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-green-700">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+              <span class="text-[11px] font-bold text-slate-400">kg</span>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Telur Tercatat</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-sky-50 text-sky-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M12 3c3.3 0 6.4 5.2 6.4 9.2A6.4 6.4 0 1 1 5.6 12.2C5.6 8.2 8.7 3 12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="telur" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-slate-950">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+              <span class="text-[11px] font-bold text-slate-400">butir</span>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Kandang Aktif</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-violet-50 text-violet-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="m4 10 8-6 8 6v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M9 20v-5h6v5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="kandang" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-slate-950">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+              <span class="text-[11px] font-bold text-slate-400">unit</span>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Pakan Diberi</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-amber-50 text-amber-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M5 8h14l-1 11H6L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="pakan-diberi" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-slate-950">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+              <span class="text-[11px] font-bold text-slate-400">kg</span>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-[0.05em] text-slate-500">Total Panen</span>
+              <span class="grid h-7 w-7 place-items-center rounded-lg bg-rose-50 text-rose-700">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path d="M4 19h16M6 19V9m6 10V5m6 14v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="mt-3 flex items-baseline gap-1.5">
+              <span data-stat="panen" class="hidden text-2xl font-extrabold tracking-[-0.04em] text-slate-950">0</span>
+              <span data-stat-skeleton class="skeleton skeleton--value mt-0"></span>
+              <span class="text-[11px] font-bold text-slate-400">kg</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="stok-title">
+        <div class="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <h2 id="stok-title" class="font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-2xl">Stok Pakan</h2>
+            <p class="mt-1 text-xs text-slate-500">Pantau sisa stok dan status ketersediaan.</p>
+          </div>
+          <a href="pakan.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-green-700 transition hover:gap-2.5 hover:text-green-800">
+            Lihat semua
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+              <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div id="stock-grid" class="grid gap-4 md:grid-cols-3">
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between"><span class="skeleton skeleton--text w-24"></span><span class="skeleton h-5 w-16 rounded-full"></span></div>
+            <span class="skeleton skeleton--value mt-4"></span>
+            <span class="skeleton skeleton--text mt-4 w-full"></span>
+            <span class="skeleton skeleton--text mt-2 w-2/3"></span>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between"><span class="skeleton skeleton--text w-20"></span><span class="skeleton h-5 w-16 rounded-full"></span></div>
+            <span class="skeleton skeleton--value mt-4"></span>
+            <span class="skeleton skeleton--text mt-4 w-full"></span>
+            <span class="skeleton skeleton--text mt-2 w-2/3"></span>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between"><span class="skeleton skeleton--text w-28"></span><span class="skeleton h-5 w-16 rounded-full"></span></div>
+            <span class="skeleton skeleton--value mt-4"></span>
+            <span class="skeleton skeleton--text mt-4 w-full"></span>
+            <span class="skeleton skeleton--text mt-2 w-2/3"></span>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="catatan-terakhir-title">
+        <div class="mb-4 flex items-end justify-between gap-3">
+          <div>
+            <h2 id="catatan-terakhir-title" class="font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-2xl">Catatan Harian Terakhir</h2>
+            <p class="mt-1 text-xs text-slate-500">Empat pencatatan terbaru dari kandang.</p>
+          </div>
+          <a href="catatan-harian.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-green-700 transition hover:gap-2.5 hover:text-green-800">
+            Lihat semua
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+              <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="table-stack w-full text-left text-[13px]">
+              <thead class="bg-slate-50/80">
+                <tr class="border-b border-slate-200">
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Tanggal</th>
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Kandang</th>
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Pakan</th>
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Jumlah</th>
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Telur</th>
+                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Berat</th>
+                </tr>
+              </thead>
+              <tbody id="latest-body" class="divide-y divide-slate-100">
+                <tr class="state-row"><td colspan="6" class="px-5 py-10 text-center text-xs font-medium text-slate-400">Memuat catatan terbaru...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flex items-center justify-between gap-3 border-t border-slate-100 px-5 py-3 text-[11px] text-slate-500">
+            <span>Menampilkan maksimal 4 catatan terakhir</span>
+            <a href="catatan-harian.html" class="font-bold text-green-700 hover:text-green-800">Kelola catatan →</a>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="alur-title">
+        <div class="mb-4">
+          <h2 id="alur-title" class="font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-2xl">Alur Kerja</h2>
+          <p class="mt-1 text-xs text-slate-500">Empat langkah sederhana setiap hari.</p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-green-700 text-sm font-extrabold text-white">1</span>
+            <h3 class="mt-4 text-sm font-extrabold text-slate-900">Catat Pemberian</h3>
+            <p class="mt-1.5 text-xs leading-5 text-slate-500">Pilih pakan, jumlah kg, dan kandang tujuan.</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-green-700 text-sm font-extrabold text-white">2</span>
+            <h3 class="mt-4 text-sm font-extrabold text-slate-900">Validasi Stok</h3>
+            <p class="mt-1.5 text-xs leading-5 text-slate-500">Trigger database menolak bila stok kurang.</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-green-700 text-sm font-extrabold text-white">3</span>
+            <h3 class="mt-4 text-sm font-extrabold text-slate-900">Panen Telur</h3>
+            <p class="mt-1.5 text-xs leading-5 text-slate-500">Jumlah butir dan berat telur dicatat.</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-green-700 text-sm font-extrabold text-white">4</span>
+            <h3 class="mt-4 text-sm font-extrabold text-slate-900">Mutasi Tercatat</h3>
+            <p class="mt-1.5 text-xs leading-5 text-slate-500">Riwayat stok tersimpan otomatis di log.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-green-700 via-green-800 to-green-950 px-6 py-14 text-center text-white shadow-float sm:px-10 sm:py-16">
+        <div class="dot-grid absolute inset-0 opacity-[0.13]" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-xl">
+          <h2 class="font-display text-2xl font-extrabold tracking-[-0.035em] sm:text-4xl">Siap mulai mencatat?</h2>
+          <p class="mx-auto mt-3 max-w-md text-sm leading-6 text-green-100 sm:text-base">Catat pemberian pakan dan panen telur hari ini. Data langsung rapi dan bisa dipantau.</p>
+          <a href="catatan-harian.html" class="mt-7 inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-extrabold text-green-800 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:bg-green-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-800 active:translate-y-0">
+            Mulai Sekarang
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+              <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer mt-20 border-t border-slate-800 bg-slate-950 py-7 text-xs text-slate-400">
+    <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <p>SiKandang — UTS Database Systems II &amp; Web Programming Dasar</p>
+      <p>Awalis (Frontend) · Tamam (Backend) · Jawed (Database)</p>
+    </div>
+  </footer>
 </body>
 </html>
