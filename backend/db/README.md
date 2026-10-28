@@ -47,22 +47,22 @@ erDiagram
 
 ### Relasi singkat
 
-| Dari | Ke | Jenis | Arti |
-|---|---|---|---|
-| `pemberian_pakan.id_pakan` | `pakan.id_pakan` | many-to-one | Satu jenis pakan diberikan ke banyak kandang |
-| `panen_telur.id_beri` | `pemberian_pakan.id_beri` | one-to-one | 1 pemberian = maks 1 panen telur |
-| `log_stok_pakan.id_pakan` | `pakan.id_pakan` | many-to-one | 1 pakan bisa punya banyak riwayat mutasi |
+| Dari                       | Ke                        | Jenis       | Arti                                         |
+| -------------------------- | ------------------------- | ----------- | -------------------------------------------- |
+| `pemberian_pakan.id_pakan` | `pakan.id_pakan`          | many-to-one | Satu jenis pakan diberikan ke banyak kandang |
+| `panen_telur.id_beri`      | `pemberian_pakan.id_beri` | one-to-one  | 1 pemberian = maks 1 panen telur             |
+| `log_stok_pakan.id_pakan`  | `pakan.id_pakan`          | many-to-one | 1 pakan bisa punya banyak riwayat mutasi     |
 
 ---
 
 ## Tabel
 
-| Tabel | Isi | Peran |
-|---|---|---|
-| `pakan` | Master pakan + stok saat ini | Sumber kebenaran stok |
+| Tabel             | Isi                                 | Peran                          |
+| ----------------- | ----------------------------------- | ------------------------------ |
+| `pakan`           | Master pakan + stok saat ini        | Sumber kebenaran stok          |
 | `pemberian_pakan` | Riwayat pemberian pakan per kandang | Diisi user, divalidasi trigger |
-| `panen_telur` | Hasil panen telur | Terikat 1:1 ke pemberian |
-| `log_stok_pakan` | Audit trail perubahan stok | Otomatis oleh trigger |
+| `panen_telur`     | Hasil panen telur                   | Terikat 1:1 ke pemberian       |
+| `log_stok_pakan`  | Audit trail perubahan stok          | Otomatis oleh trigger          |
 
 ---
 
@@ -88,11 +88,11 @@ flowchart TD
     L --> M["COMMIT"]
 ```
 
-| Objek | File | Timing | Fungsi |
-|---|---|---|---|
-| `trg_cek_pakan` | `03_triggers.sql` | BEFORE INSERT `pemberian_pakan` | Tolak INSERT kalau stok kurang / pakan tidak ada |
-| `trg_mutasi_pakan` | `03_triggers.sql` | AFTER INSERT `pemberian_pakan` | Potong stok + catat ke `log_stok_pakan` |
-| `sp_catatan_harian` | `04_sp.sql` | Stored Procedure | Simpan pemberian + panen dalam 1 transaksi atomik |
+| Objek               | File              | Timing                          | Fungsi                                            |
+| ------------------- | ----------------- | ------------------------------- | ------------------------------------------------- |
+| `trg_cek_pakan`     | `03_triggers.sql` | BEFORE INSERT `pemberian_pakan` | Tolak INSERT kalau stok kurang / pakan tidak ada  |
+| `trg_mutasi_pakan`  | `03_triggers.sql` | AFTER INSERT `pemberian_pakan`  | Potong stok + catat ke `log_stok_pakan`           |
+| `sp_catatan_harian` | `04_sp.sql`       | Stored Procedure                | Simpan pemberian + panen dalam 1 transaksi atomik |
 
 ---
 

@@ -3,12 +3,13 @@
 class CatatanHarianController
 {
     private CatatanHarianRepository $repo;
+
     private PakanRepository $pakanRepo;
 
     public function __construct()
     {
-        $this->repo      = new CatatanHarianRepository();
-        $this->pakanRepo = new PakanRepository();
+        $this->repo = new CatatanHarianRepository;
+        $this->pakanRepo = new PakanRepository;
     }
 
     public function index(): void
@@ -19,7 +20,7 @@ class CatatanHarianController
 
     public function store(): void
     {
-        $raw  = file_get_contents('php://input');
+        $raw = file_get_contents('php://input');
         $body = [];
 
         if ($raw !== false && trim($raw) !== '') {
@@ -45,6 +46,7 @@ class CatatanHarianController
 
         if ($validator->fails()) {
             Response::error('Validasi gagal', 400, $validator->errors());
+
             return;
         }
 
@@ -53,17 +55,18 @@ class CatatanHarianController
         $cekPakan = $this->pakanRepo->find($idPakan);
         if ($cekPakan === null) {
             Response::error('Pakan tidak ditemukan', 404);
+
             return;
         }
 
         // Siapin data
         $data = [
-            'kandang'         => trim((string) $body['kandang']),
-            'id_pakan'        => $idPakan,
+            'kandang' => trim((string) $body['kandang']),
+            'id_pakan' => $idPakan,
             'jumlah_pakan_kg' => (float) $body['jumlah_pakan_kg'],
-            'jumlah_telur'    => (int) $body['jumlah_telur'],
-            'berat_telur_kg'  => (float) $body['berat_telur_kg'],
-            'tanggal'         => (string) $body['tanggal'],
+            'jumlah_telur' => (int) $body['jumlah_telur'],
+            'berat_telur_kg' => (float) $body['berat_telur_kg'],
+            'tanggal' => (string) $body['tanggal'],
         ];
 
         $hasil = $this->repo->create($data);
