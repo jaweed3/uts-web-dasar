@@ -1,366 +1,899 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#15803d">
-  <meta name="description" content="Catat pemberian pakan dan panen telur harian di SiKandang.">
-  <title>SiKandang — Catatan Harian</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#595959" />
+    <meta
+      name="description"
+      content="Catat pemberian pakan dan panen telur harian di SiKandang."
+    />
+    <title>SiKandang — Catatan Harian</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Goudy+Bookletter+1911&display=swap"
+      rel="stylesheet"
+    />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="assets/js/tailwind-config.js"></script>
-  <link rel="stylesheet" href="assets/css/app.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css" />
 
-  <script defer src="assets/js/config.js"></script>
-  <script defer src="assets/js/api.js"></script>
-  <script defer src="assets/js/ui.js"></script>
-  <script defer src="assets/js/catatan-harian.js"></script>
-</head>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/api.js"></script>
+    <script defer src="assets/js/ui.js"></script>
+    <script defer src="assets/js/catatan-harian.js"></script>
+  </head>
 
-<body data-page="catatan" class="flex min-h-screen flex-col bg-[#f6f8f7] font-sans text-slate-800 antialiased">
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-green-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white">
-    Lompat ke konten
-  </a>
+  <body
+    data-page="catatan"
+    class="flex min-h-screen flex-col bg-[var(--mint-cream)] font-sans text-[#2b2b2b] antialiased"
+  >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-brand-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"
+    >
+      Lompat ke konten
+    </a>
 
-  <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
-    <div class="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-      <a href="index.html" class="flex shrink-0 items-center gap-2.5" aria-label="SiKandang — beranda">
-        <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-green-700 to-green-500 text-white shadow-glow">
-          <svg viewBox="0 0 32 32" fill="none" class="h-6 w-6" aria-hidden="true">
-            <path d="M16 4.8c5 0 9.2 7.1 9.2 12.6a9.2 9.2 0 1 1-18.4 0C6.8 11.9 11 4.8 16 4.8Z" fill="white"/>
-            <path d="M11.6 20.4c1.9 2.1 4.2 3.1 7.4 3.1" stroke="#15803d" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M16 4.8c1.3 0 2.5.5 3.6 1.4" stroke="#bbf7d0" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="font-display text-lg font-extrabold tracking-[-0.03em] text-slate-950">SiKandang</span>
-      </a>
-
-      <nav id="primary-nav" aria-label="Navigasi utama"
-        class="absolute left-4 right-4 top-[76px] z-50 hidden flex-col gap-1 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
-        <a href="index.html" data-nav="beranda" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Beranda</a>
-        <a href="pakan.html" data-nav="pakan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Pakan</a>
-        <a href="catatan-harian.html" data-nav="catatan" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Catatan Harian</a>
-        <a href="riwayat-stok.html" data-nav="riwayat" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-green-50 hover:text-green-700">Riwayat Stok</a>
-        <a href="catatan-harian.html" class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:-translate-y-0.5 hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0 md:mt-0 md:ml-2">
-          <span class="text-base leading-none">+</span> Catat Catatan
+    <header
+      class="site-header sticky top-0 z-50 border-b border-[#cccccc]/80 bg-white/85 backdrop-blur-xl"
+    >
+      <div
+        class="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+      >
+        <a
+          href="index.html"
+          class="flex shrink-0 items-center gap-2.5"
+          aria-label="SiKandang — beranda"
+        >
+          <span
+            class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-brand-700 to-brand-500 text-white shadow-glow"
+          >
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              class="h-6 w-6"
+              aria-hidden="true"
+            >
+              <path
+                d="M16 4.8c5 0 9.2 7.1 9.2 12.6a9.2 9.2 0 1 1-18.4 0C6.8 11.9 11 4.8 16 4.8Z"
+                fill="white"
+              />
+              <path
+                d="M11.6 20.4c1.9 2.1 4.2 3.1 7.4 3.1"
+                stroke="#595959"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M16 4.8c1.3 0 2.5.5 3.6 1.4"
+                stroke="#cccccc"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span
+            class="font-display text-lg font-extrabold tracking-[-0.01em] text-[#2b2b2b]"
+            >SiKandang</span
+          >
         </a>
-      </nav>
 
-      <button id="nav-toggle" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 md:hidden" aria-expanded="false" aria-controls="primary-nav" aria-label="Buka menu">
-        <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-        </svg>
-      </button>
-    </div>
-  </header>
+        <nav
+          id="primary-nav"
+          aria-label="Navigasi utama"
+          class="absolute left-4 right-4 top-[76px] z-50 hidden flex-col gap-1 rounded-2xl border border-[#cccccc] bg-white p-3 shadow-2xl md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <a
+            href="index.html"
+            data-nav="beranda"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Beranda</a
+          >
+          <a
+            href="pakan.html"
+            data-nav="pakan"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Pakan</a
+          >
+          <a
+            href="catatan-harian.html"
+            data-nav="catatan"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Catatan Harian</a
+          >
+          <a
+            href="riwayat-stok.html"
+            data-nav="riwayat"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Riwayat Stok</a
+          >
+          <a
+            href="catatan-harian.html"
+            class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-700/15 transition hover:-translate-y-0.5 hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 active:translate-y-0 md:mt-0 md:ml-2"
+          >
+            <span class="text-base leading-none">+</span> Catat Catatan
+          </a>
+        </nav>
 
-  <div id="nav-backdrop" class="fixed inset-0 z-40 hidden bg-slate-950/40 backdrop-blur-[2px] md:hidden" aria-hidden="true"></div>
+        <button
+          id="nav-toggle"
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#cccccc] bg-white text-[#595959] shadow-sm transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 md:hidden"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          aria-label="Buka menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            class="h-5 w-5"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="1.9"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
 
-  <main id="main-content" class="flex-1">
-    <div class="mx-auto w-full max-w-[1180px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8">
-      <div id="load-alert" hidden class="mb-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p id="load-alert-text" class="font-semibold"></p>
-          <button id="load-retry" type="button" class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">
-            Coba lagi
+    <div
+      id="nav-backdrop"
+      class="fixed inset-0 z-40 hidden bg-[#2b2b2b]/40 backdrop-blur-[2px] md:hidden"
+      aria-hidden="true"
+    ></div>
+
+    <main id="main-content" class="flex-1">
+      <div
+        class="mx-auto w-full max-w-[1180px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8"
+      >
+        <div
+          id="load-alert"
+          hidden
+          class="mb-5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700"
+        >
+          <div
+            class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p id="load-alert-text" class="font-semibold"></p>
+            <button
+              id="load-retry"
+              type="button"
+              class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-rose-200 bg-white px-3 py-1.5 text-xs font-bold text-rose-700 transition hover:bg-rose-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
+            >
+              Coba lagi
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h1
+                class="font-display text-3xl font-extrabold tracking-[-0.01em] text-[#2b2b2b] sm:text-4xl"
+              >
+                Catatan Harian
+              </h1>
+              <span
+                id="data-source"
+                class="inline-flex items-center gap-1.5 rounded-full border border-[#cccccc] bg-white px-2.5 py-1 text-[10px] font-bold text-[#595959] shadow-sm"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                Menghubungkan...
+              </span>
+            </div>
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-[#595959]">
+              Satu form untuk pemberian pakan sekaligus panen telur dalam satu
+              transaksi atomik.
+            </p>
+          </div>
+
+          <a
+            href="riwayat-stok.html"
+            class="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 active:translate-y-0"
+          >
+            Lihat Riwayat Stok
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 12h14m-5-5 5 5-5 5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- FORM CATATAN BARU -->
+        <section
+          class="mt-6 rounded-2xl border border-[#cccccc] bg-white p-5 shadow-sm sm:p-6"
+        >
+          <div
+            class="flex flex-col gap-3 border-b border-[#e6e6e6] pb-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-[#7f7f7f]"
+              >
+                Form catatan baru
+              </p>
+              <h2
+                class="mt-1 font-display text-lg font-extrabold tracking-[-0.008em] text-[#2b2b2b]"
+              >
+                Catat pemberian &amp; panen
+              </h2>
+            </div>
+            <span
+              class="inline-flex w-fit items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-2.5 py-1 text-[10px] font-bold text-brand-800"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                class="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <path
+                  d="m5 12 4 4L19 6"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Transaksi atomik
+            </span>
+          </div>
+
+          <form id="catatan-form" class="mt-5" novalidate>
+            <div
+              data-form-alert
+              hidden
+              class="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold leading-5 text-rose-700"
+            ></div>
+
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div>
+                <label
+                  for="new-kandang"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Kandang <span class="text-rose-600">*</span></label
+                >
+                <input
+                  id="new-kandang"
+                  name="kandang"
+                  type="text"
+                  maxlength="50"
+                  autocomplete="off"
+                  placeholder="mis. A1"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition placeholder:text-[#7f7f7f] focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                />
+                <p
+                  data-field-error="kandang"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+
+              <div>
+                <label
+                  for="new-pakan"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Jenis pakan <span class="text-rose-600">*</span></label
+                >
+                <select
+                  id="new-pakan"
+                  name="id_pakan"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                >
+                  <option value="">Memuat pakan...</option>
+                </select>
+                <p
+                  id="new-pakan-stock-hint"
+                  class="mt-1 text-[11px] text-[#7f7f7f]"
+                >
+                  Pilih pakan untuk melihat sisa stok.
+                </p>
+                <p
+                  data-field-error="id_pakan"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+
+              <div>
+                <label
+                  for="new-tanggal"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Tanggal <span class="text-rose-600">*</span></label
+                >
+                <input
+                  id="new-tanggal"
+                  name="tanggal"
+                  type="date"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                />
+                <p
+                  data-field-error="tanggal"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+
+              <div>
+                <label
+                  for="new-jumlah-pakan"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Jumlah pakan (kg) <span class="text-rose-600">*</span></label
+                >
+                <input
+                  id="new-jumlah-pakan"
+                  name="jumlah_pakan_kg"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  inputmode="decimal"
+                  placeholder="mis. 5"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition placeholder:text-[#7f7f7f] focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                />
+                <p
+                  data-field-error="jumlah_pakan_kg"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+
+              <div>
+                <label
+                  for="new-jumlah-telur"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Jumlah telur (butir)
+                  <span class="text-rose-600">*</span></label
+                >
+                <input
+                  id="new-jumlah-telur"
+                  name="jumlah_telur"
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                  placeholder="mis. 120"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition placeholder:text-[#7f7f7f] focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                />
+                <p
+                  data-field-error="jumlah_telur"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+
+              <div>
+                <label
+                  for="new-berat-telur"
+                  class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                  >Berat telur (kg) <span class="text-rose-600">*</span></label
+                >
+                <input
+                  id="new-berat-telur"
+                  name="berat_telur_kg"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  placeholder="mis. 7.2"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition placeholder:text-[#7f7f7f] focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+                />
+                <p
+                  data-field-error="berat_telur_kg"
+                  class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+                ></p>
+              </div>
+            </div>
+
+            <div
+              class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <p class="max-w-xl text-[11px] leading-5 text-[#7f7f7f]">
+                Validasi client hanya lapis pertama. Stok tetap divalidasi
+                trigger database saat data dikirim.
+              </p>
+              <div class="flex items-center gap-2.5">
+                <button
+                  type="reset"
+                  id="catatan-reset"
+                  class="inline-flex items-center justify-center rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                >
+                  Reset
+                </button>
+                <button
+                  id="catatan-submit"
+                  type="submit"
+                  class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-700/15 transition hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M5 12.5 9.2 17 19 7"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Simpan Catatan
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- DAFTAR CATATAN -->
+        <section class="mt-8">
+          <div
+            class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div>
+              <h2
+                class="font-display text-xl font-extrabold tracking-[-0.01em] text-[#2b2b2b] sm:text-2xl"
+              >
+                Daftar Catatan
+              </h2>
+              <p class="mt-1 text-xs text-[#595959]">
+                Riwayat pemberian pakan dan panen telur per kandang.
+              </p>
+            </div>
+
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div class="relative">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7f7f7f]"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="6.5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="m16 16 4 4"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  id="catatan-search"
+                  type="search"
+                  placeholder="Cari kandang..."
+                  autocomplete="off"
+                  class="w-full rounded-xl border border-[#cccccc] bg-white py-2.5 pl-10 pr-3.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition placeholder:text-[#7f7f7f] focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10 sm:w-52"
+                />
+              </div>
+
+              <select
+                id="catatan-filter"
+                class="rounded-xl border border-[#cccccc] bg-white px-3 py-2.5 text-sm font-medium text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              >
+                <option value="all">Semua pakan</option>
+              </select>
+            </div>
+          </div>
+
+          <div
+            class="mt-4 overflow-hidden rounded-2xl border border-[#cccccc] bg-white shadow-sm"
+          >
+            <div class="overflow-x-auto">
+              <table class="table-stack w-full text-left text-[13px]">
+                <thead class="bg-[#f2f2f2]/80">
+                  <tr class="border-b border-[#cccccc]">
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Tanggal
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Kandang
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Pakan
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Pakan (kg)
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Telur
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Berat (kg)
+                    </th>
+                    <th
+                      class="whitespace-nowrap px-5 py-3 text-right text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                    >
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="catatan-body" class="divide-y divide-[#e6e6e6]">
+                  <tr class="state-row">
+                    <td
+                      colspan="7"
+                      class="px-5 py-10 text-center text-xs font-medium text-[#7f7f7f]"
+                    >
+                      Memuat catatan harian...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="flex flex-col gap-2 border-t border-[#e6e6e6] px-5 py-3 text-[11px] text-[#595959] sm:flex-row sm:items-center sm:justify-between"
+            >
+              <span id="catatan-count">Memuat data...</span>
+              <span id="catatan-mode-note" class="hidden"
+                >Mode API: edit &amp; hapus catatan belum tersedia di
+                backend.</span
+              >
+              <span id="catatan-order-note"
+                >Diurutkan dari catatan terbaru.</span
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer
+      class="site-footer mt-20 border-t border-[#2b2b2b] bg-[#2b2b2b] py-7 text-xs text-[#a5a5a5]"
+    >
+      <div
+        class="mx-auto flex w-full max-w-[1180px] flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
+      >
+        <p>SiKandang — UTS Database Systems II &amp; Web Programming Dasar</p>
+        <p>Awalis (Frontend) · Tamam (Backend) · Jawed (Database)</p>
+      </div>
+    </footer>
+
+    <!-- MODAL DETAIL -->
+    <dialog id="detail-dialog" class="modal">
+      <div
+        class="modal-scroll w-[min(620px,calc(100vw-2rem))] rounded-3xl border border-[#cccccc] bg-white p-6 shadow-float sm:p-7"
+      >
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p
+              class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-[#7f7f7f]"
+            >
+              Detail catatan
+            </p>
+            <h2
+              class="mt-1 font-display text-xl font-extrabold tracking-[-0.01em] text-[#2b2b2b]"
+            >
+              Rincian Harian
+            </h2>
+          </div>
+          <button
+            type="button"
+            data-close
+            class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-[#7f7f7f] transition hover:bg-[#f2f2f2] hover:text-[#2b2b2b] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            aria-label="Tutup dialog"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              class="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path
+                d="m6 6 12 12M18 6 6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div id="detail-content" class="mt-5"></div>
+
+        <div class="mt-6 flex justify-end">
+          <button
+            type="button"
+            data-close
+            class="inline-flex items-center justify-center rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+          >
+            Tutup
           </button>
         </div>
       </div>
+    </dialog>
 
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div class="flex flex-wrap items-center gap-2.5">
-            <h1 class="font-display text-3xl font-extrabold tracking-[-0.04em] text-slate-950 sm:text-4xl">Catatan Harian</h1>
-            <span id="data-source" class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-bold text-slate-500 shadow-sm">
-              <span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span> Menghubungkan...
-            </span>
-          </div>
-          <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Satu form untuk pemberian pakan sekaligus panen telur dalam satu transaksi atomik.</p>
-        </div>
-
-        <a href="riwayat-stok.html" class="inline-flex w-fit items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 active:translate-y-0">
-          Lihat Riwayat Stok
-          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
-            <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- ================================================================
-           FORM CATATAN BARU
-           ================================================================ -->
-      <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-        <div class="flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+    <!-- MODAL EDIT CATATAN (mode demo) -->
+    <dialog id="edit-dialog" class="modal">
+      <div
+        class="modal-scroll w-[min(680px,calc(100vw-2rem))] rounded-3xl border border-[#cccccc] bg-white p-6 shadow-float sm:p-7"
+      >
+        <div class="flex items-start justify-between gap-4">
           <div>
-            <p class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-400">Form catatan baru</p>
-            <h2 class="mt-1 font-display text-lg font-extrabold tracking-[-0.02em] text-slate-950">Catat pemberian &amp; panen</h2>
+            <p
+              class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-[#7f7f7f]"
+            >
+              Koreksi data
+            </p>
+            <h2
+              class="mt-1 font-display text-xl font-extrabold tracking-[-0.01em] text-[#2b2b2b]"
+            >
+              Edit Catatan
+            </h2>
+            <p class="mt-1 text-xs leading-5 text-[#595959]">
+              Perubahan jumlah pakan akan menyesuaikan stok di mode demo.
+            </p>
           </div>
-          <span class="inline-flex w-fit items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-2.5 py-1 text-[10px] font-bold text-green-800">
-            <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
-              <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <button
+            type="button"
+            data-close
+            class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-[#7f7f7f] transition hover:bg-[#f2f2f2] hover:text-[#2b2b2b] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+            aria-label="Tutup dialog"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              class="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path
+                d="m6 6 12 12M18 6 6 18"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
-            Transaksi atomik
-          </span>
+          </button>
         </div>
 
-        <form id="catatan-form" class="mt-5" novalidate>
-          <div data-form-alert hidden class="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold leading-5 text-rose-700"></div>
+        <form id="edit-catatan-form" class="mt-5" novalidate>
+          <input type="hidden" name="id_beri" id="edit-id" value="" />
+          <div
+            data-form-alert
+            hidden
+            class="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold leading-5 text-rose-700"
+          ></div>
 
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
-              <label for="new-kandang" class="mb-1.5 block text-xs font-bold text-slate-700">Kandang <span class="text-rose-600">*</span></label>
-              <input id="new-kandang" name="kandang" type="text" maxlength="50" autocomplete="off" placeholder="mis. A1"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <p data-field-error="kandang" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-kandang"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Kandang <span class="text-rose-600">*</span></label
+              >
+              <input
+                id="edit-kandang"
+                name="kandang"
+                type="text"
+                maxlength="50"
+                autocomplete="off"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              />
+              <p
+                data-field-error="kandang"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
 
             <div>
-              <label for="new-pakan" class="mb-1.5 block text-xs font-bold text-slate-700">Jenis pakan <span class="text-rose-600">*</span></label>
-              <select id="new-pakan" name="id_pakan"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-                <option value="">Memuat pakan...</option>
-              </select>
-              <p id="new-pakan-stock-hint" class="mt-1 text-[11px] text-slate-400">Pilih pakan untuk melihat sisa stok.</p>
-              <p data-field-error="id_pakan" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-pakan"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Jenis pakan <span class="text-rose-600">*</span></label
+              >
+              <select
+                id="edit-pakan"
+                name="id_pakan"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              ></select>
+              <p
+                id="edit-pakan-stock-hint"
+                class="mt-1 text-[11px] text-[#7f7f7f]"
+              >
+                Sisa stok mengikuti data terbaru.
+              </p>
+              <p
+                data-field-error="id_pakan"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
 
             <div>
-              <label for="new-tanggal" class="mb-1.5 block text-xs font-bold text-slate-700">Tanggal <span class="text-rose-600">*</span></label>
-              <input id="new-tanggal" name="tanggal" type="date"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <p data-field-error="tanggal" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-tanggal"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Tanggal <span class="text-rose-600">*</span></label
+              >
+              <input
+                id="edit-tanggal"
+                name="tanggal"
+                type="date"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              />
+              <p
+                data-field-error="tanggal"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
 
             <div>
-              <label for="new-jumlah-pakan" class="mb-1.5 block text-xs font-bold text-slate-700">Jumlah pakan (kg) <span class="text-rose-600">*</span></label>
-              <input id="new-jumlah-pakan" name="jumlah_pakan_kg" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="mis. 5"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <p data-field-error="jumlah_pakan_kg" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-jumlah-pakan"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Jumlah pakan (kg) <span class="text-rose-600">*</span></label
+              >
+              <input
+                id="edit-jumlah-pakan"
+                name="jumlah_pakan_kg"
+                type="number"
+                min="0.01"
+                step="0.01"
+                inputmode="decimal"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              />
+              <p
+                data-field-error="jumlah_pakan_kg"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
 
             <div>
-              <label for="new-jumlah-telur" class="mb-1.5 block text-xs font-bold text-slate-700">Jumlah telur (butir) <span class="text-rose-600">*</span></label>
-              <input id="new-jumlah-telur" name="jumlah_telur" type="number" min="0" step="1" inputmode="numeric" placeholder="mis. 120"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <p data-field-error="jumlah_telur" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-jumlah-telur"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Jumlah telur (butir)
+                <span class="text-rose-600">*</span></label
+              >
+              <input
+                id="edit-jumlah-telur"
+                name="jumlah_telur"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              />
+              <p
+                data-field-error="jumlah_telur"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
 
             <div>
-              <label for="new-berat-telur" class="mb-1.5 block text-xs font-bold text-slate-700">Berat telur (kg) <span class="text-rose-600">*</span></label>
-              <input id="new-berat-telur" name="berat_telur_kg" type="number" min="0" step="0.01" inputmode="decimal" placeholder="mis. 7.2"
-                class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <p data-field-error="berat_telur_kg" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+              <label
+                for="edit-berat-telur"
+                class="mb-1.5 block text-xs font-bold text-[#2b2b2b]"
+                >Berat telur (kg) <span class="text-rose-600">*</span></label
+              >
+              <input
+                id="edit-berat-telur"
+                name="berat_telur_kg"
+                type="number"
+                min="0"
+                step="0.01"
+                inputmode="decimal"
+                class="w-full rounded-xl border border-[#cccccc] bg-white px-3.5 py-2.5 text-sm text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+              />
+              <p
+                data-field-error="berat_telur_kg"
+                class="mt-1 hidden text-[11px] font-semibold text-rose-600"
+              ></p>
             </div>
           </div>
 
-          <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p class="max-w-xl text-[11px] leading-5 text-slate-400">
-              Validasi client hanya lapis pertama. Stok tetap divalidasi trigger database saat data dikirim.
-            </p>
-            <div class="flex items-center gap-2.5">
-              <button type="reset" id="catatan-reset" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Reset</button>
-              <button id="catatan-submit" type="submit" class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
-                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
-                  <path d="M5 12.5 9.2 17 19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Simpan Catatan
-              </button>
-            </div>
+          <div class="mt-6 flex items-center justify-end gap-2.5">
+            <button
+              type="button"
+              data-close
+              class="inline-flex items-center justify-center rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            >
+              Batal
+            </button>
+            <button
+              id="edit-submit"
+              type="submit"
+              class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-700/15 transition hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            >
+              Simpan Perubahan
+            </button>
           </div>
         </form>
-      </section>
-
-      <!-- ================================================================
-           DAFTAR CATATAN
-           ================================================================ -->
-      <section class="mt-8">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 class="font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-2xl">Daftar Catatan</h2>
-            <p class="mt-1 text-xs text-slate-500">Riwayat pemberian pakan dan panen telur per kandang.</p>
-          </div>
-
-          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <div class="relative">
-              <svg viewBox="0 0 24 24" fill="none" class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true">
-                <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
-                <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-              <input id="catatan-search" type="search" placeholder="Cari kandang..." autocomplete="off"
-                class="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-3.5 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-green-600 focus:ring-4 focus:ring-green-600/10 sm:w-52">
-            </div>
-
-            <select id="catatan-filter" class="rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-              <option value="all">Semua pakan</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <div class="overflow-x-auto">
-            <table class="table-stack w-full text-left text-[13px]">
-              <thead class="bg-slate-50/80">
-                <tr class="border-b border-slate-200">
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Tanggal</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Kandang</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Pakan</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Pakan (kg)</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Telur</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Berat (kg)</th>
-                  <th class="whitespace-nowrap px-5 py-3 text-right text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="catatan-body" class="divide-y divide-slate-100">
-                <tr class="state-row"><td colspan="7" class="px-5 py-10 text-center text-xs font-medium text-slate-400">Memuat catatan harian...</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="flex flex-col gap-2 border-t border-slate-100 px-5 py-3 text-[11px] text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <span id="catatan-count">Memuat data...</span>
-            <span id="catatan-mode-note" class="hidden">Mode API: edit &amp; hapus catatan belum tersedia di backend.</span>
-            <span id="catatan-order-note">Diurutkan dari catatan terbaru.</span>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <footer class="site-footer mt-20 border-t border-slate-800 bg-slate-950 py-7 text-xs text-slate-400">
-    <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-      <p>SiKandang — UTS Database Systems II &amp; Web Programming Dasar</p>
-      <p>Awalis (Frontend) · Tamam (Backend) · Jawed (Database)</p>
-    </div>
-  </footer>
-
-  <!-- ======================================================================
-       MODAL DETAIL
-       ====================================================================== -->
-  <dialog id="detail-dialog" class="modal">
-    <div class="modal-scroll w-[min(620px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <p class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-400">Detail catatan</p>
-          <h2 class="mt-1 font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950">Rincian Harian</h2>
-        </div>
-        <button type="button" data-close class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600" aria-label="Tutup dialog">
-          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
-            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
       </div>
+    </dialog>
 
-      <div id="detail-content" class="mt-5"></div>
-
-      <div class="mt-6 flex justify-end">
-        <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Tutup</button>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- ======================================================================
-       MODAL EDIT CATATAN (mode demo)
-       ====================================================================== -->
-  <dialog id="edit-dialog" class="modal">
-    <div class="modal-scroll w-[min(680px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
-      <div class="flex items-start justify-between gap-4">
-        <div>
-          <p class="text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-400">Koreksi data</p>
-          <h2 class="mt-1 font-display text-xl font-extrabold tracking-[-0.03em] text-slate-950">Edit Catatan</h2>
-          <p class="mt-1 text-xs leading-5 text-slate-500">Perubahan jumlah pakan akan menyesuaikan stok di mode demo.</p>
-        </div>
-        <button type="button" data-close class="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600" aria-label="Tutup dialog">
-          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
-            <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-
-      <form id="edit-catatan-form" class="mt-5" novalidate>
-        <input type="hidden" name="id_beri" id="edit-id" value="">
-        <div data-form-alert hidden class="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold leading-5 text-rose-700"></div>
-
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div>
-            <label for="edit-kandang" class="mb-1.5 block text-xs font-bold text-slate-700">Kandang <span class="text-rose-600">*</span></label>
-            <input id="edit-kandang" name="kandang" type="text" maxlength="50" autocomplete="off"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-            <p data-field-error="kandang" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
-          </div>
-
-          <div>
-            <label for="edit-pakan" class="mb-1.5 block text-xs font-bold text-slate-700">Jenis pakan <span class="text-rose-600">*</span></label>
-            <select id="edit-pakan" name="id_pakan"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10"></select>
-            <p id="edit-pakan-stock-hint" class="mt-1 text-[11px] text-slate-400">Sisa stok mengikuti data terbaru.</p>
-            <p data-field-error="id_pakan" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
-          </div>
-
-          <div>
-            <label for="edit-tanggal" class="mb-1.5 block text-xs font-bold text-slate-700">Tanggal <span class="text-rose-600">*</span></label>
-            <input id="edit-tanggal" name="tanggal" type="date"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-            <p data-field-error="tanggal" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
-          </div>
-
-          <div>
-            <label for="edit-jumlah-pakan" class="mb-1.5 block text-xs font-bold text-slate-700">Jumlah pakan (kg) <span class="text-rose-600">*</span></label>
-            <input id="edit-jumlah-pakan" name="jumlah_pakan_kg" type="number" min="0.01" step="0.01" inputmode="decimal"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-            <p data-field-error="jumlah_pakan_kg" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
-          </div>
-
-          <div>
-            <label for="edit-jumlah-telur" class="mb-1.5 block text-xs font-bold text-slate-700">Jumlah telur (butir) <span class="text-rose-600">*</span></label>
-            <input id="edit-jumlah-telur" name="jumlah_telur" type="number" min="0" step="1" inputmode="numeric"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-            <p data-field-error="jumlah_telur" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
-          </div>
-
-          <div>
-            <label for="edit-berat-telur" class="mb-1.5 block text-xs font-bold text-slate-700">Berat telur (kg) <span class="text-rose-600">*</span></label>
-            <input id="edit-berat-telur" name="berat_telur_kg" type="number" min="0" step="0.01" inputmode="decimal"
-              class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-green-600 focus:ring-4 focus:ring-green-600/10">
-            <p data-field-error="berat_telur_kg" class="mt-1 hidden text-[11px] font-semibold text-rose-600"></p>
+    <!-- MODAL HAPUS CATATAN (mode demo) -->
+    <dialog id="hapus-dialog" class="modal">
+      <div
+        class="w-[min(440px,calc(100vw-2rem))] rounded-3xl border border-[#cccccc] bg-white p-6 shadow-float sm:p-7"
+      >
+        <div class="flex items-start gap-3.5">
+          <span
+            class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-rose-50 text-rose-600"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              class="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16m-10 4v6m4-6v6M9 7l.7-2h4.6l.7 2m3 0-.7 13H7.7L7 7"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <div class="min-w-0">
+            <h2
+              class="font-display text-lg font-extrabold tracking-[-0.008em] text-[#2b2b2b]"
+            >
+              Hapus catatan?
+            </h2>
+            <p class="mt-1.5 text-xs leading-5 text-[#595959]">
+              Catatan
+              <strong id="hapus-catatan-label" class="text-[#2b2b2b]"></strong>
+              akan dihapus dan stok pakan dikembalikan (mode demo).
+            </p>
           </div>
         </div>
+
+        <div
+          id="hapus-alert"
+          hidden
+          class="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold text-rose-700"
+        ></div>
 
         <div class="mt-6 flex items-center justify-end gap-2.5">
-          <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Batal</button>
-          <button id="edit-submit" type="submit" class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-green-700/15 transition hover:bg-green-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Simpan Perubahan</button>
-        </div>
-      </form>
-    </div>
-  </dialog>
-
-  <!-- ======================================================================
-       MODAL HAPUS CATATAN (mode demo)
-       ====================================================================== -->
-  <dialog id="hapus-dialog" class="modal">
-    <div class="w-[min(440px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-6 shadow-float sm:p-7">
-      <div class="flex items-start gap-3.5">
-        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-rose-50 text-rose-600">
-          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
-            <path d="M4 7h16m-10 4v6m4-6v6M9 7l.7-2h4.6l.7 2m3 0-.7 13H7.7L7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <div class="min-w-0">
-          <h2 class="font-display text-lg font-extrabold tracking-[-0.02em] text-slate-950">Hapus catatan?</h2>
-          <p class="mt-1.5 text-xs leading-5 text-slate-500">Catatan <strong id="hapus-catatan-label" class="text-slate-700"></strong> akan dihapus dan stok pakan dikembalikan (mode demo).</p>
+          <button
+            type="button"
+            data-close
+            class="inline-flex items-center justify-center rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+          >
+            Batal
+          </button>
+          <button
+            id="catatan-delete-submit"
+            type="button"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-rose-600/15 transition hover:bg-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2"
+          >
+            Hapus Catatan
+          </button>
         </div>
       </div>
-
-      <div id="hapus-alert" hidden class="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-3 text-xs font-semibold text-rose-700"></div>
-
-      <div class="mt-6 flex items-center justify-end gap-2.5">
-        <button type="button" data-close class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">Batal</button>
-        <button id="catatan-delete-submit" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-rose-600/15 transition hover:bg-rose-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2">Hapus Catatan</button>
-      </div>
-    </div>
-  </dialog>
-</body>
+    </dialog>
+  </body>
 </html>

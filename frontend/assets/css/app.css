@@ -1,4 +1,19 @@
+:root {
+  --charcoal: #595959;
+  --grey: #7f7f7f;
+  --silver: #a5a5a5;
+  --silver-2: #cccccc;
+  --white-smoke: #f2f2f2;
 
+  --white: #ffffff;
+  --mint-cream: var(--white-smoke); /* bg utama */
+  --alice-blue: var(--white-smoke); /* bg sekunder */
+  --periwinkle: var(--silver-2); /* selection / aksen lembut */
+  --medium-slate-blue: var(--charcoal); /* aksi utama */
+  --ink: #2b2b2b; /* teks kuat */
+  --ink-soft: var(--charcoal); /* teks sekunder */
+  --paper: var(--white);
+}
 
 html {
   scroll-behavior: smooth;
@@ -6,6 +21,16 @@ html {
 
 body {
   text-rendering: optimizeLegibility;
+  background-color: var(--mint-cream);
+  background-image:
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(165, 165, 165, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(circle at 88% 4%, rgba(89, 89, 89, 0.1), transparent 30%),
+    linear-gradient(180deg, #f2f2f2 0%, #ffffff 55%, #f2f2f2 100%);
+  background-attachment: fixed;
 }
 
 body.menu-open,
@@ -14,16 +39,33 @@ body.modal-open {
 }
 
 ::selection {
-  background: #bbf7d0;
-  color: #14532d;
+  background: var(--periwinkle);
+  color: var(--ink);
 }
 
+.font-display {
+  letter-spacing: -0.01em;
+  font-kerning: normal;
+  text-wrap: balance;
+}
+
+.font-display.tight {
+  letter-spacing: -0.02em;
+}
 
 .hero-pattern {
   background-image:
-    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 82% 78%, rgba(74, 222, 128, 0.2), transparent 34%),
-    linear-gradient(145deg, #15803d 0%, #166534 52%, #14532d 100%);
+    radial-gradient(
+      circle at 18% 12%,
+      rgba(255, 255, 255, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 82% 78%,
+      rgba(204, 204, 204, 0.35),
+      transparent 34%
+    ),
+    linear-gradient(145deg, #595959 0%, #3f3f3f 52%, #2b2b2b 100%);
 }
 
 .hero-pattern::before {
@@ -49,15 +91,20 @@ body.modal-open {
 }
 
 .dot-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.24) 1px,
+    transparent 1px
+  );
   background-size: 18px 18px;
 }
 
-
 dialog.modal {
-  width: 100%;
-  max-width: none;
-  max-height: none;
+  position: fixed;
+  inset: 0;
+  width: fit-content;
+  height: fit-content;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
   margin: auto;
   padding: 0;
   border: 0;
@@ -67,38 +114,89 @@ dialog.modal {
 }
 
 dialog.modal::backdrop {
-  background: rgba(15, 23, 42, 0.58);
+  background: rgba(43, 43, 43, 0.55);
   backdrop-filter: blur(4px);
 }
 
 dialog.modal[open] {
-  animation: dialog-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: dialog-fade-in 0.2s ease-out both;
 }
 
-@keyframes dialog-in {
+@keyframes dialog-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
 .modal-scroll {
-  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
-
 .skeleton {
   display: block;
   border-radius: 0.5rem;
-  background: linear-gradient(90deg, #edf2ef 25%, #f8faf9 37%, #edf2ef 63%);
+  background: linear-gradient(90deg, #f2f2f2 25%, #ffffff 37%, #f2f2f2 63%);
   background-size: 400% 100%;
   animation: shimmer 1.4s ease infinite;
+}
+
+.panel {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0.78)
+    ),
+    var(--paper);
+  border: 1px solid rgba(89, 89, 89, 0.16);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 18px 40px -32px rgba(43, 43, 43, 0.3);
+}
+
+.panel-flat {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(89, 89, 89, 0.16);
+}
+
+.field {
+  background-color: #ffffff;
+  border: 1px solid rgba(89, 89, 89, 0.25);
+}
+
+.field::placeholder {
+  color: var(--grey);
+}
+
+.field:focus {
+  border-color: var(--charcoal);
+  box-shadow: 0 0 0 4px rgba(89, 89, 89, 0.14);
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #595959 0%, #3f3f3f 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 14px 28px -18px rgba(43, 43, 43, 0.55);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(180deg, #4a4a4a 0%, #2b2b2b 100%);
+}
+
+.btn-quiet {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(89, 89, 89, 0.25);
+}
+
+.btn-quiet:hover {
+  background: var(--alice-blue);
 }
 
 .skeleton--text {
@@ -123,17 +221,14 @@ dialog.modal[open] {
   }
 }
 
-
 .progress-fill {
   transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 
 [aria-invalid="true"] {
   border-color: #f43f5e !important;
   box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1) !important;
 }
-
 
 @media (max-width: 767px) {
   .table-stack,
@@ -157,10 +252,10 @@ dialog.modal[open] {
     display: block;
     padding: 0.25rem 0;
     overflow: hidden;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--silver-2);
     border-radius: 0.9rem;
     background: #ffffff;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    box-shadow: 0 1px 2px rgba(43, 43, 43, 0.03);
   }
 
   .table-stack tbody tr:not(.state-row) td {
@@ -177,7 +272,7 @@ dialog.modal[open] {
   .table-stack tbody tr:not(.state-row) td::before {
     content: attr(data-label);
     flex: 0 0 auto;
-    color: #64748b;
+    color: var(--grey);
     font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: 0.07em;
@@ -193,7 +288,7 @@ dialog.modal[open] {
     justify-content: flex-end;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
-    background: #f8fafc;
+    background: var(--white-smoke);
   }
 
   .table-stack tbody tr:not(.state-row) td.cell-actions::before {
@@ -226,7 +321,7 @@ dialog.modal[open] {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-color: var(--silver-2) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -240,11 +335,11 @@ dialog.modal[open] {
 
 *::-webkit-scrollbar-thumb {
   border-radius: 9999px;
-  background: #cbd5e1;
+  background: var(--silver-2);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--silver);
 }
 
 @media print {
@@ -254,7 +349,7 @@ dialog.modal[open] {
 
   body {
     background: #ffffff !important;
-    color: #111827 !important;
+    color: #2b2b2b !important;
   }
 
   .no-print,
@@ -272,7 +367,7 @@ dialog.modal[open] {
   }
 
   .print-card {
-    border-color: #cbd5e1 !important;
+    border-color: var(--silver-2) !important;
     box-shadow: none !important;
   }
 
@@ -297,7 +392,7 @@ dialog.modal[open] {
     display: table-cell !important;
     padding: 0.45rem 0.6rem !important;
     text-align: left !important;
-    border-bottom: 1px solid #e5e7eb !important;
+    border-bottom: 1px solid var(--silver-2) !important;
   }
 
   .table-stack tbody tr td::before {

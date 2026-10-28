@@ -1,8 +1,8 @@
 db_user := "sikandang"
 db_name := "sikandang"
 
-php := "/opt/lampp/bin/php"
-port := "8000"
+php  := env_var_or_default("PHP", "php")
+port := env_var_or_default("PORT", "8000")
 
 default:
     @just --list

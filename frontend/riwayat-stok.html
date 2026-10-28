@@ -1,141 +1,426 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#595959" />
     <title>SiKandang - Riwayat Stok</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Goudy+Bookletter+1911&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/app.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body
+    data-page="riwayat"
+    class="flex min-h-screen flex-col bg-[var(--mint-cream)] font-sans text-[#2b2b2b] antialiased"
+  >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-xl focus:bg-brand-700 focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"
+    >
+      Lompat ke konten
+    </a>
 
-    <!-- NAVBAR -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">🐓</div>
-                    <span class="text-xl font-bold text-gray-900 tracking-tight">SiKandang</span>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center font-medium">
-                    <a href="index.html" class="text-gray-600 hover:text-emerald-600 transition">Beranda</a>
-                    <a href="pakan.html" class="text-gray-600 hover:text-emerald-600 transition">Pakan</a>
-                    <a href="catatan-harian.html" class="text-gray-600 hover:text-emerald-600 transition">Catatan Harian</a>
-                    <a href="riwayat-stok.html" class="text-emerald-600 font-semibold border-b-2 border-emerald-600 pb-1">Riwayat Stok</a>
-                </div>
-                <div>
-                    <a href="catatan-harian.html" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition inline-block">
-                        + Catat Catatan
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <header
+      class="site-header sticky top-0 z-50 border-b border-[#cccccc]/80 bg-white/85 backdrop-blur-xl"
+    >
+      <div
+        class="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+      >
+        <a
+          href="index.html"
+          class="flex shrink-0 items-center gap-2.5"
+          aria-label="SiKandang — beranda"
+        >
+          <span
+            class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-brand-700 to-brand-500 text-white shadow-glow"
+          >
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              class="h-6 w-6"
+              aria-hidden="true"
+            >
+              <path
+                d="M16 4.8c5 0 9.2 7.1 9.2 12.6a9.2 9.2 0 1 1-18.4 0C6.8 11.9 11 4.8 16 4.8Z"
+                fill="white"
+              />
+              <path
+                d="M11.6 20.4c1.9 2.1 4.2 3.1 7.4 3.1"
+                stroke="#595959"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M16 4.8c1.3 0 2.5.5 3.6 1.4"
+                stroke="#cccccc"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span
+            class="font-display text-lg font-extrabold tracking-[-0.01em] text-[#2b2b2b]"
+            >SiKandang</span
+          >
+        </a>
+
+        <nav
+          id="primary-nav"
+          aria-label="Navigasi utama"
+          class="absolute left-4 right-4 top-[76px] z-50 hidden flex-col gap-1 rounded-2xl border border-[#cccccc] bg-white p-3 shadow-2xl md:static md:ml-auto md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <a
+            href="index.html"
+            data-nav="beranda"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Beranda</a
+          >
+          <a
+            href="pakan.html"
+            data-nav="pakan"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Pakan</a
+          >
+          <a
+            href="catatan-harian.html"
+            data-nav="catatan"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Catatan Harian</a
+          >
+          <a
+            href="riwayat-stok.html"
+            data-nav="riwayat"
+            class="rounded-lg px-3 py-2 text-sm font-semibold text-[#595959] transition hover:bg-brand-50 hover:text-brand-700"
+            >Riwayat Stok</a
+          >
+          <a
+            href="catatan-harian.html"
+            class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-brand-700/15 transition hover:-translate-y-0.5 hover:bg-brand-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 active:translate-y-0 md:mt-0 md:ml-2"
+          >
+            <span class="text-base leading-none">+</span> Catat Catatan
+          </a>
+        </nav>
+
+        <button
+          id="nav-toggle"
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#cccccc] bg-white text-[#595959] shadow-sm transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 md:hidden"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          aria-label="Buka menu"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            class="h-5 w-5"
+            aria-hidden="true"
+          >
+            <path
+              d="M4 7h16M4 12h16M4 17h16"
+              stroke="currentColor"
+              stroke-width="1.9"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div
+      id="nav-backdrop"
+      class="fixed inset-0 z-40 hidden bg-[#2b2b2b]/40 backdrop-blur-[2px] md:hidden"
+      aria-hidden="true"
+    ></div>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">Riwayat Mutasi Stok</h1>
-                <p class="text-gray-500 text-sm">Audit trail perubahan stok pakan. Data ini diisi otomatis oleh trigger database.</p>
-            </div>
-            <div class="flex gap-2">
-                <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-emerald-500">
-                    <option>Semua Pakan</option>
-                </select>
-                <select class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-emerald-500">
-                    <option>Semua Kandang</option>
-                </select>
-                <button class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium px-3 py-1.5 rounded-lg text-sm transition">Cetak</button>
-            </div>
+    <main id="main-content" class="flex-1">
+      <div
+        class="mx-auto w-full max-w-[1180px] space-y-6 px-4 py-8 sm:px-6 sm:py-10 lg:px-8"
+      >
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div>
+            <h1
+              class="font-display text-3xl font-extrabold tracking-[-0.01em] text-[#2b2b2b] sm:text-4xl"
+            >
+              Riwayat Mutasi Stok
+            </h1>
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-[#595959]">
+              Audit trail perubahan stok pakan. Data ini diisi otomatis oleh
+              trigger database.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <select
+              class="rounded-xl border border-[#cccccc] bg-white px-3 py-2.5 text-sm font-medium text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+            >
+              <option>Semua Pakan</option>
+            </select>
+            <select
+              class="rounded-xl border border-[#cccccc] bg-white px-3 py-2.5 text-sm font-medium text-[#2b2b2b] shadow-sm outline-none transition focus:border-brand-600 focus:ring-4 focus:ring-brand-600/10"
+            >
+              <option>Semua Kandang</option>
+            </select>
+            <button
+              class="inline-flex items-center justify-center rounded-xl border border-[#cccccc] bg-white px-4 py-2.5 text-sm font-bold text-[#2b2b2b] shadow-sm transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            >
+              Cetak
+            </button>
+          </div>
         </div>
 
         <!-- STATS -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                <div class="text-xs text-gray-500 font-medium">Total Mutasi</div>
-                <div class="text-2xl font-bold text-gray-900 mt-1">48</div>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div class="panel rounded-2xl p-5">
+            <div
+              class="text-[10px] font-bold uppercase tracking-[0.05em] text-[#595959]"
+            >
+              Total Mutasi
             </div>
-            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                <div class="text-xs text-gray-500 font-medium">Total Terpakai</div>
-                <div class="text-2xl font-bold text-rose-600 mt-1">180 <span class="text-sm font-normal text-gray-500">kg</span></div>
+            <div
+              class="mt-2 font-display text-2xl font-extrabold tracking-[-0.01em] text-[#2b2b2b]"
+            >
+              48
             </div>
-            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                <div class="text-xs text-gray-500 font-medium">Stok Masuk</div>
-                <div class="text-2xl font-bold text-emerald-600 mt-1">0 <span class="text-sm font-normal text-gray-500">kg</span></div>
+          </div>
+          <div class="panel rounded-2xl p-5">
+            <div
+              class="text-[10px] font-bold uppercase tracking-[0.05em] text-[#595959]"
+            >
+              Total Terpakai
             </div>
+            <div
+              class="mt-2 font-display text-2xl font-extrabold tracking-[-0.01em] text-rose-600"
+            >
+              180 <span class="text-sm font-bold text-[#595959]">kg</span>
+            </div>
+          </div>
+          <div class="panel rounded-2xl p-5">
+            <div
+              class="text-[10px] font-bold uppercase tracking-[0.05em] text-[#595959]"
+            >
+              Stok Masuk
+            </div>
+            <div
+              class="mt-2 font-display text-2xl font-extrabold tracking-[-0.01em] text-brand-600"
+            >
+              0 <span class="text-sm font-bold text-[#595959]">kg</span>
+            </div>
+          </div>
         </div>
 
         <!-- TABEL MUTASI -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
-            <table class="w-full text-sm text-left">
-                <thead class="bg-gray-50 text-gray-500 uppercase text-xs border-b border-gray-100">
-                    <tr>
-                        <th class="px-6 py-3">#</th>
-                        <th class="px-6 py-3">Waktu</th>
-                        <th class="px-6 py-3">Pakan</th>
-                        <th class="px-6 py-3">Stok Sebelum</th>
-                        <th class="px-6 py-3">Stok Sesudah</th>
-                        <th class="px-6 py-3">Keterangan</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    <tr>
-                        <td class="px-6 py-4 text-gray-400">48</td>
-                        <td class="px-6 py-4">21 Okt 2026 13:02</td>
-                        <td class="px-6 py-4 font-bold">Konsentrat</td>
-                        <td class="px-6 py-4">100,00</td>
-                        <td class="px-6 py-4 font-semibold text-rose-600">95,00</td>
-                        <td class="px-6 py-4 text-gray-600">Pemberian #12 - Kandang A1</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 text-gray-400">47</td>
-                        <td class="px-6 py-4">21 Okt 2026 13:02</td>
-                        <td class="px-6 py-4 font-bold">Bekatul</td>
-                        <td class="px-6 py-4">16,00</td>
-                        <td class="px-6 py-4 font-semibold text-rose-600">12,00</td>
-                        <td class="px-6 py-4 text-gray-600">Pemberian #11 - Kandang A2</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 text-gray-400">46</td>
-                        <td class="px-6 py-4">20 Okt 2026 08:15</td>
-                        <td class="px-6 py-4 font-bold">Jagung Giling</td>
-                        <td class="px-6 py-4">82,00</td>
-                        <td class="px-6 py-4 font-semibold text-rose-600">75,00</td>
-                        <td class="px-6 py-4 text-gray-600">Pemberian #10 - Kandang B1</td>
-                    </tr>
-                    <tr>
-                        <td class="px-6 py-4 text-gray-400">45</td>
-                        <td class="px-6 py-4">20 Okt 2026 08:15</td>
-                        <td class="px-6 py-4 font-bold">Konsentrat</td>
-                        <td class="px-6 py-4">106,00</td>
-                        <td class="px-6 py-4 font-semibold text-rose-600">100,00</td>
-                        <td class="px-6 py-4 text-gray-600">Pemberian #9 - Kandang B2</td>
-                    </tr>
-                </tbody>
+        <div class="panel overflow-hidden rounded-2xl">
+          <div class="overflow-x-auto">
+            <table class="table-stack w-full text-left text-[13px]">
+              <thead class="bg-[#f2f2f2]/80">
+                <tr class="border-b border-[#e6e6e6]">
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    #
+                  </th>
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    Waktu
+                  </th>
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    Pakan
+                  </th>
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    Stok Sebelum
+                  </th>
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    Stok Sesudah
+                  </th>
+                  <th
+                    class="whitespace-nowrap px-5 py-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[#595959]"
+                  >
+                    Keterangan
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#e6e6e6]">
+                <tr class="transition hover:bg-[#f2f2f2]/60">
+                  <td data-label="#" class="px-5 py-4 text-[#7f7f7f]">48</td>
+                  <td
+                    data-label="Waktu"
+                    class="whitespace-nowrap px-5 py-4 text-[#2b2b2b]"
+                  >
+                    21 Okt 2026 13:02
+                  </td>
+                  <td
+                    data-label="Pakan"
+                    class="px-5 py-4 font-bold text-[#2b2b2b]"
+                  >
+                    Konsentrat
+                  </td>
+                  <td data-label="Sebelum" class="px-5 py-4 text-[#2b2b2b]">
+                    100,00
+                  </td>
+                  <td
+                    data-label="Sesudah"
+                    class="px-5 py-4 font-semibold text-rose-600"
+                  >
+                    95,00
+                  </td>
+                  <td data-label="Keterangan" class="px-5 py-4 text-[#595959]">
+                    Pemberian #12 - Kandang A1
+                  </td>
+                </tr>
+                <tr class="transition hover:bg-[#f2f2f2]/60">
+                  <td data-label="#" class="px-5 py-4 text-[#7f7f7f]">47</td>
+                  <td
+                    data-label="Waktu"
+                    class="whitespace-nowrap px-5 py-4 text-[#2b2b2b]"
+                  >
+                    21 Okt 2026 13:02
+                  </td>
+                  <td
+                    data-label="Pakan"
+                    class="px-5 py-4 font-bold text-[#2b2b2b]"
+                  >
+                    Bekatul
+                  </td>
+                  <td data-label="Sebelum" class="px-5 py-4 text-[#2b2b2b]">
+                    16,00
+                  </td>
+                  <td
+                    data-label="Sesudah"
+                    class="px-5 py-4 font-semibold text-rose-600"
+                  >
+                    12,00
+                  </td>
+                  <td data-label="Keterangan" class="px-5 py-4 text-[#595959]">
+                    Pemberian #11 - Kandang A2
+                  </td>
+                </tr>
+                <tr class="transition hover:bg-[#f2f2f2]/60">
+                  <td data-label="#" class="px-5 py-4 text-[#7f7f7f]">46</td>
+                  <td
+                    data-label="Waktu"
+                    class="whitespace-nowrap px-5 py-4 text-[#2b2b2b]"
+                  >
+                    20 Okt 2026 08:15
+                  </td>
+                  <td
+                    data-label="Pakan"
+                    class="px-5 py-4 font-bold text-[#2b2b2b]"
+                  >
+                    Jagung Giling
+                  </td>
+                  <td data-label="Sebelum" class="px-5 py-4 text-[#2b2b2b]">
+                    82,00
+                  </td>
+                  <td
+                    data-label="Sesudah"
+                    class="px-5 py-4 font-semibold text-rose-600"
+                  >
+                    75,00
+                  </td>
+                  <td data-label="Keterangan" class="px-5 py-4 text-[#595959]">
+                    Pemberian #10 - Kandang B1
+                  </td>
+                </tr>
+                <tr class="transition hover:bg-[#f2f2f2]/60">
+                  <td data-label="#" class="px-5 py-4 text-[#7f7f7f]">45</td>
+                  <td
+                    data-label="Waktu"
+                    class="whitespace-nowrap px-5 py-4 text-[#2b2b2b]"
+                  >
+                    20 Okt 2026 08:15
+                  </td>
+                  <td
+                    data-label="Pakan"
+                    class="px-5 py-4 font-bold text-[#2b2b2b]"
+                  >
+                    Konsentrat
+                  </td>
+                  <td data-label="Sebelum" class="px-5 py-4 text-[#2b2b2b]">
+                    106,00
+                  </td>
+                  <td
+                    data-label="Sesudah"
+                    class="px-5 py-4 font-semibold text-rose-600"
+                  >
+                    100,00
+                  </td>
+                  <td data-label="Keterangan" class="px-5 py-4 text-[#595959]">
+                    Pemberian #9 - Kandang B2
+                  </td>
+                </tr>
+              </tbody>
             </table>
-            
-            <div class="p-4 border-t border-gray-100 flex justify-between items-center text-xs text-gray-500">
-                <div>Menampilkan 4 dari 48 mutasi</div>
-                <div class="flex gap-1">
-                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50" disabled>&lt;</button>
-                    <button class="px-2.5 py-1 bg-emerald-600 text-white rounded font-bold">1</button>
-                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">2</button>
-                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">3</button>
-                    <button class="px-2.5 py-1 border border-gray-200 rounded hover:bg-gray-50">&gt;</button>
-                </div>
+          </div>
+          <div
+            class="flex items-center justify-between gap-3 border-t border-[#e6e6e6] px-5 py-3 text-[11px] text-[#595959]"
+          >
+            <div>Menampilkan 4 dari 48 mutasi</div>
+            <div class="flex gap-1">
+              <button
+                class="rounded-lg border border-[#cccccc] bg-white px-2.5 py-1 transition hover:bg-[#f2f2f2] disabled:opacity-40"
+                disabled
+              >
+                &lt;
+              </button>
+              <button
+                class="rounded-lg bg-brand-700 px-2.5 py-1 font-bold text-white"
+              >
+                1
+              </button>
+              <button
+                class="rounded-lg border border-[#cccccc] bg-white px-2.5 py-1 transition hover:bg-[#f2f2f2]"
+              >
+                2
+              </button>
+              <button
+                class="rounded-lg border border-[#cccccc] bg-white px-2.5 py-1 transition hover:bg-[#f2f2f2]"
+              >
+                3
+              </button>
+              <button
+                class="rounded-lg border border-[#cccccc] bg-white px-2.5 py-1 transition hover:bg-[#f2f2f2]"
+              >
+                &gt;
+              </button>
             </div>
+          </div>
         </div>
-
+      </div>
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-950 text-gray-400 border-t border-slate-900 py-6 text-xs mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>SiKandang — UTS Database Systems II & Web Programming Dasar</div>
-            
+    <footer
+      class="site-footer mt-20 border-t border-[#2b2b2b] bg-[#2b2b2b] py-7 text-xs text-[#a5a5a5]"
+    >
+      <div
+        class="mx-auto flex w-full max-w-[1180px] flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"
+      >
+        <p>SiKandang — UTS Database Systems II &amp; Web Programming Dasar</p>
+        <p>Awalis (Frontend) · Tamam (Backend) · Jawed (Database)</p>
+      </div>
     </footer>
 
-</body>
+    <script defer src="assets/js/config.js"></script>
+    <script defer src="assets/js/api.js"></script>
+    <script defer src="assets/js/ui.js"></script>
+  </body>
 </html>

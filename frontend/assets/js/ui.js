@@ -30,7 +30,7 @@
   function escapeHTML(value) {
     return String(value == null ? "" : value).replace(
       /[&<>"']/g,
-      (character) => escapeMap[character]
+      (character) => escapeMap[character],
     );
   }
 
@@ -64,12 +64,12 @@
       return new Date(
         Number(dateOnly[1]),
         Number(dateOnly[2]) - 1,
-        Number(dateOnly[3])
+        Number(dateOnly[3]),
       );
     }
 
     const dateTime = text.match(
-      /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/
+      /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?/,
     );
 
     if (dateTime) {
@@ -79,7 +79,7 @@
         Number(dateTime[3]),
         Number(dateTime[4] || 0),
         Number(dateTime[5] || 0),
-        Number(dateTime[6] || 0)
+        Number(dateTime[6] || 0),
       );
     }
 
@@ -104,7 +104,7 @@
     const today = new Date();
     const pad = (number) => String(number).padStart(2, "0");
     return `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(
-      today.getDate()
+      today.getDate(),
     )}`;
   }
 
@@ -121,14 +121,14 @@
     const initial = Number(stokAwal) > 0 ? Number(stokAwal) : 100;
     const percent = Math.max(
       0,
-      Math.min(100, Math.round((value / initial) * 100))
+      Math.min(100, Math.round((value / initial) * 100)),
     );
 
     let status = "success";
     let label = "Aman";
-    let badgeClass = "bg-green-100 text-green-800";
-    let barClass = "from-green-600 to-green-500";
-    let borderClass = "border-slate-200";
+    let badgeClass = "bg-brand-100 text-brand-800";
+    let barClass = "from-brand-600 to-brand-500";
+    let borderClass = "border-[#cccccc]";
 
     if (value <= 0) {
       status = "critical";
@@ -172,19 +172,17 @@
 
     const isApi = info && info.mode === "api";
     element.className =
-      "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[10px] font-bold text-slate-500 shadow-sm";
+      "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-[#cccccc] bg-white px-2.5 py-1 text-[10px] font-bold text-[#595959] shadow-sm";
     element.innerHTML = `<span class="h-1.5 w-1.5 rounded-full ${
-      isApi ? "bg-green-500" : "bg-amber-500"
+      isApi ? "bg-brand-500" : "bg-amber-500"
     }"></span>${isApi ? "API terhubung" : "Mode demo"}`;
     element.title = isApi
       ? `Data diambil dari ${info.apiBase}`
       : info && info.lastError
-      ? `${info.lastError} Data demo disimpan di browser.`
-      : "Data demo disimpan di browser.";
+        ? `${info.lastError} Data demo disimpan di browser.`
+        : "Data demo disimpan di browser.";
     element.setAttribute("aria-label", element.title);
   }
-
-  
 
   const toastTitles = {
     success: "Berhasil",
@@ -197,8 +195,7 @@
       '<path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
     error:
       '<path d="M12 8v5m0 3h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
-    info:
-      '<path d="M12 16v-4m0-4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
+    info: '<path d="M12 16v-4m0-4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
   };
 
   function toast(message, type = "success", title = "") {
@@ -223,8 +220,8 @@
       : "success";
     const tone = {
       success: {
-        ring: "border-green-200",
-        icon: "bg-green-100 text-green-700",
+        ring: "border-brand-200",
+        icon: "bg-brand-100 text-brand-700",
       },
       error: {
         ring: "border-rose-200",
@@ -237,17 +234,17 @@
     }[toastType];
 
     const element = document.createElement("div");
-    element.className = `animate-toast-in flex items-start gap-3 rounded-2xl border ${tone.ring} bg-white p-3.5 text-slate-800 shadow-float`;
+    element.className = `animate-toast-in flex items-start gap-3 rounded-2xl border ${tone.ring} bg-white p-3.5 text-[#2b2b2b] shadow-float`;
     element.setAttribute("role", "status");
     element.innerHTML = `
       <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full ${tone.icon}">
         <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">${toastIcons[toastType]}</svg>
       </span>
       <div class="min-w-0 flex-1 pt-0.5">
-        <p class="toast-title text-xs font-extrabold text-slate-900"></p>
-        <p class="toast-message mt-0.5 text-[11.5px] leading-5 text-slate-500"></p>
+        <p class="toast-title text-xs font-extrabold text-[#2b2b2b]"></p>
+        <p class="toast-message mt-0.5 text-[11.5px] leading-5 text-[#595959]"></p>
       </div>
-      <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Tutup notifikasi">
+      <button type="button" class="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-[#7f7f7f] transition hover:bg-[#f2f2f2] hover:text-[#2b2b2b]" aria-label="Tutup notifikasi">
         <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
           <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -275,8 +272,6 @@
     stack.appendChild(element);
     setTimeout(remove, toastType === "error" ? 6500 : 4500);
   }
-
-  
 
   function openDialog(dialogOrId, trigger) {
     const dialog =
@@ -346,7 +341,6 @@
     });
   }
 
-  
   function hideAlert(element) {
     if (!element) {
       return;
@@ -364,8 +358,8 @@
       type === "warning"
         ? "border-amber-200 bg-amber-50 text-amber-800"
         : type === "info"
-        ? "border-sky-200 bg-sky-50 text-sky-800"
-        : "border-rose-200 bg-rose-50 text-rose-700";
+          ? "border-sky-200 bg-sky-50 text-sky-800"
+          : "border-rose-200 bg-rose-50 text-rose-700";
 
     element.className = `flex items-start gap-2 rounded-xl border px-3.5 py-3 text-xs font-semibold leading-5 ${tone}`;
     element.textContent = message;
@@ -397,7 +391,7 @@
     const field =
       form.elements[fieldName] || form.querySelector(`[name="${fieldName}"]`);
     const error = form.querySelector(
-      `[data-field-error="${String(fieldName).replace(/"/g, '\\"')}"]`
+      `[data-field-error="${String(fieldName).replace(/"/g, '\\"')}"]`,
     );
 
     if (field) {
@@ -441,7 +435,7 @@
       button.disabled = true;
       button.setAttribute("aria-busy", "true");
       button.innerHTML = `<span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" aria-hidden="true"></span><span>${escapeHTML(
-        loadingLabel
+        loadingLabel,
       )}</span>`;
       return;
     }
@@ -455,8 +449,6 @@
     }
   }
 
-  
-
   function tableStateRow(colspan, content) {
     return `<tr class="state-row"><td colspan="${colspan}">${content}</td></tr>`;
   }
@@ -468,14 +460,14 @@
 
     return `
       <div class="flex flex-col items-center justify-center px-5 py-10 text-center">
-        <span class="grid h-12 w-12 place-items-center rounded-2xl bg-green-50 text-green-700">
+        <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-50 text-brand-700">
           <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
             <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
             <path d="m4.5 7.5 7.5 4.2 7.5-4.2M12 21v-9.3" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
           </svg>
         </span>
-        <h3 class="mt-3.5 text-sm font-extrabold text-slate-900">${title}</h3>
-        <p class="mt-1 max-w-sm text-xs leading-5 text-slate-500">${text}</p>
+        <h3 class="mt-3.5 text-sm font-extrabold text-[#2b2b2b]">${title}</h3>
+        <p class="mt-1 max-w-sm text-xs leading-5 text-[#595959]">${text}</p>
         ${action}
       </div>
     `;
@@ -498,9 +490,9 @@
               <span class="skeleton skeleton--text ${lineWidths[index % lineWidths.length]}"></span>
               <span class="skeleton skeleton--text ml-auto w-16 shrink-0"></span>
             </div>
-          `
+          `,
         )
-        .join("")}</div>`
+        .join("")}</div>`,
     );
   }
 
@@ -514,24 +506,22 @@
           </svg>
         </span>
         <p class="max-w-md text-xs font-semibold leading-5 text-rose-700">${escapeHTML(
-          message
+          message,
         )}</p>
-        <button type="button" ${retryAttribute} class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-50">
+        <button type="button" ${retryAttribute} class="inline-flex items-center gap-1.5 rounded-lg border border-[#cccccc] bg-white px-3 py-1.5 text-xs font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2]">
           Coba lagi
         </button>
-      </div>`
+      </div>`,
     );
   }
-
-  
 
   function setActiveNav() {
     const page = document.body.dataset.page;
     document.querySelectorAll("[data-nav]").forEach((link) => {
       const active = link.dataset.nav === page;
-      link.classList.toggle("bg-green-50", active);
-      link.classList.toggle("text-green-700", active);
-      link.classList.toggle("text-slate-500", !active);
+      link.classList.toggle("bg-brand-50", active);
+      link.classList.toggle("text-brand-700", active);
+      link.classList.toggle("text-[#595959]", !active);
       if (active) {
         link.setAttribute("aria-current", "page");
       } else {

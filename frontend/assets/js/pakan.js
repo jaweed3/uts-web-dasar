@@ -103,7 +103,7 @@
         <button type="button" data-action="edit" data-id="${item.id_pakan}"
           class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-blue-600 transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">Edit</button>
         <button type="button" data-action="stock" data-id="${item.id_pakan}"
-          class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-green-700 transition hover:bg-green-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600">Stok Masuk</button>
+          class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-brand-700 transition hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Stok Masuk</button>
         <button type="button" data-action="delete" data-id="${item.id_pakan}"
           class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">Hapus</button>
       </div>
@@ -116,44 +116,44 @@
       meta.status === "warning"
         ? "text-amber-700"
         : meta.status === "critical"
-        ? "text-rose-600"
-        : "text-slate-900";
+          ? "text-rose-600"
+          : "text-[#2b2b2b]";
 
     const rowTone =
       meta.status === "warning"
         ? "bg-amber-50/30 hover:bg-amber-50/60"
         : meta.status === "critical"
-        ? "bg-rose-50/30 hover:bg-rose-50/60"
-        : "hover:bg-slate-50/70";
+          ? "bg-rose-50/30 hover:bg-rose-50/60"
+          : "hover:bg-[#f2f2f2]/70";
 
     return `
       <tr class="transition ${rowTone}">
-        <td data-label="#" class="cell-index whitespace-nowrap px-5 py-3.5 text-[12px] font-semibold text-slate-400">${String(
-          index + 1
+        <td data-label="#" class="cell-index whitespace-nowrap px-5 py-3.5 text-[12px] font-semibold text-[#7f7f7f]">${String(
+          index + 1,
         ).padStart(2, "0")}</td>
         <td data-label="Nama Pakan" class="px-5 py-3.5">
           <div class="flex flex-col items-end gap-0.5 md:items-start">
-            <span class="text-[13px] font-extrabold text-slate-900">${UI.escapeHTML(
-              item.nama_pakan
+            <span class="text-[13px] font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
+              item.nama_pakan,
             )}</span>
-            <span class="text-[10px] font-medium text-slate-400">ID #${item.id_pakan}</span>
+            <span class="text-[10px] font-medium text-[#7f7f7f]">ID #${item.id_pakan}</span>
           </div>
         </td>
         <td data-label="Stok (kg)" class="whitespace-nowrap px-5 py-3.5">
           <span class="text-[13px] font-extrabold ${stockTone}">${UI.formatNumber(
-            item.stok_kg
+            item.stok_kg,
           )}</span>
-          <span class="text-[11px] font-medium text-slate-400">kg</span>
+          <span class="text-[11px] font-medium text-[#7f7f7f]">kg</span>
         </td>
         <td data-label="Sisa Stok" class="px-5 py-3.5">
           <div class="progress-wrap flex min-w-[8rem] flex-col gap-1">
-            <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+            <div class="h-2 overflow-hidden rounded-full bg-[#f2f2f2]">
               <div class="progress-fill h-full rounded-full bg-gradient-to-r ${meta.barClass}" style="width:${meta.percent}%"></div>
             </div>
             <div class="flex items-center justify-between gap-2">
-              <span class="text-[10px] font-medium text-slate-400">${meta.percent}%</span>
-              <span class="text-[10px] font-medium text-slate-400">${UI.formatNumber(
-                meta.initial
+              <span class="text-[10px] font-medium text-[#7f7f7f]">${meta.percent}%</span>
+              <span class="text-[10px] font-medium text-[#7f7f7f]">${UI.formatNumber(
+                meta.initial,
               )} kg</span>
             </div>
           </div>
@@ -178,7 +178,7 @@
         title: "Belum ada pakan",
         text: "Tambahkan jenis pakan pertama supaya stok dan catatan harian bisa dikelola.",
         action:
-          '<button type="button" data-empty-add class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-green-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-green-800">Tambah pakan</button>',
+          '<button type="button" data-empty-add class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-brand-800">Tambah pakan</button>',
       });
       if (countElement) {
         countElement.textContent = "0 jenis pakan";
@@ -193,7 +193,7 @@
         title: "Tidak ada hasil",
         text: "Coba kata kunci lain atau ubah filter status pakan.",
         action:
-          '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50">Bersihkan filter</button>',
+          '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#cccccc] bg-white px-3.5 py-2 text-xs font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2]">Bersihkan filter</button>',
       });
     } else {
       tableBody.innerHTML = items.map(pakanRow).join("");
@@ -242,9 +242,7 @@
       renderTable();
     } catch (error) {
       const message =
-        error && error.message
-          ? error.message
-          : "Gagal memuat data pakan.";
+        error && error.message ? error.message : "Gagal memuat data pakan.";
       showLoadError(message);
 
       if (tableBody) {
@@ -345,15 +343,11 @@
         UI.setFieldError(
           pakanForm,
           "stok_kg",
-          "Stok awal tidak boleh negatif."
+          "Stok awal tidak boleh negatif.",
         );
         valid = false;
       } else if (stokValue !== "" && !Number.isFinite(Number(stokValue))) {
-        UI.setFieldError(
-          pakanForm,
-          "stok_kg",
-          "Stok awal harus berupa angka."
-        );
+        UI.setFieldError(pakanForm, "stok_kg", "Stok awal harus berupa angka.");
         valid = false;
       }
     }
@@ -383,7 +377,7 @@
       if (!applied) {
         UI.showAlert(
           pakanForm.querySelector("[data-form-alert]"),
-          error.message || "Gagal menyimpan pakan."
+          error.message || "Gagal menyimpan pakan.",
         );
       }
     } finally {
@@ -403,7 +397,7 @@
       UI.setFieldError(
         stokForm,
         "jumlah",
-        "Jumlah tambahan harus lebih dari 0 kg."
+        "Jumlah tambahan harus lebih dari 0 kg.",
       );
       return;
     }
@@ -412,10 +406,7 @@
 
     try {
       await window.SiKandangAPI.addStokPakan(id, jumlah);
-      UI.toast(
-        `Stok bertambah ${UI.formatNumber(jumlah)} kg.`,
-        "success"
-      );
+      UI.toast(`Stok bertambah ${UI.formatNumber(jumlah)} kg.`, "success");
       UI.closeDialog(stokDialog);
       await load();
     } catch (error) {
@@ -423,7 +414,7 @@
       if (!applied) {
         UI.showAlert(
           stokForm.querySelector("[data-form-alert]"),
-          error.message || "Gagal menambah stok."
+          error.message || "Gagal menambah stok.",
         );
       }
     } finally {
@@ -465,9 +456,7 @@
         return;
       }
       field.removeAttribute("aria-invalid");
-      const error = form.querySelector(
-        `[data-field-error="${field.name}"]`
-      );
+      const error = form.querySelector(`[data-field-error="${field.name}"]`);
       if (error) {
         error.classList.add("hidden");
       }
@@ -529,8 +518,7 @@
         }
 
         const item = state.items.find(
-          (pakan) =>
-            Number(pakan.id_pakan) === Number(actionButton.dataset.id)
+          (pakan) => Number(pakan.id_pakan) === Number(actionButton.dataset.id),
         );
 
         if (!item) {

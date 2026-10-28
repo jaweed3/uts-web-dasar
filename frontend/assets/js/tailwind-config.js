@@ -1,30 +1,45 @@
 tailwind.config = {
   theme: {
     extend: {
+      colors: {
+        cream: "#f2f2f2",
+        alice: "#f2f2f2",
+        peri: "#cccccc",
+
+        brand: {
+          50: "#f2f2f2",
+          100: "#e6e6e6",
+          200: "#cccccc",
+          300: "#b3b3b3",
+          400: "#999999",
+          500: "#7f7f7f",
+          600: "#666666",
+          700: "#595959",
+          800: "#3f3f3f",
+          900: "#2b2b2b",
+          950: "#1f1f1f",
+        },
+      },
       fontFamily: {
         sans: [
-          '"Plus Jakarta Sans"',
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
+          '"EB Garamond"',
+          '"Goudy Bookletter 1911"',
+          "Georgia",
+          '"Times New Roman"',
+          "serif",
         ],
         display: [
-          '"Plus Jakarta Sans"',
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Roboto",
-          "sans-serif",
+          '"Goudy Bookletter 1911"',
+          '"EB Garamond"',
+          "Georgia",
+          '"Times New Roman"',
+          "serif",
         ],
       },
       boxShadow: {
-        card: "0 1px 2px rgba(15, 23, 42, 0.04), 0 18px 40px -32px rgba(15, 23, 42, 0.35)",
-        float: "0 24px 60px -30px rgba(15, 23, 42, 0.45)",
-        glow: "0 18px 40px -20px rgba(21, 128, 61, 0.55)",
+        card: "0 1px 2px rgba(43, 43, 43, 0.06), 0 18px 40px -32px rgba(43, 43, 43, 0.28)",
+        float: "0 24px 60px -30px rgba(43, 43, 43, 0.40)",
+        glow: "0 18px 40px -20px rgba(89, 89, 89, 0.40)",
       },
       keyframes: {
         "fade-up": {

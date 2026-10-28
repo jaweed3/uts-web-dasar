@@ -1,5 +1,3 @@
-
-
 (function () {
   "use strict";
 
@@ -67,8 +65,12 @@
   function renderStats(pakan, catatan) {
     const kandang = new Set(
       catatan
-        .map((item) => String(item.kandang || "").trim().toUpperCase())
-        .filter(Boolean)
+        .map((item) =>
+          String(item.kandang || "")
+            .trim()
+            .toUpperCase(),
+        )
+        .filter(Boolean),
     );
 
     setStat("pakan", UI.formatNumber(pakan.length, 0));
@@ -87,9 +89,8 @@
     }
 
     const pakanTerpakai =
-      pakan.find(
-        (item) => Number(item.id_pakan) === Number(latest.id_pakan)
-      ) || null;
+      pakan.find((item) => Number(item.id_pakan) === Number(latest.id_pakan)) ||
+      null;
 
     const kandang = document.querySelector("[data-hero-kandang]");
     const detail = document.querySelector("[data-hero-detail]");
@@ -103,7 +104,7 @@
 
     if (detail) {
       detail.textContent = `Pemberian ${UI.formatNumber(
-        latest.jumlah_pakan_kg
+        latest.jumlah_pakan_kg,
       )} kg • Panen ${UI.formatNumber(latest.jumlah_telur, 0)} telur`;
     }
 
@@ -119,7 +120,7 @@
 
     if (stockValue) {
       stockValue.textContent = UI.formatNumber(
-        pakanTerpakai ? pakanTerpakai.stok_kg : 0
+        pakanTerpakai ? pakanTerpakai.stok_kg : 0,
       );
     }
   }
@@ -130,27 +131,27 @@
     return `
       <article class="group flex flex-col rounded-2xl border ${meta.borderClass} bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
         <div class="flex items-center justify-between gap-3">
-          <h3 class="truncate text-sm font-extrabold text-slate-900">${UI.escapeHTML(
-            pakan.nama_pakan
+          <h3 class="truncate text-sm font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
+            pakan.nama_pakan,
           )}</h3>
           <span class="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold ${meta.badgeClass}">${meta.label}</span>
         </div>
 
         <div class="mt-3 flex items-baseline gap-1.5">
-          <strong class="text-3xl font-extrabold tracking-[-0.04em] text-slate-950">${UI.formatNumber(
-            pakan.stok_kg
+          <strong class="text-3xl font-extrabold tracking-[-0.01em] text-[#2b2b2b]">${UI.formatNumber(
+            pakan.stok_kg,
           )}</strong>
-          <span class="text-xs font-bold text-slate-500">kg</span>
+          <span class="text-xs font-bold text-[#595959]">kg</span>
         </div>
 
         <div class="mt-4">
-          <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+          <div class="h-2 overflow-hidden rounded-full bg-[#f2f2f2]">
             <div class="progress-fill h-full rounded-full bg-gradient-to-r ${meta.barClass}" style="width:${meta.percent}%"></div>
           </div>
-          <p class="mt-2 text-[11px] font-medium text-slate-400">${meta.note}</p>
+          <p class="mt-2 text-[11px] font-medium text-[#7f7f7f]">${meta.note}</p>
         </div>
 
-        <a href="pakan.html" class="mt-4 inline-flex w-fit items-center gap-1 text-[11px] font-bold text-green-700 transition hover:gap-2 hover:text-green-800">
+        <a href="pakan.html" class="mt-4 inline-flex w-fit items-center gap-1 text-[11px] font-bold text-brand-700 transition hover:gap-2 hover:text-brand-800">
           Kelola pakan
           <svg viewBox="0 0 24 24" fill="none" class="h-3.5 w-3.5" aria-hidden="true">
             <path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -167,12 +168,12 @@
 
     if (!pakan.length) {
       stockGrid.innerHTML = `
-        <div class="rounded-2xl border border-dashed border-slate-300 bg-white md:col-span-3">
+        <div class="rounded-2xl border border-dashed border-[#cccccc] bg-white md:col-span-3">
           ${UI.emptyState({
             title: "Belum ada data pakan",
             text: "Tambahkan jenis pakan terlebih dahulu supaya stok bisa dipantau dari beranda.",
             action:
-              '<a href="pakan.html" class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-green-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-green-800">Tambah pakan</a>',
+              '<a href="pakan.html" class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-brand-800">Tambah pakan</a>',
           })}
         </div>
       `;
@@ -192,7 +193,7 @@
         title: "Belum ada catatan harian",
         text: "Catat pemberian pakan dan panen telur pertama untuk kandangmu.",
         action:
-          '<a href="catatan-harian.html" class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-green-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-green-800">Buat catatan</a>',
+          '<a href="catatan-harian.html" class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-brand-800">Buat catatan</a>',
       });
       return;
     }
@@ -201,28 +202,28 @@
       .slice(0, 4)
       .map(
         (item) => `
-          <tr class="transition hover:bg-slate-50/70">
-            <td data-label="Tanggal" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-500">${UI.formatDate(
-              item.tanggal
+          <tr class="transition hover:bg-[#f2f2f2]/70">
+            <td data-label="Tanggal" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatDate(
+              item.tanggal,
             )}</td>
-            <td data-label="Kandang" class="whitespace-nowrap px-5 py-3.5 text-[13px] font-extrabold text-slate-900">${UI.escapeHTML(
-              item.kandang
+            <td data-label="Kandang" class="whitespace-nowrap px-5 py-3.5 text-[13px] font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
+              item.kandang,
             )}</td>
-            <td data-label="Pakan" class="px-5 py-3.5 text-[13px] text-slate-600">${UI.escapeHTML(
-              item.nama_pakan
+            <td data-label="Pakan" class="px-5 py-3.5 text-[13px] text-[#595959]">${UI.escapeHTML(
+              item.nama_pakan,
             )}</td>
-            <td data-label="Jumlah" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
-              item.jumlah_pakan_kg
+            <td data-label="Jumlah" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
+              item.jumlah_pakan_kg,
             )} kg</td>
-            <td data-label="Telur" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
+            <td data-label="Telur" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
               item.jumlah_telur,
-              0
+              0,
             )} butir</td>
-            <td data-label="Berat" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
-              item.berat_telur_kg
+            <td data-label="Berat" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
+              item.berat_telur_kg,
             )} kg</td>
           </tr>
-        `
+        `,
       )
       .join("");
   }
@@ -271,14 +272,12 @@
         return;
       }
       window.sessionStorage.setItem("sikandang.demo.notice", "1");
-    } catch (error) {
-      
-    }
+    } catch (error) {}
 
     UI.toast(
       "Backend belum terdeteksi, jadi data demo ditampilkan. Semua fitur tetap bisa dicoba.",
       "info",
-      "Mode demo aktif"
+      "Mode demo aktif",
     );
   }
 

@@ -82,15 +82,11 @@
   }
 
   function findPakan(id) {
-    return state.pakan.find(
-      (item) => Number(item.id_pakan) === Number(id)
-    );
+    return state.pakan.find((item) => Number(item.id_pakan) === Number(id));
   }
 
   function findCatatan(id) {
-    return state.items.find(
-      (item) => Number(item.id_beri) === Number(id)
-    );
+    return state.items.find((item) => Number(item.id_beri) === Number(id));
   }
 
   function setDefaultDate() {
@@ -126,7 +122,7 @@
           (item) =>
             `<option value="${item.id_pakan}" ${
               String(item.id_pakan) === selected ? "selected" : ""
-            }>${UI.escapeHTML(optionLabel(item))}</option>`
+            }>${UI.escapeHTML(optionLabel(item))}</option>`,
         )
         .join("");
   }
@@ -143,13 +139,13 @@
         .map(
           (item) =>
             `<option value="${item.id_pakan}">${UI.escapeHTML(
-              item.nama_pakan
-            )}</option>`
+              item.nama_pakan,
+            )}</option>`,
         )
         .join("");
 
     const exists = state.pakan.some(
-      (item) => String(item.id_pakan) === String(current)
+      (item) => String(item.id_pakan) === String(current),
     );
     state.filter = current === "all" || exists ? current : "all";
     filterSelect.value = state.filter;
@@ -164,10 +160,10 @@
 
     if (item) {
       hintElement.textContent = `Sisa stok ${UI.formatNumber(item.stok_kg)} kg`;
-      hintElement.className = "mt-1 text-[11px] font-semibold text-green-700";
+      hintElement.className = "mt-1 text-[11px] font-semibold text-brand-700";
     } else {
       hintElement.textContent = fallbackText;
-      hintElement.className = "mt-1 text-[11px] text-slate-400";
+      hintElement.className = "mt-1 text-[11px] text-[#7f7f7f]";
     }
   }
 
@@ -204,7 +200,7 @@
     return `
       <div class="row-actions flex flex-wrap items-center justify-end gap-0.5">
         ${detail}
-        <button type="button" data-action="edit" data-id="${item.id_beri}" class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-slate-600 transition hover:bg-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400">Edit</button>
+        <button type="button" data-action="edit" data-id="${item.id_beri}" class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-[#595959] transition hover:bg-[#f2f2f2] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7f7f7f]">Edit</button>
         <button type="button" data-action="delete" data-id="${item.id_beri}" class="rounded-lg px-2 py-1.5 text-[11.5px] font-bold text-rose-600 transition hover:bg-rose-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500">Hapus</button>
       </div>
     `;
@@ -212,30 +208,30 @@
 
   function catatanRow(item) {
     return `
-      <tr class="transition hover:bg-slate-50/70">
-        <td data-label="Tanggal" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-500">${UI.formatDate(
-          item.tanggal
+      <tr class="transition hover:bg-[#f2f2f2]/70">
+        <td data-label="Tanggal" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatDate(
+          item.tanggal,
         )}</td>
         <td data-label="Kandang" class="whitespace-nowrap px-5 py-3.5">
-          <span class="inline-flex rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-extrabold text-slate-800">${UI.escapeHTML(
-            item.kandang
+          <span class="inline-flex rounded-lg bg-[#f2f2f2] px-2 py-1 text-[11px] font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
+            item.kandang,
           )}</span>
         </td>
-        <td data-label="Pakan" class="px-5 py-3.5 text-[13px] text-slate-600">${UI.escapeHTML(
-          item.nama_pakan
+        <td data-label="Pakan" class="px-5 py-3.5 text-[13px] text-[#595959]">${UI.escapeHTML(
+          item.nama_pakan,
         )}</td>
-        <td data-label="Pakan (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
-          item.jumlah_pakan_kg
+        <td data-label="Pakan (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
+          item.jumlah_pakan_kg,
         )}</td>
-        <td data-label="Telur" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
+        <td data-label="Telur" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
           item.jumlah_telur,
-          0
+          0,
         )} butir</td>
-        <td data-label="Berat (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
-          item.berat_telur_kg
+        <td data-label="Berat (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
+          item.berat_telur_kg,
         )}</td>
         <td data-label="Aksi" class="cell-actions whitespace-nowrap px-5 py-3.5 text-right">${actionButtons(
-          item
+          item,
         )}</td>
       </tr>
     `;
@@ -251,7 +247,7 @@
         title: "Belum ada catatan harian",
         text: "Isi form di atas untuk mencatat pemberian pakan dan panen telur pertama.",
         action:
-          '<button type="button" data-focus-form class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-green-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-green-800">Isi form catatan</button>',
+          '<button type="button" data-focus-form class="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-brand-800">Isi form catatan</button>',
       });
       if (countElement) {
         countElement.textContent = "0 catatan";
@@ -266,7 +262,7 @@
         title: "Tidak ada hasil",
         text: "Coba kata kunci lain atau ubah filter pakan.",
         action:
-          '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50">Bersihkan filter</button>',
+          '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#cccccc] bg-white px-3.5 py-2 text-xs font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2]">Bersihkan filter</button>',
       });
     } else {
       tableBody.innerHTML = items.map(catatanRow).join("");
@@ -304,11 +300,11 @@
 
   function updateModeNote(info) {
     const canEdit = Boolean(
-      info && info.capabilities && info.capabilities.editCatatan
+      info && info.capabilities && info.capabilities.editCatatan,
     );
     state.capabilities.editCatatan = canEdit;
     state.capabilities.deleteCatatan = Boolean(
-      info && info.capabilities && info.capabilities.deleteCatatan
+      info && info.capabilities && info.capabilities.deleteCatatan,
     );
 
     if (modeNote) {
@@ -329,9 +325,7 @@
     setLoadingState();
 
     const currentPakanValue = pakanSelect ? pakanSelect.value : "";
-    const currentEditPakanValue = editPakanSelect
-      ? editPakanSelect.value
-      : "";
+    const currentEditPakanValue = editPakanSelect ? editPakanSelect.value : "";
 
     try {
       const info = await window.SiKandangAPI.init();
@@ -352,20 +346,18 @@
       updateStockHint(
         pakanSelect,
         pakanStockHint,
-        "Pilih pakan untuk melihat sisa stok."
+        "Pilih pakan untuk melihat sisa stok.",
       );
       updateStockHint(
         editPakanSelect,
         editStockHint,
-        "Sisa stok mengikuti data terbaru."
+        "Sisa stok mengikuti data terbaru.",
       );
       setDefaultDate();
       renderTable();
     } catch (error) {
       const message =
-        error && error.message
-          ? error.message
-          : "Gagal memuat catatan harian.";
+        error && error.message ? error.message : "Gagal memuat catatan harian.";
       showLoadError(message);
 
       if (tableBody) {
@@ -407,15 +399,11 @@
       valid = false;
     }
 
-    if (
-      raw.jumlah_pakan_kg === "" ||
-      !Number.isFinite(feed) ||
-      feed <= 0
-    ) {
+    if (raw.jumlah_pakan_kg === "" || !Number.isFinite(feed) || feed <= 0) {
       UI.setFieldError(
         formElement,
         "jumlah_pakan_kg",
-        "Jumlah pakan harus lebih dari 0 kg."
+        "Jumlah pakan harus lebih dari 0 kg.",
       );
       valid = false;
     }
@@ -429,20 +417,16 @@
       UI.setFieldError(
         formElement,
         "jumlah_telur",
-        "Jumlah telur harus bilangan bulat 0 atau lebih."
+        "Jumlah telur harus bilangan bulat 0 atau lebih.",
       );
       valid = false;
     }
 
-    if (
-      raw.berat_telur_kg === "" ||
-      !Number.isFinite(weight) ||
-      weight < 0
-    ) {
+    if (raw.berat_telur_kg === "" || !Number.isFinite(weight) || weight < 0) {
       UI.setFieldError(
         formElement,
         "berat_telur_kg",
-        "Berat telur harus angka 0 atau lebih."
+        "Berat telur harus angka 0 atau lebih.",
       );
       valid = false;
     }
@@ -455,10 +439,7 @@
     if (pakan && Number.isFinite(feed) && feed > 0) {
       let available = pakan.stok_kg;
 
-      if (
-        current &&
-        Number(current.id_pakan) === Number(pakan.id_pakan)
-      ) {
+      if (current && Number(current.id_pakan) === Number(pakan.id_pakan)) {
         available += Number(current.jumlah_pakan_kg);
       }
 
@@ -466,7 +447,7 @@
         UI.setFieldError(
           formElement,
           "jumlah_pakan_kg",
-          `Melebihi stok tersedia (${UI.formatNumber(available)} kg).`
+          `Melebihi stok tersedia (${UI.formatNumber(available)} kg).`,
         );
         valid = false;
       }
@@ -498,7 +479,7 @@
       }
       field.removeAttribute("aria-invalid");
       const error = formElement.querySelector(
-        `[data-field-error="${field.name}"]`
+        `[data-field-error="${field.name}"]`,
       );
       if (error) {
         error.classList.add("hidden");
@@ -530,7 +511,7 @@
       updateStockHint(
         pakanSelect,
         pakanStockHint,
-        "Pilih pakan untuk melihat sisa stok."
+        "Pilih pakan untuk melihat sisa stok.",
       );
       await load();
       const kandangInput = document.getElementById("new-kandang");
@@ -542,7 +523,7 @@
       if (!applied) {
         UI.showAlert(
           form.querySelector("[data-form-alert]"),
-          error.message || "Gagal menyimpan catatan harian."
+          error.message || "Gagal menyimpan catatan harian.",
         );
       }
     } finally {
@@ -569,19 +550,19 @@
         ${cards
           .map(
             ([label, value]) => `
-              <div class="rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-3">
-                <span class="text-[10px] font-bold uppercase tracking-[0.07em] text-slate-400">${UI.escapeHTML(
-                  label
+              <div class="rounded-xl border border-[#cccccc] bg-[#f2f2f2]/70 px-3.5 py-3">
+                <span class="text-[10px] font-bold uppercase tracking-[0.07em] text-[#7f7f7f]">${UI.escapeHTML(
+                  label,
                 )}</span>
-                <p class="mt-1 text-sm font-extrabold text-slate-900">${UI.escapeHTML(
-                  value
+                <p class="mt-1 text-sm font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
+                  value,
                 )}</p>
               </div>
-            `
+            `,
           )
           .join("")}
       </div>
-      <div class="mt-4 flex items-center gap-2 rounded-xl border border-green-100 bg-green-50 px-3.5 py-3 text-[11px] font-semibold text-green-800">
+      <div class="mt-4 flex items-center gap-2 rounded-xl border border-brand-100 bg-brand-50 px-3.5 py-3 text-[11px] font-semibold text-brand-800">
         <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 shrink-0" aria-hidden="true">
           <path d="M12 8v5m0 3h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
         </svg>
@@ -609,7 +590,7 @@
     updateStockHint(
       editPakanSelect,
       editStockHint,
-      "Sisa stok mengikuti data terbaru."
+      "Sisa stok mengikuti data terbaru.",
     );
     UI.openDialog(editDialog, trigger);
     setTimeout(() => editForm.elements.kandang.focus(), 60);
@@ -633,10 +614,7 @@
     UI.setButtonLoading(editSubmit, true, "Menyimpan...");
 
     try {
-      await window.SiKandangAPI.updateCatatan(
-        state.editing.id_beri,
-        values
-      );
+      await window.SiKandangAPI.updateCatatan(state.editing.id_beri, values);
       UI.toast("Catatan berhasil diperbarui.", "success");
       UI.closeDialog(editDialog);
       state.editing = null;
@@ -646,7 +624,7 @@
       if (!applied) {
         UI.showAlert(
           editForm.querySelector("[data-form-alert]"),
-          error.message || "Gagal memperbarui catatan."
+          error.message || "Gagal memperbarui catatan.",
         );
       }
     } finally {
@@ -662,7 +640,7 @@
     }
     if (hapusLabel) {
       hapusLabel.textContent = `#${item.id_beri} — Kandang ${item.kandang} (${UI.formatDate(
-        item.tanggal
+        item.tanggal,
       )})`;
     }
     UI.openDialog(hapusDialog, trigger);
@@ -713,7 +691,7 @@
           updateStockHint(
             pakanSelect,
             pakanStockHint,
-            "Pilih pakan untuk melihat sisa stok."
+            "Pilih pakan untuk melihat sisa stok.",
           );
         }, 0);
       });
@@ -723,7 +701,7 @@
           updateStockHint(
             pakanSelect,
             pakanStockHint,
-            "Pilih pakan untuk melihat sisa stok."
+            "Pilih pakan untuk melihat sisa stok.",
           );
         });
       }
@@ -741,7 +719,7 @@
         UI.debounce(() => {
           state.search = searchInput.value;
           renderTable();
-        }, 180)
+        }, 180),
       );
     }
 
@@ -758,7 +736,10 @@
         if (focusForm) {
           const kandangInput = document.getElementById("new-kandang");
           if (kandangInput) {
-            kandangInput.scrollIntoView({ behavior: "smooth", block: "center" });
+            kandangInput.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
             setTimeout(() => kandangInput.focus(), 350);
           }
           return;
@@ -798,7 +779,7 @@
           updateStockHint(
             editPakanSelect,
             editStockHint,
-            "Sisa stok mengikuti data terbaru."
+            "Sisa stok mengikuti data terbaru.",
           );
         });
       }
