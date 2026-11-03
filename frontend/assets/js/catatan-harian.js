@@ -732,6 +732,7 @@
     if (resetButton) {
       resetButton.addEventListener("click", () => {
         UI.clearFormErrors(form);
+        resetFilters();
       });
     }
 

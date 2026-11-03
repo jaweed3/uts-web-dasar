@@ -260,6 +260,7 @@ dialog.modal[open] {
   .no-print,
   .site-header,
   .site-footer,
+  #data-source,
   .toast-stack {
     display: none !important;
   }
@@ -279,12 +280,19 @@ dialog.modal[open] {
   .table-stack,
   .table-stack thead,
   .table-stack tbody {
-    display: table !important;
     width: 100% !important;
+  }
+
+  .table-stack {
+    display: table !important;
   }
 
   .table-stack thead {
     display: table-header-group !important;
+  }
+
+  .table-stack tbody {
+    display: table-row-group !important;
   }
 
   .table-stack tbody tr {
