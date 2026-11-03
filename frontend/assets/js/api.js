@@ -3,7 +3,7 @@
 
   const config = window.SIKANDANG_CONFIG || {};
   const API_BASE = String(
-    config.API_BASE_URL || "http://localhost:8000/sikandang/api"
+    config.API_BASE_URL || "http://localhost:8000/sikandang/api",
   ).replace(/\/+$/, "");
   const PREFERRED_MODE = ["auto", "api", "demo"].includes(config.MODE)
     ? config.MODE
@@ -28,7 +28,6 @@
     }
   }
 
- 
   function clone(value) {
     return JSON.parse(JSON.stringify(value));
   }
@@ -69,7 +68,12 @@
       pakan: [
         { id_pakan: 1, nama_pakan: "Konsentrat", stok_kg: 95, stok_awal: 120 },
         { id_pakan: 2, nama_pakan: "Bekatul", stok_kg: 12, stok_awal: 50 },
-        { id_pakan: 3, nama_pakan: "Jagung Giling", stok_kg: 75, stok_awal: 125 },
+        {
+          id_pakan: 3,
+          nama_pakan: "Jagung Giling",
+          stok_kg: 75,
+          stok_awal: 125,
+        },
       ],
       catatan: [
         {
@@ -335,9 +339,7 @@
           return memoryStore;
         }
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
 
     memoryStore = seedStore();
     saveStore();
@@ -351,16 +353,22 @@
 
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(memoryStore));
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
   function findPakan(store, id) {
     return store.pakan.find((item) => Number(item.id_pakan) === Number(id));
   }
 
-  function pushLog(store, pakan, sebelum, sesudah, keterangan, kandang, dateString) {
+  function pushLog(
+    store,
+    pakan,
+    sebelum,
+    sesudah,
+    keterangan,
+    kandang,
+    dateString,
+  ) {
     const log = {
       id_log: store.nextLogId++,
       id_pakan: Number(pakan.id_pakan),
@@ -395,14 +403,15 @@
     return text;
   }
 
-  
   function normalizePakan(item) {
     return {
       id_pakan: Number(item.id_pakan),
       nama_pakan: String(item.nama_pakan == null ? "" : item.nama_pakan),
       stok_kg: toNumber(item.stok_kg),
       stok_awal:
-        item.stok_awal == null || item.stok_awal === "" ? null : toNumber(item.stok_awal),
+        item.stok_awal == null || item.stok_awal === ""
+          ? null
+          : toNumber(item.stok_awal),
     };
   }
 
@@ -431,7 +440,11 @@
       stok_sesudah: toNumber(item.stok_sesudah),
       keterangan,
       tanggal: String(item.tanggal == null ? "" : item.tanggal),
-      kandang: item.kandang ? String(item.kandang) : kandangMatch ? kandangMatch[1] : "",
+      kandang: item.kandang
+        ? String(item.kandang)
+        : kandangMatch
+          ? kandangMatch[1]
+          : "",
     };
   }
 
@@ -453,7 +466,6 @@
     });
   }
 
-
   async function apiRequest(path, options = {}) {
     const method = options.method || "GET";
     const timeout = options.timeout || REQUEST_TIMEOUT_MS;
@@ -471,7 +483,8 @@
       response = await fetch(`${API_BASE}${path}`, {
         method,
         headers,
-        body: options.body === undefined ? undefined : JSON.stringify(options.body),
+        body:
+          options.body === undefined ? undefined : JSON.stringify(options.body),
         signal: controller.signal,
         mode: "cors",
         credentials: "omit",
@@ -483,7 +496,7 @@
       }
       throw new DataError(
         "Tidak dapat terhubung ke API. Pastikan backend berjalan dan CORS aktif.",
-        0
+        0,
       );
     } finally {
       clearTimeout(timer);
@@ -505,23 +518,23 @@
       } catch (error) {
         throw new DataError(
           `Respons API tidak valid (HTTP ${response.status}).`,
-          response.status
+          response.status,
         );
       }
     }
 
     if (!response.ok || (payload && payload.success === false)) {
       throw new DataError(
-        (payload && payload.message) || `Permintaan gagal (HTTP ${response.status}).`,
+        (payload && payload.message) ||
+          `Permintaan gagal (HTTP ${response.status}).`,
         response.status,
-        payload && payload.errors ? payload.errors : null
+        payload && payload.errors ? payload.errors : null,
       );
     }
 
     return payload;
   }
 
-  
   function init() {
     if (initPromise) {
       return initPromise;
@@ -568,7 +581,6 @@
     };
   }
 
-  
   async function getPakan() {
     await init();
 
@@ -579,7 +591,7 @@
 
     await pause(DEMO_DELAY_MS);
     return clone(getStore().pakan).sort(
-      (a, b) => Number(a.id_pakan) - Number(b.id_pakan)
+      (a, b) => Number(a.id_pakan) - Number(b.id_pakan),
     );
   }
 
@@ -605,7 +617,7 @@
     return pause(DEMO_DELAY_MS).then(() => {
       const store = getStore();
       const duplicate = store.pakan.some(
-        (item) => item.nama_pakan.toLowerCase() === nama.toLowerCase()
+        (item) => item.nama_pakan.toLowerCase() === nama.toLowerCase(),
       );
 
       if (duplicate) {
@@ -624,7 +636,15 @@
       store.pakan.push(item);
 
       if (item.stok_kg > 0) {
-        pushLog(store, item, 0, item.stok_kg, `Stok awal ${item.nama_pakan}`, "", "");
+        pushLog(
+          store,
+          item,
+          0,
+          item.stok_kg,
+          `Stok awal ${item.nama_pakan}`,
+          "",
+          "",
+        );
       }
 
       saveStore();
@@ -655,7 +675,7 @@
       const duplicate = store.pakan.some(
         (pakan) =>
           Number(pakan.id_pakan) !== Number(id) &&
-          pakan.nama_pakan.toLowerCase() === nama.toLowerCase()
+          pakan.nama_pakan.toLowerCase() === nama.toLowerCase(),
       );
 
       if (duplicate) {
@@ -722,7 +742,7 @@
         item.stok_kg,
         `Penambahan stok manual (${tambahan} kg)`,
         "",
-        ""
+        "",
       );
       saveStore();
       return clone(item);
@@ -746,34 +766,35 @@
       }
 
       const dipakai = store.catatan.some(
-        (catatan) => Number(catatan.id_pakan) === Number(id)
+        (catatan) => Number(catatan.id_pakan) === Number(id),
       );
 
       if (dipakai) {
         throw new DataError(
           "Pakan sudah dipakai di catatan, tidak bisa dihapus.",
-          422
+          422,
         );
       }
 
       store.pakan = store.pakan.filter(
-        (pakan) => Number(pakan.id_pakan) !== Number(id)
+        (pakan) => Number(pakan.id_pakan) !== Number(id),
       );
       store.riwayat = store.riwayat.filter(
-        (log) => Number(log.id_pakan) !== Number(id)
+        (log) => Number(log.id_pakan) !== Number(id),
       );
       saveStore();
       return true;
     });
   }
 
-  
   async function getCatatan() {
     await init();
 
     if (mode === "api") {
       const payload = await apiRequest("/catatan-harian");
-      return sortCatatan(asArray(payload && payload.data).map(normalizeCatatan));
+      return sortCatatan(
+        asArray(payload && payload.data).map(normalizeCatatan),
+      );
     }
 
     await pause(DEMO_DELAY_MS);
@@ -801,10 +822,19 @@
       });
     }
 
-    if (!Number.isFinite(jumlahTelur) || jumlahTelur < 0 || !Number.isInteger(jumlahTelur)) {
-      throw new DataError("Jumlah telur harus berupa bilangan bulat 0 atau lebih.", 422, {
-        jumlah_telur: "Jumlah telur harus berupa bilangan bulat 0 atau lebih.",
-      });
+    if (
+      !Number.isFinite(jumlahTelur) ||
+      jumlahTelur < 0 ||
+      !Number.isInteger(jumlahTelur)
+    ) {
+      throw new DataError(
+        "Jumlah telur harus berupa bilangan bulat 0 atau lebih.",
+        422,
+        {
+          jumlah_telur:
+            "Jumlah telur harus berupa bilangan bulat 0 atau lebih.",
+        },
+      );
     }
 
     if (!Number.isFinite(beratTelur) || beratTelur < 0) {
@@ -814,9 +844,13 @@
     }
 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) {
-      throw new DataError("Tanggal wajib diisi dengan format YYYY-MM-DD.", 422, {
-        tanggal: "Tanggal wajib diisi.",
-      });
+      throw new DataError(
+        "Tanggal wajib diisi dengan format YYYY-MM-DD.",
+        422,
+        {
+          tanggal: "Tanggal wajib diisi.",
+        },
+      );
     }
 
     let tersedia = pakan.stok_kg;
@@ -885,7 +919,7 @@
         pakan.stok_kg,
         `Pemberian #${idBeri} - Kandang ${data.kandang}`,
         data.kandang,
-        data.tanggal
+        data.tanggal,
       );
       saveStore();
       return clone(catatan);
@@ -898,14 +932,14 @@
     if (mode !== "demo") {
       throw new DataError(
         "Edit catatan belum tersedia di API backend. Gunakan mode demo.",
-        501
+        501,
       );
     }
 
     return pause(DEMO_DELAY_MS).then(() => {
       const store = getStore();
       const current = store.catatan.find(
-        (catatan) => Number(catatan.id_beri) === Number(id)
+        (catatan) => Number(catatan.id_beri) === Number(id),
       );
 
       if (!current) {
@@ -936,13 +970,15 @@
             pakanBaru.stok_kg,
             `Penyesuaian catatan #${current.id_beri} - Kandang ${data.kandang}`,
             data.kandang,
-            data.tanggal
+            data.tanggal,
           );
         }
       } else {
         if (pakanLama) {
           const sebelumLama = pakanLama.stok_kg;
-          pakanLama.stok_kg = round2(pakanLama.stok_kg + current.jumlah_pakan_kg);
+          pakanLama.stok_kg = round2(
+            pakanLama.stok_kg + current.jumlah_pakan_kg,
+          );
           pushLog(
             store,
             pakanLama,
@@ -950,7 +986,7 @@
             pakanLama.stok_kg,
             `Pembatalan catatan #${current.id_beri} - Kandang ${current.kandang}`,
             current.kandang,
-            current.tanggal
+            current.tanggal,
           );
         }
 
@@ -963,7 +999,7 @@
           pakanBaru.stok_kg,
           `Pemberian #${current.id_beri} - Kandang ${data.kandang}`,
           data.kandang,
-          data.tanggal
+          data.tanggal,
         );
       }
 
@@ -988,14 +1024,14 @@
     if (mode !== "demo") {
       throw new DataError(
         "Hapus catatan belum tersedia di API backend. Gunakan mode demo.",
-        501
+        501,
       );
     }
 
     return pause(DEMO_DELAY_MS).then(() => {
       const store = getStore();
       const current = store.catatan.find(
-        (catatan) => Number(catatan.id_beri) === Number(id)
+        (catatan) => Number(catatan.id_beri) === Number(id),
       );
 
       if (!current) {
@@ -1014,33 +1050,31 @@
           pakan.stok_kg,
           `Penghapusan catatan #${current.id_beri} - Kandang ${current.kandang}`,
           current.kandang,
-          current.tanggal
+          current.tanggal,
         );
       }
 
       store.catatan = store.catatan.filter(
-        (catatan) => Number(catatan.id_beri) !== Number(id)
+        (catatan) => Number(catatan.id_beri) !== Number(id),
       );
       saveStore();
       return true;
     });
   }
 
- 
-
   async function getRiwayat() {
     await init();
 
     if (mode === "api") {
       const payload = await apiRequest("/riwayat-stok");
-      return sortRiwayat(asArray(payload && payload.data).map(normalizeRiwayat));
+      return sortRiwayat(
+        asArray(payload && payload.data).map(normalizeRiwayat),
+      );
     }
 
     await pause(DEMO_DELAY_MS);
     return sortRiwayat(clone(getStore().riwayat));
   }
-
-  
 
   function resetDemo() {
     memoryStore = seedStore();

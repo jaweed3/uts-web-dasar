@@ -17,7 +17,8 @@
     loading: false,
   };
 
-  let sourcePill;  let loadAlert;
+  let sourcePill;
+  let loadAlert;
   let loadAlertText;
   let tableBody;
   let countElement;
@@ -165,10 +166,10 @@
       const active = page === current;
       buttons.push(`
         <button type="button" data-pg="${page}" aria-current="${active ? "page" : "false"}"
-          class="inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2.5 text-xs font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 ${
+          class="inline-flex h-8 min-w-8 items-center justify-center rounded-lg px-2.5 text-xs font-bold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#595959] ${
             active
-              ? "bg-green-700 text-white shadow-sm"
-              : "border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+              ? "bg-[#3f3f3f] text-white shadow-sm"
+              : "border border-[#cccccc] bg-white text-[#595959] hover:bg-[#f2f2f2]"
           }">${page}</button>
       `);
     }
@@ -186,6 +187,7 @@
     const showPager = total > 1;
     if (pager) {
       pager.hidden = !showPager;
+      pager.style.display = showPager ? "flex" : "none";
     }
 
     if (!showPager) {
@@ -212,25 +214,25 @@
       delta < 0
         ? "text-rose-600"
         : delta > 0
-        ? "text-green-700"
-        : "text-slate-900";
+          ? "text-brand-700"
+          : "text-[#2b2b2b]";
     const deltaBadge =
       delta < 0
         ? "bg-rose-50 text-rose-700"
         : delta > 0
-        ? "bg-green-50 text-green-800"
-        : "bg-slate-100 text-slate-600";
+          ? "bg-brand-50 text-brand-700"
+          : "bg-[#f2f2f2] text-[#595959]";
 
     return `
-      <tr class="transition hover:bg-slate-50/70">
-        <td data-label="#" class="whitespace-nowrap px-5 py-3.5 text-[12px] font-semibold text-slate-400">#${item.id_log}</td>
-        <td data-label="Waktu" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-500">${UI.escapeHTML(
+      <tr class="transition hover:bg-[#f2f2f2]/70">
+        <td data-label="#" class="whitespace-nowrap px-5 py-3.5 text-[12px] font-semibold text-[#7f7f7f]">#${item.id_log}</td>
+        <td data-label="Waktu" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.escapeHTML(
           UI.formatDateTime(item.tanggal)
         )}</td>
-        <td data-label="Pakan" class="px-5 py-3.5 text-[13px] font-extrabold text-slate-900">${UI.escapeHTML(
+        <td data-label="Pakan" class="px-5 py-3.5 text-[13px] font-extrabold text-[#2b2b2b]">${UI.escapeHTML(
           item.nama_pakan
         )}</td>
-        <td data-label="Sebelum (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-slate-600">${UI.formatNumber(
+        <td data-label="Sebelum (kg)" class="whitespace-nowrap px-5 py-3.5 text-[13px] text-[#595959]">${UI.formatNumber(
           item.stok_sebelum
         )}</td>
         <td data-label="Sesudah (kg)" class="whitespace-nowrap px-5 py-3.5">
@@ -243,7 +245,7 @@
             }</span>
           </span>
         </td>
-        <td data-label="Keterangan" class="px-5 py-3.5 text-[12.5px] text-slate-600">${UI.escapeHTML(
+        <td data-label="Keterangan" class="px-5 py-3.5 text-[12.5px] text-[#595959]">${UI.escapeHTML(
           item.keterangan
         )}</td>
       </tr>
@@ -279,7 +281,7 @@
             title: "Tidak ada hasil",
             text: "Coba kata kunci lain atau ubah filter pakan.",
             action:
-              '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50">Bersihkan filter</button>',
+              '<button type="button" data-clear-filter class="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-[#cccccc] bg-white px-3.5 py-2 text-xs font-bold text-[#2b2b2b] transition hover:bg-[#f2f2f2]">Bersihkan filter</button>',
           })
         : UI.tableEmptyRow(6, {
             title: "Belum ada mutasi stok",
@@ -315,6 +317,7 @@
     }
     if (pager) {
       pager.hidden = true;
+      pager.style.display = "none";
     }
   }
 
@@ -411,6 +414,7 @@
     }
     if (pager) {
       pager.hidden = true;
+      pager.style.display = "none";
     }
 
     window.print();
