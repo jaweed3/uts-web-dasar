@@ -78,9 +78,9 @@ flowchart TD
     C --> D["INSERT pemberian_pakan"]
     D --> E["trg_cek_pakan (BEFORE INSERT)"]
     E --> F{"stok cukup?"}
-    F -->|tidak --> G["SIGNAL 45000"]
+    F -->|tidak| G["SIGNAL 45000"]
     G --> H["ROLLBACK + RESIGNAL ke PHP"]
-    F -->|ya --> I["trg_mutasi_pakan (AFTER INSERT)"]
+    F -->|ya| I["trg_mutasi_pakan (AFTER INSERT)"]
     I --> J["UPDATE pakan.stok_kg"]
     I --> K["INSERT log_stok_pakan"]
     J --> L["INSERT panen_telur"]
