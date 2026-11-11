@@ -1,0 +1,3 @@
+flowchart LR
+    A["PHP: POST /catatan-harian"] --> B["CALL sp_catatan_harian"] --> C["START TRANSACTION"] --> D["INSERT pemberian_pakan"] --> E["trg_cek_pakan"]
+    E --> F{"stok cukup?"}

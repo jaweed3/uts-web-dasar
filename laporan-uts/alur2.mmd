@@ -1,0 +1,4 @@
+flowchart LR
+    F{"stok cukup?"} -->|tidak| G["SIGNAL 45000"] --> H["ROLLBACK + RESIGNAL"]
+    F -->|ya| I["trg_mutasi_pakan"] --> J["UPDATE stok + INSERT log"]
+    J --> L["INSERT panen_telur"] --> M["COMMIT"]

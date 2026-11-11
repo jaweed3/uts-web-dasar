@@ -1,0 +1,31 @@
+erDiagram
+    PAKAN ||--o{ PEMBERIAN_PAKAN : "diberikan ke"
+    PEMBERIAN_PAKAN ||--o| PANEN_TELUR : "menghasilkan"
+    PAKAN ||--o{ LOG_STOK_PAKAN : "mutasi"
+    PAKAN {
+        int id_pakan PK
+        varchar nama_pakan
+        decimal stok_kg
+    }
+    PEMBERIAN_PAKAN {
+        int id_beri PK
+        int id_pakan FK
+        varchar kandang
+        decimal jumlah_pakan_kg
+        date tanggal
+    }
+    PANEN_TELUR {
+        int id_panen PK
+        int id_beri FK
+        int jumlah_telur
+        decimal berat_telur_kg
+        date tanggal
+    }
+    LOG_STOK_PAKAN {
+        bigint id_log PK
+        int id_pakan FK
+        decimal stok_sebelum
+        decimal stok_sesudah
+        varchar keterangan
+        timestamp tanggal
+    }
