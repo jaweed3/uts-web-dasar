@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presentasi UTS Basis Data 2 — SiKandang</title>
+    <style>
+      :root {
+        --primary: #19376d;
+        --primary-dark: #0f2347;
+        --primary-soft: #eef3fb;
+        --accent: #e67e22;
+        --accent-soft: #fdf2e6;
+        --green: #1b5e20;
+        --green-soft: #e8f5e9;
+        --red: #b71c1c;
+        --red-soft: #fdecea;
+        --bg: #f4f6f9;
+        --surface: #ffffff;
+        --text: #1e293b;
+        --muted: #526075;
+        --border: #dbe2ec;
+        --code-bg: #0f172a;
+        --code-text: #e2e8f0;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0b1324;
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter",
+          "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Stage & Responsive 16:9 Slide Frame */
+      .deck-viewport {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+      }
+
+      .slide {
+        display: none;
+        width: min(1240px, 100%);
+        height: min(720px, calc(100vh - 54px));
+        background: var(--surface);
+        border-radius: 18px;
+        box-shadow:
+          0 24px 60px rgba(4, 12, 28, 0.45),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
+        padding: 36px 46px 44px;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        position: relative;
+        animation: slideIn 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .slide.active {
+        display: flex;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.992);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      /* Slide Header & Footer */
+      .slide-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 2px solid var(--primary-soft);
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+        flex-shrink: 0;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+
+      h1,
+      h2 {
+        color: var(--primary);
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        font-size: clamp(22px, 2.3vw, 30px);
+        font-weight: 800;
+      }
+
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        background: var(--primary-soft);
+        color: var(--primary);
+        white-space: nowrap;
+      }
+
+      .pill.orange {
+        background: var(--accent-soft);
+        color: #b45309;
+      }
+
+      .pill.green {
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      .slide-body {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .slide-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+        padding-top: 10px;
+        margin-top: 14px;
+        flex-shrink: 0;
+      }
+
+      /* Grids & Cards */
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: stretch;
+        min-height: 0;
+      }
+
+      .grid-2-wide-left {
+        display: grid;
+        grid-template-columns: 1.18fr 0.82fr;
+        gap: 20px;
+        align-items: center;
+        min-height: 0;
+      }
+
+      .grid-2-wide-right {
+        display: grid;
+        grid-template-columns: 0.88fr 1.12fr;
+        gap: 20px;
+        align-items: stretch;
+        min-height: 0;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 15px 17px;
+      }
+
+      .card.highlight {
+        background: var(--primary-soft);
+        border-color: #c7d6f0;
+      }
+
+      .card.warn {
+        background: var(--accent-soft);
+        border-color: #f5cba0;
+      }
+
+      .card.ok {
+        background: var(--green-soft);
+        border-color: #b7dfc0;
+      }
+
+      p,
+      li {
+        font-size: 14.5px;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      ul.clean {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      ul.clean li {
+        position: relative;
+        padding-left: 18px;
+      }
+
+      ul.clean li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      code.inline {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.9em;
+        background: #e9eef6;
+        color: var(--primary-dark);
+        padding: 1px 6px;
+        border-radius: 5px;
+        font-weight: 600;
+      }
+
+      /* Code Blocks */
+      pre.sql-box {
+        background: var(--code-bg);
+        color: var(--code-text);
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12.6px;
+        line-height: 1.48;
+        overflow: auto;
+        border: 1px solid #1e293b;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .kw {
+        color: #7dd3fc;
+        font-weight: 700;
+      }
+      .fn {
+        color: #fde68a;
+        font-weight: 600;
+      }
+      .str {
+        color: #86efac;
+      }
+      .cm {
+        color: #94a3b8;
+        font-style: italic;
+      }
+      .num {
+        color: #fda4af;
+      }
+
+      /* Tables */
+      table.data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        background: var(--surface);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+
+      table.data-table th {
+        background: var(--primary);
+        color: #ffffff;
+        text-align: left;
+        padding: 8px 10px;
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      table.data-table td {
+        padding: 7px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+
+      table.data-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Diagram Image Frames */
+      .fig-frame {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        max-height: 100%;
+        overflow: hidden;
+      }
+
+      .fig-frame img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .fig-caption {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      /* Cover Slide */
+      .cover-slide {
+        background:
+          radial-gradient(
+            circle at 90% 10%,
+            rgba(230, 126, 34, 0.12),
+            transparent 42%
+          ),
+          radial-gradient(
+            circle at 8% 92%,
+            rgba(25, 55, 109, 0.1),
+            transparent 45%
+          ),
+          #ffffff;
+      }
+
+      .cover-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 32px;
+        align-items: center;
+        height: 100%;
+      }
+
+      .cover-title {
+        font-size: clamp(34px, 4vw, 48px);
+        font-weight: 900;
+        color: var(--primary);
+        margin: 10px 0 12px;
+      }
+
+      .cover-sub {
+        font-size: 18px;
+        color: var(--muted);
+        line-height: 1.45;
+        margin-bottom: 22px;
+      }
+
+      .meta-box {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px 16px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--primary);
+        border-radius: 10px;
+        padding: 14px 18px;
+        font-size: 14px;
+      }
+
+      .meta-k {
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .cover-logo-card {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .cover-logo-card img {
+        max-width: 270px;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      /* Demo Slide Buttons & Commands */
+      .cmd-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background: var(--code-bg);
+        color: #f8fafc;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12.5px;
+      }
+
+      .copy-btn {
+        border: 1px solid #475569;
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      .copy-btn:hover {
+        background: #334155;
+      }
+
+      .cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: #ffffff;
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        transition: background 0.15s ease;
+      }
+
+      .cta-link:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Bottom Controls & Progress */
+      .progress-track {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.12);
+        z-index: 60;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: var(--accent);
+        width: 12.5%;
+        transition: width 0.25s ease;
+      }
+
+      .hud {
+        position: fixed;
+        bottom: 14px;
+        right: 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.88);
+        backdrop-filter: blur(8px);
+        color: #e2e8f0;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 12.5px;
+        z-index: 70;
+      }
+
+      .hud button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #f8fafc;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .hud button:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .hud .counter {
+        padding: 0 6px;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+      }
+
+      /* Speaker Notes Drawer */
+      .notes-drawer {
+        position: fixed;
+        left: 22px;
+        bottom: 14px;
+        max-width: 560px;
+        background: rgba(15, 23, 42, 0.94);
+        color: #f1f5f9;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 13px;
+        line-height: 1.5;
+        z-index: 70;
+        display: none;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      }
+
+      .notes-drawer.open {
+        display: block;
+      }
+
+      .notes-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #fbbf24;
+        margin-bottom: 4px;
+      }
+
+      /* Overview Grid Overlay */
+      .overview-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 19, 36, 0.95);
+        z-index: 90;
+        display: none;
+        padding: 28px;
+        overflow-y: auto;
+      }
+
+      .overview-overlay.open {
+        display: block;
+      }
+
+      .overview-head {
+        max-width: 1120px;
+        margin: 0 auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #ffffff;
+      }
+
+      .overview-grid {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 16px;
+      }
+
+      .ov-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 16px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: transform 0.15s ease;
+      }
+
+      .ov-card:hover {
+        transform: translateY(-2px);
+      }
+
+      .ov-card.current {
+        border-color: var(--accent);
+      }
+
+      .ov-num {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+
+      .ov-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--primary);
+        margin: 4px 0 6px;
+      }
+
+      .ov-desc {
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+
+      /* Print to PDF Support */
+      @media print {
+        @page {
+          size: landscape;
+          margin: 8mm;
+        }
+        html,
+        body {
+          height: auto;
+          overflow: visible;
+          background: #ffffff;
+        }
+        .deck-viewport {
+          display: block;
+          padding: 0;
+          height: auto;
+        }
+        .slide {
+          display: flex !important;
+          width: 100%;
+          height: 185mm;
+          page-break-after: always;
+          box-shadow: none;
+          border: 1px solid #cbd5e1;
+          margin-bottom: 10mm;
+        }
+        .hud,
+        .progress-track,
+        .notes-drawer,
+        .overview-overlay {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck-viewport" id="deck">
+      <!-- ==================== SLIDE 1: COVER ==================== -->
+      <section
+        class="slide cover-slide active"
+        data-title="Cover & Konteks"
+        data-note="Buka dengan salam, perkenalkan aplikasi SiKandang (pencatatan pakan & panen telur), lalu tegaskan fokus presentasi UTS: evaluasi desain basis data, implementasi 2 Trigger + 1 Stored Procedure, lalu diakhiri Live Demo."
+      >
+        <div class="cover-grid">
+          <div>
+            <span class="pill orange">UTS Basis Data 2 · Evaluasi Desain &amp; Implementasi SQL</span>
+            <h1 class="cover-title">SiKandang</h1>
+            <p class="cover-sub">
+              Aplikasi Pencatatan Pemberian Pakan &amp; Panen Telur Berbasis
+              <strong>Database Trigger</strong> dan
+              <strong>Stored Procedure</strong>
+            </p>
+            <div class="meta-box">
+              <span class="meta-k">Penyaji</span>
+              <span>Fatih Jawwad (452024611047)</span>
+              <span class="meta-k">Institusi</span>
+              <span>Informatika — Universitas Darussalam Gontor (2026)</span>
+              <span class="meta-k">Stack</span>
+              <span>MariaDB (InnoDB) · PHP Native · HTML / Tailwind CSS</span>
+              <span class="meta-k">Repositori</span>
+              <span>github.com/jaweed3/uts-web-dasar</span>
+            </div>
+          </div>
+          <div class="cover-logo-card">
+            <img src="../assets/logo.png" alt="Logo SiKandang" />
+            <div style="font-size: 13px; color: var(--muted); line-height: 1.5">
+              <strong>Fokus Presentasi:</strong><br />
+              1. Prinsip Desain &amp; Skema ERD<br />
+              2. Trigger Validasi &amp; Audit Mutasi<br />
+              3. Stored Procedure Transaksional<br />
+              4. Pengujian &amp; <strong>Live Demo</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 2: MASALAH & DESAIN ==================== -->
+      <section
+        class="slide"
+        data-title="Masalah & Keputusan Desain"
+        data-note="Jelaskan KENAPA logika ditaruh di database, bukan di PHP. Kalau validasi hanya di aplikasi, input dari CLI/Postman/skrip lain bisa membobol stok jadi minus. Prinsip utama SiKandang: aplikasi tidak pernah UPDATE stok secara langsung."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">01 · Latar Belakang &amp; Arsitektur</div>
+            <h2>Mengapa Logika Stok Ditaruh di Database?</h2>
+          </div>
+          <span class="pill">Anti-Bypass Design</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="card highlight" style="padding: 12px 18px">
+            <p style="font-size: 15px">
+              <strong>Prinsip Inti SiKandang:</strong> Stok pakan
+              <strong>tidak pernah</strong> diubah langsung oleh kode PHP.
+              Semua validasi dan pemotongan stok hidup di tabel MariaDB melalui
+              Trigger dan Stored Procedure.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card warn">
+              <h3>Masalah Jika Logika Hanya di Aplikasi (PHP)</h3>
+              <ul class="clean">
+                <li>
+                  Setiap jalur akses baru (CLI, Postman, skrip impor) harus
+                  mengulang validasi stok yang sama.
+                </li>
+                <li>
+                  Berisiko <em>race condition</em> saat dua pencatatan membaca
+                  stok yang sama bersamaan.
+                </li>
+                <li>
+                  Pencatatan pemberian pakan dan panen telur berisiko tersimpan
+                  setengah (data yatim) bila error di tengah proses.
+                </li>
+              </ul>
+            </div>
+
+            <div class="card ok">
+              <h3>Solusi Arsitektur di SiKandang</h3>
+              <ul class="clean">
+                <li>
+                  <code class="inline">trg_cek_pakan</code> (<code
+                    class="inline"
+                    >BEFORE INSERT</code
+                  >): mengunci baris &amp; menolak stok kurang lewat
+                  <code class="inline">SIGNAL '45000'</code>.
+                </li>
+                <li>
+                  <code class="inline">trg_mutasi_pakan</code> (<code
+                    class="inline"
+                    >AFTER INSERT</code
+                  >): otomatis memotong stok &amp; menulis audit log.
+                </li>
+                <li>
+                  <code class="inline">sp_catatan_harian</code>: membungkus 2
+                  tabel dalam satu transaksi atomik (<code class="inline"
+                    >COMMIT</code
+                  >
+                  / <code class="inline">ROLLBACK</code>).
+                </li>
+                <li>
+                  Backend <code class="inline">index.php</code> cukup meneruskan
+                  <code class="inline">SQLSTATE '45000'</code> menjadi HTTP
+                  <strong>422</strong>.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>SiKandang · Basis Data 2</span>
+          <span>Slide 2 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 3: SKEMA & ERD ==================== -->
+      <section
+        class="slide"
+        data-title="Desain Skema & ERD"
+        data-note="Tunjukkan 4 tabel dan alasan tiap relasi. Highlight penting: engine InnoDB wajib untuk FK & transaksi; CHECK constraint sebagai lapis pertama; panen_telur.id_beri dibuat UNIQUE supaya relasinya 1:1 ketat (1 pemberian = maks 1 panen)."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">02 · Evaluasi Desain Skema</div>
+            <h2>Struktur 4 Tabel InnoDB &amp; Integritas Relasi</h2>
+          </div>
+          <span class="pill">backend/db/01_schema.sql</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2-wide-left" style="height: 100%">
+            <div class="fig-frame" style="height: 440px">
+              <img src="../laporan-uts/fig-erd.png" alt="ERD SiKandang" />
+              <div class="fig-caption">
+                Entity Relationship Diagram — Database sikandang
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Tabel</th>
+                    <th>Peran Utama</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code class="inline">pakan</code></td>
+                    <td>Master pakan &amp; sumber kebenaran stok</td>
+                  </tr>
+                  <tr>
+                    <td><code class="inline">pemberian_pakan</code></td>
+                    <td>Pintu masuk tunggal pengurangan stok</td>
+                  </tr>
+                  <tr>
+                    <td><code class="inline">panen_telur</code></td>
+                    <td>Hasil panen (1:1 via <code class="inline">id_beri UNIQUE</code>)</td>
+                  </tr>
+                  <tr>
+                    <td><code class="inline">log_stok_pakan</code></td>
+                    <td>Jejak audit otomatis oleh trigger</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="card highlight">
+                <h3>Pertahanan Lapis Pertama (DDL)</h3>
+                <ul class="clean">
+                  <li>
+                    <strong>InnoDB</strong> di semua tabel agar Foreign Key dan
+                    <code class="inline">ROLLBACK</code> aktif.
+                  </li>
+                  <li>
+                    <strong>CHECK Constraint:</strong>
+                    <code class="inline">stok_kg &gt;= 0</code>,
+                    <code class="inline">jumlah_pakan_kg &gt; 0</code>,
+                    <code class="inline">jumlah_telur &gt;= 0</code>.
+                  </li>
+                  <li>
+                    <strong>Relasi 1:1 Ketat:</strong>
+                    <code class="inline">panen_telur.id_beri</code> bertipe
+                    <code class="inline">UNIQUE</code> agar 1 pemberian tidak
+                    bisa dipanen ganda.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>SiKandang · Basis Data 2</span>
+          <span>Slide 3 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 4: TRIGGER 1 ==================== -->
+      <section
+        class="slide"
+        data-title="Trigger Validasi: trg_cek_pakan"
+        data-note="Bedah kode trigger pertama. Fokus ke 2 hal saja: (1) SELECT ... FOR UPDATE untuk mengunci baris pakan selama transaksi berjalan sehingga aman dari concurrency; (2) SIGNAL SQLSTATE '45000' yang ditangkap PDOException di PHP index.php jadi HTTP 422."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">03 · Implementasi Trigger (Validasi)</div>
+            <h2>
+              <code class="inline">trg_cek_pakan</code> — Penjaga Gerbang
+              Sebelum Tulis
+            </h2>
+          </div>
+          <span class="pill orange">BEFORE INSERT ON pemberian_pakan</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2-wide-left" style="align-items: stretch">
+            <pre class="sql-box"><span class="kw">CREATE TRIGGER</span> <span class="fn">trg_cek_pakan</span>
+<span class="kw">BEFORE INSERT ON</span> pemberian_pakan <span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">DECLARE</span> v_stok <span class="kw">DECIMAL</span>(<span class="num">10</span>, <span class="num">2</span>);
+
+  <span class="cm">-- Kunci baris pakan agar transaksi paralel tidak balapan</span>
+  <span class="kw">SELECT</span> stok_kg <span class="kw">INTO</span> v_stok
+  <span class="kw">FROM</span> pakan
+  <span class="kw">WHERE</span> id_pakan = NEW.id_pakan <span class="kw">FOR UPDATE</span>;
+
+  <span class="kw">IF</span> v_stok <span class="kw">IS NULL THEN</span>
+    <span class="kw">SIGNAL SQLSTATE</span> <span class="str">'45000'</span>
+      <span class="kw">SET MESSAGE_TEXT</span> = <span class="str">'pakan tidak ditemukan'</span>;
+  <span class="kw">ELSEIF</span> NEW.jumlah_pakan_kg &gt; v_stok <span class="kw">THEN</span>
+    <span class="kw">SIGNAL SQLSTATE</span> <span class="str">'45000'</span>
+      <span class="kw">SET MESSAGE_TEXT</span> = <span class="str">'stok pakan tidak mencukupi'</span>;
+  <span class="kw">END IF</span>;
+<span class="kw">END</span></pre>
+
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="card highlight">
+                <h3>1. Row-Level Lock (<code class="inline">FOR UPDATE</code>)</h3>
+                <p>
+                  Mengunci baris <code class="inline">pakan</code> terkait
+                  sampai transaksi selesai, mencegah dua permintaan bersamaan
+                  membaca saldo stok yang sama.
+                </p>
+              </div>
+              <div class="card warn">
+                <h3>2. Error Standar (<code class="inline">SQLSTATE '45000'</code>)</h3>
+                <p>
+                  Menghentikan <code class="inline">INSERT</code> sebelum baris
+                  ditulis jika ID pakan invalid atau
+                  <code class="inline">jumlah_pakan_kg &gt; v_stok</code>.
+                </p>
+              </div>
+              <div class="card">
+                <h3>3. Jembatan ke PHP (<code class="inline">index.php</code>)</h3>
+                <p>
+                  Blok <code class="inline">catch (PDOException $e)</code>
+                  mengecek kode <code class="inline">'45000'</code> lalu
+                  mengembalikan JSON HTTP <strong>422</strong> berisi pesan
+                  asli trigger.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>Sumber: backend/db/03_triggers.sql (baris 5–22)</span>
+          <span>Slide 4 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 5: TRIGGER 2 ==================== -->
+      <section
+        class="slide"
+        data-title="Trigger Mutasi: trg_mutasi_pakan"
+        data-note="Kenapa dipisah jadi AFTER INSERT? Karena kita hanya boleh memotong stok dan mencatat log SETELAH baris pemberian_pakan benar-benar lolos validasi dan mendapat NEW.id_beri (AUTO_INCREMENT) untuk ditulis ke kolom keterangan log."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">04 · Implementasi Trigger (Mutasi &amp; Audit)</div>
+            <h2>
+              <code class="inline">trg_mutasi_pakan</code> — Potong Stok &amp;
+              Catat Log
+            </h2>
+          </div>
+          <span class="pill green">AFTER INSERT ON pemberian_pakan</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2-wide-left" style="align-items: stretch">
+            <pre class="sql-box"><span class="kw">CREATE TRIGGER</span> <span class="fn">trg_mutasi_pakan</span>
+<span class="kw">AFTER INSERT ON</span> pemberian_pakan <span class="kw">FOR EACH ROW</span>
+<span class="kw">BEGIN</span>
+  <span class="kw">DECLARE</span> v_sebelum <span class="kw">DECIMAL</span>(<span class="num">10</span>, <span class="num">2</span>);
+
+  <span class="kw">SELECT</span> stok_kg <span class="kw">INTO</span> v_sebelum
+  <span class="kw">FROM</span> pakan <span class="kw">WHERE</span> id_pakan = NEW.id_pakan <span class="kw">FOR UPDATE</span>;
+
+  <span class="kw">UPDATE</span> pakan
+  <span class="kw">SET</span> stok_kg = v_sebelum - NEW.jumlah_pakan_kg
+  <span class="kw">WHERE</span> id_pakan = NEW.id_pakan;
+
+  <span class="kw">INSERT INTO</span> log_stok_pakan (
+    id_pakan, stok_sebelum, stok_sesudah, keterangan
+  ) <span class="kw">VALUES</span> (
+    NEW.id_pakan, v_sebelum, v_sebelum - NEW.jumlah_pakan_kg,
+    <span class="fn">CONCAT</span>(<span class="str">'Pemberian #'</span>, NEW.id_beri, <span class="str">' - Kandang'</span>, NEW.KANDANG)
+  );
+<span class="kw">END</span></pre>
+
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="card ok">
+                <h3>Mengapa <code class="inline">AFTER INSERT</code>?</h3>
+                <ul class="clean">
+                  <li>
+                    Berjalan <strong>hanya</strong> setelah
+                    <code class="inline">trg_cek_pakan</code> meloloskan data.
+                  </li>
+                  <li>
+                    Nilai <code class="inline">NEW.id_beri</code> sudah
+                    terbentuk sehingga bisa dicatat akurat ke kolom
+                    <code class="inline">keterangan</code>.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card highlight">
+                <h3>Audit Trail Otomatis</h3>
+                <p style="margin-bottom: 8px">
+                  Setiap pengurangan stok langsung merekam:
+                </p>
+                <ul class="clean">
+                  <li>
+                    <code class="inline">stok_sebelum</code> &amp;
+                    <code class="inline">stok_sesudah</code>
+                  </li>
+                  <li>Referensi nomor pemberian &amp; nama kandang</li>
+                  <li>
+                    Endpoint <code class="inline">GET /riwayat-stok</code>
+                    murni membaca tabel log ini.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>Sumber: backend/db/03_triggers.sql (baris 25–39)</span>
+          <span>Slide 5 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 6: STORED PROCEDURE ==================== -->
+      <section
+        class="slide"
+        data-title="Stored Procedure: sp_catatan_harian"
+        data-note="Tunjukkan diagram alur dari kiri ke kanan. PHP hanya memanggil 1 baris CALL sp_catatan_harian(...). Di dalamnya, pemberian dan panen diikat dalam START TRANSACTION. Jika trg_cek_pakan melempar SIGNAL 45000, EXIT HANDLER langsung ROLLBACK lalu RESIGNAL agar PHP tahu pesan error aslinya."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">05 · Implementasi Stored Procedure</div>
+            <h2>
+              <code class="inline">sp_catatan_harian</code> — Transaksi Atomik 2
+              Tabel
+            </h2>
+          </div>
+          <span class="pill">backend/db/04_sp.sql</span>
+        </div>
+
+        <div class="slide-body" style="gap: 12px">
+          <div class="grid-2" style="gap: 12px">
+            <div class="fig-frame" style="height: 128px">
+              <img src="../laporan-uts/fig-alur1.png" alt="Alur 1" />
+            </div>
+            <div class="fig-frame" style="height: 128px">
+              <img src="../laporan-uts/fig-alur2.png" alt="Alur 2" />
+            </div>
+          </div>
+
+          <div class="grid-2-wide-left" style="align-items: stretch">
+            <pre class="sql-box" style="font-size: 12px"><span class="kw">CREATE PROCEDURE</span> <span class="fn">sp_catatan_harian</span>(
+  <span class="kw">IN</span> p_kandang <span class="kw">VARCHAR</span>(<span class="num">50</span>), <span class="kw">IN</span> p_id_pakan <span class="kw">INT</span>,
+  <span class="kw">IN</span> p_jumlah_pakan_kg <span class="kw">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>), <span class="kw">IN</span> p_jumlah_telur <span class="kw">INT</span>,
+  <span class="kw">IN</span> p_berat_telur_kg <span class="kw">DECIMAL</span>(<span class="num">10</span>,<span class="num">2</span>), <span class="kw">IN</span> p_tanggal <span class="kw">DATE</span>
+)
+<span class="kw">BEGIN</span>
+  <span class="kw">DECLARE</span> v_id_beri <span class="kw">INT</span>;
+  <span class="kw">DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN</span>
+    <span class="kw">ROLLBACK</span>; <span class="kw">RESIGNAL</span>;
+  <span class="kw">END</span>;
+
+  <span class="kw">START TRANSACTION</span>;
+    <span class="kw">INSERT INTO</span> pemberian_pakan (id_pakan, KANDANG, jumlah_pakan_kg, tanggal)
+    <span class="kw">VALUES</span> (p_id_pakan, p_kandang, p_jumlah_pakan_kg, p_tanggal);
+
+    <span class="kw">SET</span> v_id_beri = <span class="fn">LAST_INSERT_ID</span>();
+
+    <span class="kw">INSERT INTO</span> panen_telur (id_beri, jumlah_telur, berat_telur_kg, tanggal)
+    <span class="kw">VALUES</span> (v_id_beri, p_jumlah_telur, p_berat_telur_kg, p_tanggal);
+  <span class="kw">COMMIT</span>;
+<span class="kw">END</span></pre>
+
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <div class="card highlight">
+                <h3>All-or-Nothing Atomicity</h3>
+                <p>
+                  Pemberian pakan dan panen telur wajib sukses bersama. Tidak
+                  ada data pemberian tanpa pasangan panennya.
+                </p>
+              </div>
+              <div class="card warn">
+                <h3><code class="inline">ROLLBACK</code> + <code class="inline">RESIGNAL</code></h3>
+                <p>
+                  Jika <code class="inline">trg_cek_pakan</code> menolak
+                  insert, seluruh transaksi dibatalkan dan pesan error tetap
+                  diteruskan ke <code class="inline">CatatanHarianRepository</code>.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Dipanggil dari PHP (1 Baris)</h3>
+                <p>
+                  <code class="inline">CALL sp_catatan_harian(:kandang, :id_pakan, ...)</code>
+                  di <code class="inline">CatatanHarianRepository.php</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>Sumber: backend/db/04_sp.sql &amp; CatatanHarianRepository.php</span>
+          <span>Slide 6 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 7: PENGUJIAN & EVALUASI ==================== -->
+      <section
+        class="slide"
+        data-title="Pengujian & Evaluasi Desain"
+        data-note="Ini bagian evaluasi yang sangat disukai dosen: tunjukkan 5 skenario test di 05_test.sql sudah terverifikasi, lalu sampaikan evaluasi kritis secara objektif mengenai apa yang sudah kuat dan apa ruang pengembangan berikutnya."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">06 · Verifikasi &amp; Evaluasi Kritis</div>
+            <h2>Skenario Uji SQL (<code class="inline">05_test.sql</code>) &amp; Evaluasi Desain</h2>
+          </div>
+          <span class="pill">just db-test</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-2" style="align-items: stretch">
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <h3>5 Skenario Uji (<code class="inline">backend/db/05_test.sql</code>)</h3>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Skenario</th>
+                    <th>Hasil yang Diharapkan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1</strong></td>
+                    <td>Insert pakan 5 kg (stok cukup)</td>
+                    <td>Stok berkurang &amp; log mutasi tercipta</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2</strong></td>
+                    <td>Insert pakan 999 kg (stok kurang)</td>
+                    <td>Ditolak trigger; stok &amp; tabel tetap utuh</td>
+                  </tr>
+                  <tr>
+                    <td><strong>3</strong></td>
+                    <td><code class="inline">CALL sp_catatan_harian</code> valid</td>
+                    <td>Pemberian, panen, stok &amp; log sinkron</td>
+                  </tr>
+                  <tr>
+                    <td><strong>4</strong></td>
+                    <td><code class="inline">CALL sp_catatan_harian</code> 9999 kg</td>
+                    <td>Gagal total; <code class="inline">ROLLBACK</code> jaga <code class="inline">panen_telur</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>5</strong></td>
+                    <td>Query <code class="inline">JOIN</code> 3 tabel</td>
+                    <td>Data laporan konsisten untuk API GET</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div class="card ok">
+                <h3>Kekuatan Desain Saat Ini</h3>
+                <ul class="clean">
+                  <li>
+                    Validasi &amp; audit trail tidak bisa di-<em>bypass</em>
+                    dari luar aplikasi.
+                  </li>
+                  <li>
+                    Aman dari <em>race condition</em> berkat
+                    <code class="inline">FOR UPDATE</code>.
+                  </li>
+                  <li>
+                    Pemisahan tanggung jawab rapi antara validasi format (PHP)
+                    dan integritas data (MariaDB).
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card warn">
+                <h3>Catatan Evaluasi &amp; Pengembangan</h3>
+                <ul class="clean">
+                  <li>
+                    Trigger baru mencakup operasi <code class="inline">INSERT</code>
+                    pada <code class="inline">pemberian_pakan</code>; belum ada
+                    trigger untuk koreksi (<code class="inline">UPDATE</code> /
+                    <code class="inline">DELETE</code>) atau restock otomatis ke log.
+                  </li>
+                  <li>
+                    Detail kecil di <code class="inline">trg_mutasi_pakan</code>:
+                    string <code class="inline">' - Kandang'</code> perlu 1
+                    spasi sebelum nama kandang agar rapi di UI log.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>SiKandang · Evaluasi Desain SQL</span>
+          <span>Slide 7 / 8</span>
+        </div>
+      </section>
+
+      <!-- ==================== SLIDE 8: DEMO ==================== -->
+      <section
+        class="slide"
+        data-title="Agenda Live Demo"
+        data-note="Transisi ke demo langsung! Urutannya: (1) Jalankan atau buka UI SiKandang, input catatan valid -> cek stok & riwayat stok; (2) Input 999 kg -> tunjukkan error 422 & panen tidak masuk; (3) Buka terminal MariaDB CLI -> jalankan INSERT 999 kg langsung untuk membuktikan anti-bypass."
+      >
+        <div class="slide-head">
+          <div>
+            <div class="eyebrow">07 · Pembuktian Langsung</div>
+            <h2>Live Demo: Aplikasi Web &amp; Bukti Anti-Bypass CLI</h2>
+          </div>
+          <span class="pill green">Ready to Demo</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="grid-3">
+            <div class="card ok">
+              <h3>Demo 1 · Alur Normal</h3>
+              <ul class="clean">
+                <li>Stok awal Konsentrat: <strong>100.00 kg</strong>.</li>
+                <li>
+                  Input pemberian <strong>5 kg</strong> + panen
+                  <strong>120 telur</strong> lewat Web UI.
+                </li>
+                <li>
+                  Buktikan stok jadi <strong>95.00 kg</strong> &amp; baris baru
+                  muncul otomatis di <strong>Riwayat Stok</strong>.
+                </li>
+              </ul>
+            </div>
+
+            <div class="card warn">
+              <h3>Demo 2 · Over-Stok &amp; Rollback</h3>
+              <ul class="clean">
+                <li>Input jumlah pakan <strong>999 kg</strong>.</li>
+                <li>
+                  Server balas HTTP <strong>422</strong>:
+                  <em>"stok pakan tidak mencukupi"</em>.
+                </li>
+                <li>
+                  Buktikan tabel <code class="inline">panen_telur</code> ikut
+                  <strong>tidak bertambah</strong> (atomik).
+                </li>
+              </ul>
+            </div>
+
+            <div class="card highlight">
+              <h3>Demo 3 · Anti-Bypass (CLI)</h3>
+              <ul class="clean">
+                <li>Masuk langsung ke MariaDB CLI tanpa lewat PHP.</li>
+                <li>
+                  Jalankan <code class="inline">INSERT</code> 999 kg ke
+                  <code class="inline">pemberian_pakan</code>.
+                </li>
+                <li>
+                  Database tetap menolak dengan pesan error yang sama.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid-2" style="gap: 14px">
+            <div class="cmd-box">
+              <span>just serve</span>
+              <button class="copy-btn" data-copy="just serve">Salin</button>
+            </div>
+            <div class="cmd-box">
+              <span>INSERT INTO pemberian_pakan (id_pakan, KANDANG, jumlah_pakan_kg, tanggal) VALUES (1, 'A1', 999, '2026-10-21');</span>
+              <button
+                class="copy-btn"
+                data-copy="INSERT INTO pemberian_pakan (id_pakan, KANDANG, jumlah_pakan_kg, tanggal) VALUES (1, 'A1', 999, '2026-10-21');"
+              >
+                Salin
+              </button>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 16px;
+              margin-top: 4px;
+            "
+          >
+            <p style="color: var(--muted); font-size: 13.5px">
+              Tip: Tekan <strong>S</strong> untuk catatan presenter,
+              <strong>O</strong> untuk ringkasan slide,
+              <strong>F</strong> untuk fullscreen.
+            </p>
+            <a class="cta-link" href="../frontend/index.html" target="_blank">
+              Buka Aplikasi SiKandang &rarr;
+            </a>
+          </div>
+        </div>
+
+        <div class="slide-foot">
+          <span>Terima kasih · Lanjut ke Live Demo</span>
+          <span>Slide 8 / 8</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Speaker Notes Drawer -->
+    <aside class="notes-drawer" id="notesDrawer" aria-live="polite">
+      <div class="notes-title">Catatan Presenter (Tekan S untuk tutup)</div>
+      <div id="notesBody"></div>
+    </aside>
+
+    <!-- Slide Overview Modal -->
+    <div class="overview-overlay" id="overview">
+      <div class="overview-head">
+        <strong style="font-size: 18px">Pilih Slide (Tekan Esc atau O untuk tutup)</strong>
+        <button
+          id="closeOverview"
+          style="
+            background: #1e293b;
+            color: #fff;
+            border: 1px solid #475569;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+          "
+        >
+          Tutup
+        </button>
+      </div>
+      <div class="overview-grid" id="overviewGrid"></div>
+    </div>
+
+    <!-- Floating Navigation HUD -->
+    <nav class="hud" aria-label="Navigasi Slide">
+      <button id="prevBtn" title="Slide sebelumnya (Panah Kiri)">&larr;</button>
+      <span class="counter" id="counter">1 / 8</span>
+      <button id="nextBtn" title="Slide berikutnya (Panah Kanan / Spasi)">
+        &rarr;
+      </button>
+      <button id="notesBtn" title="Catatan presenter (S)">Notes</button>
+      <button id="overviewBtn" title="Lihat semua slide (O)">Grid</button>
+      <button id="fsBtn" title="Fullscreen (F)">Full</button>
+    </nav>
+
+    <script>
+      (function () {
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const total = slides.length;
+        const counterEl = document.getElementById("counter");
+        const progressEl = document.getElementById("progressFill");
+        const notesDrawer = document.getElementById("notesDrawer");
+        const notesBody = document.getElementById("notesBody");
+        const overview = document.getElementById("overview");
+        const overviewGrid = document.getElementById("overviewGrid");
+
+        let current = 0;
+
+        function parseHash() {
+          const n = parseInt(window.location.hash.replace("#", ""), 10);
+          if (!Number.isNaN(n) && n >= 1 && n <= total) {
+            return n - 1;
+          }
+          return 0;
+        }
+
+        function renderOverview() {
+          overviewGrid.innerHTML = "";
+          slides.forEach((slide, idx) => {
+            const card = document.createElement("div");
+            card.className = "ov-card" + (idx === current ? " current" : "");
+            const title = slide.dataset.title || `Slide ${idx + 1}`;
+            const note = slide.dataset.note || "";
+            card.innerHTML = `
+              <div class="ov-num">Slide ${idx + 1}</div>
+              <div class="ov-title">${title}</div>
+              <div class="ov-desc">${note.slice(0, 110)}${note.length > 110 ? "..." : ""}</div>
+            `;
+            card.addEventListener("click", () => {
+              goTo(idx);
+              overview.classList.remove("open");
+            });
+            overviewGrid.appendChild(card);
+          });
+        }
+
+        function goTo(index) {
+          current = Math.max(0, Math.min(total - 1, index));
+          slides.forEach((s, i) => s.classList.toggle("active", i === current));
+          counterEl.textContent = `${current + 1} / ${total}`;
+          progressEl.style.width = `${((current + 1) / total) * 100}%`;
+          notesBody.textContent = slides[current].dataset.note || "";
+          history.replaceState(null, "", `#${current + 1}`);
+          if (overview.classList.contains("open")) {
+            renderOverview();
+          }
+        }
+
+        function toggleFullscreen() {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen?.();
+          } else {
+            document.exitFullscreen?.();
+          }
+        }
+
+        document
+          .getElementById("prevBtn")
+          .addEventListener("click", () => goTo(current - 1));
+        document
+          .getElementById("nextBtn")
+          .addEventListener("click", () => goTo(current + 1));
+        document.getElementById("notesBtn").addEventListener("click", () => {
+          notesDrawer.classList.toggle("open");
+        });
+        document.getElementById("overviewBtn").addEventListener("click", () => {
+          renderOverview();
+          overview.classList.toggle("open");
+        });
+        document
+          .getElementById("closeOverview")
+          .addEventListener("click", () => overview.classList.remove("open"));
+        document
+          .getElementById("fsBtn")
+          .addEventListener("click", toggleFullscreen);
+
+        document.querySelectorAll(".copy-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const text = btn.dataset.copy || "";
+            try {
+              await navigator.clipboard.writeText(text);
+              const old = btn.textContent;
+              btn.textContent = "Tersalin!";
+              setTimeout(() => (btn.textContent = old), 1200);
+            } catch {
+              btn.textContent = "Salin manual";
+            }
+          });
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+            return;
+
+          if (e.key === "Escape" && overview.classList.contains("open")) {
+            overview.classList.remove("open");
+            return;
+          }
+
+          switch (e.key) {
+            case "ArrowRight":
+            case "PageDown":
+            case " ":
+            case "n":
+            case "N":
+              e.preventDefault();
+              goTo(current + 1);
+              break;
+            case "ArrowLeft":
+            case "PageUp":
+            case "p":
+            case "P":
+              e.preventDefault();
+              goTo(current - 1);
+              break;
+            case "Home":
+              goTo(0);
+              break;
+            case "End":
+              goTo(total - 1);
+              break;
+            case "s":
+            case "S":
+              notesDrawer.classList.toggle("open");
+              break;
+            case "o":
+            case "O":
+            case "g":
+            case "G":
+              renderOverview();
+              overview.classList.toggle("open");
+              break;
+            case "f":
+            case "F":
+              toggleFullscreen();
+              break;
+          }
+        });
+
+        goTo(parseHash());
+      })();
+    </script>
+  </body>
+</html>
